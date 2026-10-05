@@ -121,7 +121,7 @@ button {
   flex-shrink: 0;
 }
 .round:active { transform: scale(0.93); }
-.round.playing { background: var(--glow); }
+.round.spacer { visibility: hidden; }
 
 .page {
   flex: 1;
@@ -143,7 +143,6 @@ button {
   transition: background 0.15s;
 }
 .text .w.active { background: var(--accent-soft); }
-.text .w.spoken { background: var(--glow); }
 
 .nav { display: flex; justify-content: space-between; align-items: center; }
 .nav .round { width: 72px; height: 72px; font-size: 34px; }

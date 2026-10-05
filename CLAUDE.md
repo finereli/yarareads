@@ -26,7 +26,7 @@ CMU is a US dictionary, so a few UK-normal words fail ("from" has a US vowel). R
 - `public/`: the app (no build step). `phonics.js` is shared with the Node tools.
 - `src/worker.js`: API. `/api/login`, `/api/stories`, `/api/stories/:id`, `/api/events`, `/api/progress`.
 - `migrations/`: D1 schema. Stories are stored compiled (with per-word breakdowns) in `stories.body`.
-- Events (open, page, tap, read_aloud, finish) go to the `events` table. Taps are the signal for which words to practise.
+- Events (open, page, tap, finish) go to the `events` table. Taps are the signal for which words to practise.
 
 ## Commands
 
@@ -39,9 +39,11 @@ Content changes need only `tools/push.mjs`, no deploy.
 
 ## Roadmap
 
-1. ~~v0: reader, tap-a-word sound buttons, sound-it-out, read-to-me, first series (Yara and Fizz, 5 books), checker, progress.~~
+1. ~~v0: reader, tap-a-word sound buttons, sound-it-out, first series (Yara and Fizz, 5 books), checker, progress.~~
 2. Real inventory from TYM screenshots, then more stories: AI writes, the checker validates, and we loop until clean.
 3. Pictures: generate per page from `picture`, keeping characters consistent; store in R2.
 4. Real phoneme audio: Eli records each sound, so the sound buttons speak (TTS can't say a clean /t/).
 5. Import books they own: report which graphemes/tricky words she's missing for each, and highlight those words in the text.
 6. Parent view: grow "For grown-ups" into a proper practise list driven by taps.
+
+Not here: whole-page read-aloud. Browser TTS was too weak and it's a shortcut around reading. A proper version (OpenAI TTS with word timings for highlighting) is a separate project.

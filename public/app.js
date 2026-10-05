@@ -36,15 +36,13 @@ if ('speechSynthesis' in window) {
   speechSynthesis.onvoiceschanged = pickVoice;
 }
 
-function speak(text, { rate = 0.8, onBoundary, onEnd } = {}) {
-  if (!('speechSynthesis' in window)) return onEnd && onEnd();
+function speak(text, { rate = 0.8 } = {}) {
+  if (!('speechSynthesis' in window)) return;
   speechSynthesis.cancel();
   const u = new SpeechSynthesisUtterance(text);
   if (voice) u.voice = voice;
   u.lang = voice ? voice.lang : 'en-GB';
   u.rate = rate;
-  if (onBoundary) u.onboundary = (e) => e.name !== 'sentence' && onBoundary(e.charIndex);
-  if (onEnd) u.onend = u.onerror = onEnd;
   speechSynthesis.speak(u);
 }
 
@@ -137,19 +135,16 @@ async function showReader(id, pageIndex) {
   log('page', { storyId: id, page: pageIndex });
 
   const page = story.pages[pageIndex];
-  let offset = 0;
-  const words = tokenize(page.text).map((t) => {
-    const start = offset;
-    offset += t.length;
-    return isWord(t) ? `<span class="w" data-start="${start}" data-word="${esc(t)}">${esc(t)}</span>` : esc(t);
-  });
+  const words = tokenize(page.text).map((t) =>
+    isWord(t) ? `<span class="w" data-word="${esc(t)}">${esc(t)}</span>` : esc(t),
+  );
 
   app.innerHTML = `
     <div class="reader">
       <div class="topbar">
         <button class="round" data-act="home" aria-label="Home">🏠</button>
         <div class="title">${esc(story.title)}</div>
-        <button class="round" data-act="read" aria-label="Read to me">🔊</button>
+        <span class="round spacer"></span>
       </div>
       <div class="page"><div class="text">${words.join('')}</div></div>
       <div class="nav">
@@ -163,32 +158,10 @@ async function showReader(id, pageIndex) {
   app.querySelector('[data-act=home]').onclick = () => (location.hash = '#/');
   app.querySelector('[data-act=prev]').onclick = () => pageIndex > 0 && go(pageIndex - 1);
   app.querySelector('[data-act=next]').onclick = () => go(pageIndex + 1);
-  app.querySelector('[data-act=read]').onclick = (e) => readAloud(page.text, e.currentTarget, id, pageIndex);
   app.querySelectorAll('.w').forEach((el) => (el.onclick = (e) => {
     e.stopPropagation();
     openPop(el, story);
   }));
-}
-
-function readAloud(text, button, storyId, page) {
-  if (button.classList.contains('playing')) {
-    speechSynthesis.cancel();
-    return;
-  }
-  closePop();
-  log('read_aloud', { storyId, page });
-  const spans = [...app.querySelectorAll('.w')];
-  const clear = () => spans.forEach((s) => s.classList.remove('spoken'));
-  button.classList.add('playing');
-  speak(text, {
-    rate: 0.75,
-    onBoundary: (i) => {
-      clear();
-      const hit = spans.filter((s) => Number(s.dataset.start) <= i).pop();
-      if (hit) hit.classList.add('spoken');
-    },
-    onEnd: () => { clear(); button.classList.remove('playing'); },
-  });
 }
 
 // ---------- Word popover: the hint lives right on the word ----------

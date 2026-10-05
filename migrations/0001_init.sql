@@ -13,7 +13,7 @@ CREATE TABLE inventory (
   updated_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
--- Everything Yara does: open, page, tap, read_aloud, finish.
+-- Everything Yara does: open, page, tap, finish.
 CREATE TABLE events (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
   ts TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,
