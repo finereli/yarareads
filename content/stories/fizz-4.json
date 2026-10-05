@@ -1,0 +1,36 @@
+{
+  "id": "fizz-4",
+  "series": "Yara and Fizz",
+  "number": 4,
+  "title": "Yara's Plan",
+  "pages": [
+    {
+      "text": "\"Grub, I bet you are sick of mud,\" said Yara.",
+      "picture": "girl talking to the mud monster"
+    },
+    {
+      "text": "\"I am,\" said Grub. \"Mud in my hair. Mud in my ears. Mud on my feet.\"",
+      "picture": "grumpy mud monster covered in mud"
+    },
+    {
+      "text": "\"Fizz can help,\" said Yara.",
+      "picture": "girl pointing at the baby dragon"
+    },
+    {
+      "text": "Fizz huffs and puffs. A hot wind fills the bog.",
+      "picture": "baby dragon blowing warm wind over the bog"
+    },
+    {
+      "text": "The mud gets hard. It cracks. Then Grub is not wet at all.",
+      "picture": "dry cracked mud and a happy clean monster"
+    },
+    {
+      "text": "Grub grins. \"Thank you!\" he said. \"You can go past my bog.\"",
+      "picture": "monster grinning and waving them past"
+    },
+    {
+      "text": "Yara and Fizz run on. Dragon Hill is near.",
+      "picture": "girl and dragon running toward a hill"
+    }
+  ]
+}

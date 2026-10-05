@@ -1,0 +1,40 @@
+{
+  "id": "fizz-5",
+  "series": "Yara and Fizz",
+  "number": 5,
+  "title": "Dragon Hill",
+  "pages": [
+    {
+      "text": "The hill is steep. Yara gets hot and her legs hurt.",
+      "picture": "girl climbing a steep hill"
+    },
+    {
+      "text": "Fizz flaps his wings. Flap, flap, flap! Then Fizz is up in the air!",
+      "picture": "baby dragon flying for the first time"
+    },
+    {
+      "text": "\"Fizz, look at you!\" said Yara.",
+      "picture": "girl cheering"
+    },
+    {
+      "text": "At the top, the big dragon gets up. Her wings are as big as a ship.",
+      "picture": "a huge mother dragon standing up"
+    },
+    {
+      "text": "\"Mum!\" said Fizz. The big dragon hugs him with her tail.",
+      "picture": "mother dragon hugging baby with her tail"
+    },
+    {
+      "text": "Then the big dragon looks at Yara. \"Thank you for this,\" she said. \"Get on my back.\"",
+      "picture": "mother dragon inviting the girl onto her back"
+    },
+    {
+      "text": "Yara and Fizz and Mum zoom up into the night. The moon is big. The stars are bright.",
+      "picture": "girl riding a dragon under the moon and stars"
+    },
+    {
+      "text": "The End... for now!",
+      "picture": "the dragons and girl silhouetted against the moon"
+    }
+  ]
+}

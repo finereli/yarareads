@@ -1,0 +1,230 @@
+:root {
+  --bg: #fff7ec;
+  --card: #ffffff;
+  --ink: #2b2233;
+  --soft: #8a7f93;
+  --accent: #e8573c;
+  --accent-soft: #fde2d8;
+  --tricky: #7b4fd6;
+  --tricky-soft: #ece4fb;
+  --glow: #ffd84d;
+  --line: #eadfce;
+  --shadow: 0 6px 20px rgba(80, 50, 20, 0.12);
+}
+
+* { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+
+html, body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: 'Andika', 'Comic Sans MS', system-ui, sans-serif;
+  -webkit-user-select: none;
+  user-select: none;
+  overscroll-behavior: none;
+}
+
+button {
+  font: inherit;
+  color: inherit;
+  border: none;
+  background: none;
+  cursor: pointer;
+}
+
+/* ---------- PIN ---------- */
+
+.pin {
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
+  padding: 16px;
+}
+.pin h1 { font-size: 44px; margin: 0; }
+.pin .dots { display: flex; gap: 14px; height: 24px; }
+.pin .dots span {
+  width: 20px; height: 20px; border-radius: 50%;
+  border: 3px solid var(--accent);
+}
+.pin .dots span.on { background: var(--accent); }
+.pin .dots.shake { animation: shake 0.4s; }
+.pin .keys {
+  display: grid;
+  grid-template-columns: repeat(3, 80px);
+  gap: 14px;
+}
+.pin .keys button {
+  height: 80px;
+  border-radius: 50%;
+  background: var(--card);
+  box-shadow: var(--shadow);
+  font-size: 32px;
+  font-weight: 700;
+}
+.pin .keys button:active { transform: scale(0.94); }
+
+@keyframes shake {
+  25% { transform: translateX(-10px); }
+  75% { transform: translateX(10px); }
+}
+
+/* ---------- Library ---------- */
+
+.library { max-width: 900px; margin: 0 auto; padding: 24px 16px 48px; }
+.library h1 { font-size: 40px; margin: 8px 0 24px; }
+.library h2 { font-size: 24px; color: var(--soft); margin: 24px 0 12px; }
+.shelf {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 16px;
+}
+.book {
+  background: var(--card);
+  border-radius: 20px;
+  box-shadow: var(--shadow);
+  padding: 18px 16px;
+  text-align: left;
+  min-height: 150px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  border-bottom: 8px solid var(--accent);
+}
+.book:active { transform: scale(0.97); }
+.book .num { font-size: 18px; color: var(--soft); }
+.book .title { font-size: 24px; font-weight: 700; line-height: 1.2; flex: 1; }
+.book .stars { font-size: 22px; min-height: 28px; }
+.grownups { margin-top: 40px; color: var(--soft); font-size: 16px; }
+.grownups summary { cursor: pointer; }
+.grownups .chips { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
+.grownups .chips span { background: var(--card); border-radius: 10px; padding: 2px 10px; }
+
+/* ---------- Reader ---------- */
+
+.reader {
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 12px 16px 16px;
+}
+.topbar { display: flex; align-items: center; gap: 12px; }
+.topbar .title { flex: 1; font-size: 20px; color: var(--soft); text-align: center; }
+.round {
+  width: 56px; height: 56px; border-radius: 50%;
+  background: var(--card); box-shadow: var(--shadow);
+  font-size: 26px; display: grid; place-items: center;
+  flex-shrink: 0;
+}
+.round:active { transform: scale(0.93); }
+.round.playing { background: var(--glow); }
+
+.page {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px 4px;
+}
+.text {
+  font-size: clamp(32px, 6.5vw, 54px);
+  line-height: 1.9;
+  max-width: 22ch;
+  word-spacing: 0.12em;
+}
+.text .w {
+  border-radius: 10px;
+  padding: 0 2px;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+.text .w.active { background: var(--accent-soft); }
+.text .w.spoken { background: var(--glow); }
+
+.nav { display: flex; justify-content: space-between; align-items: center; }
+.nav .round { width: 72px; height: 72px; font-size: 34px; }
+.nav .round[disabled] { opacity: 0.25; }
+.progress { display: flex; gap: 8px; }
+.progress span { width: 12px; height: 12px; border-radius: 50%; background: var(--line); }
+.progress span.on { background: var(--accent); }
+
+/* ---------- Word popover ---------- */
+
+.pop {
+  position: fixed;
+  z-index: 10;
+  background: var(--card);
+  border-radius: 22px;
+  box-shadow: 0 12px 40px rgba(60, 30, 10, 0.25);
+  padding: 14px 14px 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  animation: pop 0.15s ease-out;
+}
+@keyframes pop { from { transform: scale(0.85); opacity: 0; } }
+
+.chips { display: flex; gap: 6px; }
+.chip {
+  font-size: 44px;
+  line-height: 1;
+  padding: 10px 12px 14px;
+  min-width: 52px;
+  border-radius: 14px;
+  background: var(--bg);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+.chip .mark { height: 8px; display: flex; justify-content: center; width: 100%; }
+/* Sound buttons: a dot for one letter, a line for a digraph/trigraph. */
+.chip .mark::after { content: ''; background: var(--accent); border-radius: 8px; }
+.chip.one .mark::after { width: 10px; height: 10px; }
+.chip.many .mark::after { width: 80%; height: 7px; }
+.chip.lit { background: var(--glow); }
+
+.whole { font-size: 44px; font-weight: 700; padding: 4px 12px; }
+.badge {
+  font-size: 18px;
+  border-radius: 10px;
+  padding: 2px 12px;
+  background: var(--tricky-soft);
+  color: var(--tricky);
+}
+.pop .actions { display: flex; gap: 10px; }
+.pop .actions button {
+  font-size: 22px;
+  background: var(--accent-soft);
+  border-radius: 14px;
+  padding: 8px 16px;
+}
+
+/* ---------- The End ---------- */
+
+.end {
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  padding: 16px;
+  text-align: center;
+}
+.end .big { font-size: 64px; font-weight: 700; }
+.end .stars { font-size: 72px; animation: pop 0.5s ease-out; }
+.end button.next {
+  font-size: 28px;
+  background: var(--accent);
+  color: white;
+  border-radius: 20px;
+  padding: 16px 32px;
+  box-shadow: var(--shadow);
+}
+.end button.home { font-size: 22px; color: var(--soft); }

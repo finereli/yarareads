@@ -1,0 +1,20 @@
+{
+  "_note": "PLACEHOLDER: Letters and Sounds phases 2-4, roughly what Teach Your Monster to Read covers. Replace with what Yara actually knows once Eli sends TYM screenshots. Sounds are ARPAbet (US dictionary), so 'o' allows both AA (hot) and AO (dog).",
+  "graphemes": {
+    "s": ["S", "Z"], "a": ["AE"], "t": ["T"], "p": ["P"], "i": ["IH"], "n": ["N", "NG"],
+    "m": ["M"], "d": ["D"], "g": ["G"], "o": ["AA", "AO"], "c": ["K"], "k": ["K"], "ck": ["K"],
+    "e": ["EH"], "u": ["AH"], "r": ["R"], "h": ["HH"], "b": ["B"], "f": ["F"], "ff": ["F"], "gg": ["G"],
+    "l": ["L"], "ll": ["L"], "ss": ["S"],
+    "j": ["JH"], "v": ["V"], "w": ["W"], "x": ["K S"], "y": ["Y"], "z": ["Z"], "zz": ["Z"], "qu": ["K W"],
+    "ch": ["CH"], "sh": ["SH"], "th": ["TH", "DH"], "ng": ["NG"],
+    "ai": ["EY"], "ee": ["IY"], "igh": ["AY"], "oa": ["OW"], "oo": ["UW", "UH"],
+    "ar": ["AA R"], "or": ["AO R"], "ur": ["ER"], "ow": ["AW"], "oi": ["OY"],
+    "ear": ["IH R"], "air": ["EH R"], "ure": ["UH R"], "er": ["ER"]
+  },
+  "tricky": [
+    "the", "to", "i", "no", "go", "into", "of",
+    "he", "she", "we", "me", "be", "was", "my", "you", "they", "her", "all", "are",
+    "said", "have", "like", "so", "do", "some", "come", "were", "there", "little", "one", "out", "what", "when"
+  ],
+  "names": ["Yara", "Fizz"]
+}

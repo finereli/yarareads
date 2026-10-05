@@ -1,0 +1,16 @@
+{
+  "name": "yara-reads",
+  "main": "src/worker.js",
+  "compatibility_date": "2025-09-01",
+  "account_id": "7485eb8ab648601f411b650cd794bce3",
+  "assets": {
+    "directory": "public",
+    "binding": "ASSETS",
+    "run_worker_first": ["/api/*"]
+  },
+  "d1_databases": [
+    { "binding": "DB", "database_name": "yara-reads", "database_id": "9d8e4cf4-a64d-4ff3-8cb6-93ebe2156a49" }
+  ],
+  "routes": [{ "pattern": "yarareads.finereli.com", "custom_domain": true }]
+  // Secrets (wrangler secret put): PIN, SESSION_SECRET
+}

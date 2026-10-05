@@ -1,0 +1,9 @@
+{
+  "name": "Yara Reads",
+  "short_name": "Yara Reads",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#fff7ec",
+  "theme_color": "#fff7ec",
+  "icons": [{ "src": "icon.svg", "sizes": "any", "type": "image/svg+xml" }]
+}

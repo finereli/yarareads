@@ -1,0 +1,36 @@
+{
+  "id": "fizz-3",
+  "series": "Yara and Fizz",
+  "number": 3,
+  "title": "The Bog Monster",
+  "pages": [
+    {
+      "text": "Yara and Fizz go down the path.",
+      "picture": "girl and baby dragon walking down a path"
+    },
+    {
+      "text": "The path ends at a big, wet bog. Mud! Muck! Fog!",
+      "picture": "a foggy muddy bog"
+    },
+    {
+      "text": "Then the mud starts to fizz. A monster pops up in the bog.",
+      "picture": "a monster rising out of a bog"
+    },
+    {
+      "text": "It is Grub, the Bog Monster! He has six arms and a big wet chin.",
+      "picture": "a funny six-armed mud monster"
+    },
+    {
+      "text": "\"No one gets past my bog!\" said Grub.",
+      "picture": "the mud monster blocking the way"
+    },
+    {
+      "text": "Fizz huffs. Puff! But no spark pops out. Fizz is too little.",
+      "picture": "baby dragon failing to make a spark"
+    },
+    {
+      "text": "Yara thinks and thinks. Then she has a plan.",
+      "picture": "girl thinking with a lightbulb moment"
+    }
+  ]
+}

@@ -1,0 +1,25 @@
+{
+  "name": "yara-reads",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "check": "node tools/check.mjs",
+    "deploy": "node tools/check.mjs && wrangler deploy"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/finereli/yara-reads.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/finereli/yara-reads/issues"
+  },
+  "homepage": "https://github.com/finereli/yara-reads#readme",
+  "devDependencies": {
+    "wrangler": "^4.147.0"
+  },
+  "type": "module"
+}

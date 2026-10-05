@@ -1,0 +1,36 @@
+{
+  "id": "fizz-2",
+  "series": "Yara and Fizz",
+  "number": 2,
+  "title": "Fizz Is Sad",
+  "pages": [
+    {
+      "text": "Fizz is sad. He sits in the rain and looks up at the hill.",
+      "picture": "sad baby dragon in the rain looking at a hill"
+    },
+    {
+      "text": "\"Fizz, what is it?\" said Yara.",
+      "picture": "girl kneeling by the dragon"
+    },
+    {
+      "text": "Fizz points up at the top of Dragon Hill.",
+      "picture": "dragon pointing at a tall hill"
+    },
+    {
+      "text": "On the top of the hill is a big dragon. She is fast asleep.",
+      "picture": "a huge dragon asleep on a hilltop"
+    },
+    {
+      "text": "\"That is my mum,\" said Fizz.",
+      "picture": "baby dragon looking hopeful"
+    },
+    {
+      "text": "\"Then we will go to her,\" said Yara. \"We will go up Dragon Hill.\"",
+      "picture": "girl and dragon determined"
+    },
+    {
+      "text": "Yara gets her backpack and her torch. Fizz flaps his wings. The quest starts!",
+      "picture": "girl with backpack and torch, dragon flapping"
+    }
+  ]
+}
