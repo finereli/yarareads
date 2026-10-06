@@ -1,0 +1,51 @@
+{
+  "id": "toby-1",
+  "series": "Julia and Toby",
+  "number": 1,
+  "title": "Julia Meets Toby",
+  "cover": "sparkle",
+  "names": [
+    "Julia",
+    "Toby",
+    "Super",
+    "Tall"
+  ],
+  "pages": [
+    {
+      "text": "Julia is six. She is in her backyard, playing on her scooter.",
+      "picture": "a six-year-old girl riding a scooter in a sunny backyard"
+    },
+    {
+      "text": "Then she hears a yelp. \"Yelp! Yelp!\" It is from the wood.",
+      "picture": "the girl stopping, listening, woods beyond the garden"
+    },
+    {
+      "text": "Julia hops up on the gate and jumps down. Then she runs to the wood.",
+      "picture": "girl climbing over a garden gate and running toward trees"
+    },
+    {
+      "text": "Under a tree sits a dragon. He is white, and his scales shine pink and green and blue.",
+      "picture": "a small white dragon whose scales shimmer with rainbow sparkles, sitting under a tree"
+    },
+    {
+      "text": "The dragon looks up. A big tear drips down his nose.",
+      "picture": "close-up of the sad white dragon with a tear"
+    },
+    {
+      "text": "\"I am Toby,\" he said. \"I ran away from home.\"",
+      "picture": "the dragon introducing himself shyly"
+    },
+    {
+      "text": "\"Home is a cave on top of Super-Tall Peak. The dragons there are cross with me.\"",
+      "picture": "a very tall pointy mountain with dragon caves at the top"
+    },
+    {
+      "text": "\"When I get upset, things float up and smash. So the dragons sent me away.\"",
+      "picture": "flashback: rocks floating and crashing in a dragon cave village"
+    },
+    {
+      "text": "Julia pats his nose. \"You can stay with me,\" she said.",
+      "picture": "the girl gently patting the dragon's nose"
+    }
+  ]
+}

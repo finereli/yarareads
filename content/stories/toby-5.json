@@ -1,0 +1,51 @@
+{
+  "id": "toby-5",
+  "series": "Julia and Toby",
+  "number": 5,
+  "title": "Float Lessons",
+  "cover": "feelings",
+  "names": [
+    "Julia",
+    "Toby",
+    "Super",
+    "Tall"
+  ],
+  "pages": [
+    {
+      "text": "Julia sits Toby down on the grass. \"Floating is like feelings,\" she said.",
+      "picture": "girl sitting the dragon down like a teacher"
+    },
+    {
+      "text": "\"When you are sad, what floats?\"",
+      "picture": "the girl asking, finger raised"
+    },
+    {
+      "text": "Toby thinks. \"When I am sad, things lift up a bit. They drift and bob.\"",
+      "picture": "small things drifting gently, low to the ground"
+    },
+    {
+      "text": "\"When I am cross, things zoom up high, quick as a flash. Then they crash down.\"",
+      "picture": "things shooting up fast and high"
+    },
+    {
+      "text": "\"And when you are glad?\" asked Julia. \"Then not a thing floats,\" said Toby. \"And I do not smash things.\"",
+      "picture": "the dragon smiling, everything still on the ground"
+    },
+    {
+      "text": "Julia grins. \"Let's see!\" She sets a frog on Toby's nose.",
+      "picture": "the girl placing a frog on the dragon's nose"
+    },
+    {
+      "text": "\"Yikes!\" said Toby. He is not glad now. The frog zooms up into a tree!",
+      "picture": "a frog flying up into a tree, the dragon startled"
+    },
+    {
+      "text": "\"No, no,\" said Julia. \"Not cross. Just a bit sad. Sad floats are soft.\"",
+      "picture": "the girl shaking her head"
+    },
+    {
+      "text": "Toby sighs. Julia waits. Not a thing floats.",
+      "picture": "the two sitting quietly on the grass"
+    }
+  ]
+}

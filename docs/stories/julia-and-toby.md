@@ -36,24 +36,40 @@ inventory (TYM + silent e, Oct 2026):
   zoom, cool, whoa, and the feelings glad, mad, sad, fear, joy, cross.
 - **Doesn't, so we say it another way:** mountain (use "peak"), rainbow, sparkles, playhouse, breakfast,
   scared, calm, happy, fence, village, hover.
-- **Names:** Julia and Toby are characters' names, so she can read them anywhere in the series
-  (story `names`); add their pronunciations to data/extra.dict.
+- **Names:** Julia, Toby, Super and Tall are the series' `names` (in every chapter's JSON), with
+  pronunciations for Julia and Toby in data/extra.dict. The word card still breaks names into sounds.
 
-## Decisions (filled in as Tom answers)
+## Decisions
 
-- Mountain name:
-- Toby's look in her words:
-- Which feeling makes which kind of float:
-- Where chapter 6 ends:
-- Chapter length:
+- **Mountain:** Super-Tall Peak (Tom). "Super" and "tall" aren't readable for her yet, so they're names:
+  allowed anywhere, broken into sounds on the word card, new sounds in plum.
+- **Toby's look, in her words:** white, and his scales shine pink and green and blue.
+- **The magic system (Tom):** Toby's feelings make things float, the way a porcupine's spikes show how it feels
+  (in the text: "His spikes stick up" when he's cross).
+  - Sad: things float low and slow; several things hover a little. In her words: lift up just a bit, drift, bob.
+  - Cross/mad: things shoot up high and quick, uncontrolled, then crash down hard. In her words: zoom up high, crash, smash.
+  - Happy: nothing floats. That's because of how Toby *thinks* about his feelings: he believes feeling good
+    keeps him from breaking things. **This will change later; it's part of the plot. Don't resolve it yet.**
+- **Chapter 6 ending (ours):** Julia floats for the first time, but only because Toby is sad (homesick);
+  when he grins she sinks back down ("That is not fair!"), which seeds the happy-floating change. Last line hooks
+  the next arc: a big dragon on Super-Tall Peak is looking for Toby.
+- **Length:** like the Fizz books: 9-10 pages, about 120 words.
 
 ## Chapters
 
 | # | Title | Covers |
 |---|---|---|
-| 1 | | Julia hears a yelp, goes over the fence, finds Toby |
-| 2 | | |
-| 3 | | |
-| 4 | | |
-| 5 | | |
-| 6 | | |
+| 1 | Julia Meets Toby | Scooter in the backyard, a yelp, up the gate and down, Toby under a tree; Super-Tall Peak; the dragons sent him away; "You can stay with me." |
+| 2 | The Bent Wheel | Hidden in the play house; toast and jam; bent scooter wheel; Toby admits it; Julia stomps off; sad float (cups and dolls bob). |
+| 3 | Crash! | Julia paints Toby, goes in for a drink; the cat jumps on his tail; cross float: paint pots zoom up and smash onto her painting; Julia furious; sad drift. |
+| 4 | Whoa! | A big dog barks; Toby's spikes stick up; bucket, rake and pot zoom up and crash; Julia sees it: "Whoa! That is so cool! Make me float!"; "When I am glad, not a thing floats."; "I will teach you!" |
+| 5 | Float Lessons | Floating is like feelings; Toby explains sad and cross floats; glad = nothing; Julia tests it (a frog on his nose: cross, the frog zooms into a tree); "Sad floats are soft." |
+| 6 | Julia Floats | Dusk; Toby misses his mum; Julia floats, soft as a cloud; Toby grins and she sinks: "That is not fair!"; a big dragon on Super-Tall Peak is looking for Toby. |
+
+Story files: `content/stories/toby-1.json` ... `toby-6.json`. Covers: sparkle, wheel, crash, whoa, feelings, float.
+
+## Open threads for the next arc
+
+- Who is the big dragon looking for Toby? (His mum? A cross elder?)
+- Learning that glad feelings can float too: the plot change Tom planned.
+- Fixing Julia's scooter wheel (with a careful float?).

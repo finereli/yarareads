@@ -59,6 +59,47 @@ export const COVERS = {
     <circle cx="20" cy="22" r="2.5" fill="#fff4e6"/><circle cx="100" cy="16" r="2" fill="#fff4e6"/><circle cx="88" cy="48" r="2.5" fill="#fff4e6"/><circle cx="30" cy="56" r="2" fill="#fff4e6"/>
     <path d="M70 18a28 28 0 1 0 22 44 24 24 0 1 1-22-44z" fill="var(--gold)"/>
     <path d="M0 108l30-34 18 16 22-30 50 48z" fill="#1d1838"/>`,
+  // Julia and Toby
+  sparkle: `
+    <path d="M60 16 92 52 60 104 28 52z" fill="#fffdf8"/>
+    <path d="M60 16 92 52H28z" fill="#ffffff"/>
+    <path d="M60 30 76 52 60 84 44 52z" fill="#f6eefc"/>
+    <path d="M24 22l3 8 8 3-8 3-3 8-3-8-8-3 8-3z" fill="#f59ac0"/>
+    <path d="M96 70l2.5 6.5 6.5 2.5-6.5 2.5-2.5 6.5-2.5-6.5-6.5-2.5 6.5-2.5z" fill="#8fd6a4"/>
+    <path d="M94 18l2 5 5 2-5 2-2 5-2-5-5-2 5-2z" fill="#bfe0f5"/>
+    <path d="M22 80l2 5 5 2-5 2-2 5-2-5-5-2 5-2z" fill="var(--gold)"/>`,
+  wheel: `
+    <path d="M14 40h14M10 56h16M16 72h12" stroke="#fff4e6" stroke-width="5" stroke-linecap="round"/>
+    <circle cx="68" cy="60" r="34" fill="#2a2440"/>
+    <circle cx="68" cy="60" r="22" fill="#fff4e6"/>
+    <path d="M68 60 68 38M68 60l18 12M68 60l-13 20" stroke="#2a2440" stroke-width="5" stroke-linecap="round"/>
+    <path d="M68 60l-20-8" stroke="var(--ember)" stroke-width="5" stroke-linecap="round"/>
+    <path d="M48 52l-6 8 4 2" fill="none" stroke="var(--ember)" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="68" cy="60" r="6" fill="var(--gold)"/>`,
+  crash: `
+    <path d="M60 18l8 22 22-10-10 22 24 8-24 8 10 22-22-10-8 22-8-22-22 10 10-22-24-8 24-8-10-22 22 10z" fill="#fff4e6"/>
+    <circle cx="44" cy="54" r="12" fill="#f59ac0"/><path d="M40 64q2 12-2 16" stroke="#f59ac0" stroke-width="6" stroke-linecap="round" fill="none"/>
+    <circle cx="74" cy="48" r="10" fill="#7fb6e8"/><path d="M78 56q4 8 0 14" stroke="#7fb6e8" stroke-width="5" stroke-linecap="round" fill="none"/>
+    <circle cx="66" cy="76" r="9" fill="var(--gold)"/>`,
+  whoa: `
+    <path d="M30 96V62M30 62l-8 9M30 62l8 9" stroke="#fff4e6" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" opacity=".7"/>
+    <path d="M90 100V58M90 58l-8 9M90 58l8 9" stroke="#fff4e6" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" opacity=".7"/>
+    <path d="M44 30h32l-5 34H49z" fill="#fff4e6"/><path d="M42 30h36" stroke="#2a2440" stroke-width="5" stroke-linecap="round"/>
+    <path d="M60 76v18M60 76l-9 10M60 76l9 10" stroke="var(--gold)" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M22 26l2.5 6.5 6.5 2.5-6.5 2.5-2.5 6.5-2.5-6.5-6.5-2.5 6.5-2.5z" fill="var(--gold)"/>
+    <path d="M98 22l2 5 5 2-5 2-2 5-2-5-5-2 5-2z" fill="var(--gold)"/>`,
+  feelings: `
+    <path d="M10 98h100" stroke="#2f5a43" stroke-width="6" stroke-linecap="round"/>
+    <circle cx="28" cy="80" r="10" fill="#bfe0f5"/><path d="M14 86q6-4 12 0t12 0" stroke="#bfe0f5" stroke-width="3" fill="none" stroke-linecap="round" opacity=".8"/>
+    <circle cx="62" cy="26" r="10" fill="var(--ember)"/><path d="M62 40v16M54 44v10M70 44v10" stroke="#f9b4a6" stroke-width="4" stroke-linecap="round"/>
+    <circle cx="94" cy="88" r="10" fill="var(--gold)"/>
+    <path d="M89 87q5 5 10 0" stroke="#2a2440" stroke-width="2.5" fill="none" stroke-linecap="round"/>`,
+  float: `
+    <circle cx="22" cy="20" r="2.5" fill="#fff4e6"/><circle cx="98" cy="28" r="2" fill="#fff4e6"/><circle cx="88" cy="12" r="2.5" fill="#fff4e6"/>
+    <path d="M30 70a14 14 0 0 1 12-18 18 18 0 0 1 34-4 14 14 0 0 1 14 22z" fill="#fff4e6"/>
+    <path d="M0 108c20-10 40-12 60-8s40 2 60-6v26H0z" fill="#29234f"/>
+    <path d="M56 84v10M64 84v10" stroke="#fff4e6" stroke-width="4" stroke-linecap="round" opacity=".6"/>
+    <path d="M20 46l2 5 5 2-5 2-2 5-2-5-5-2 5-2z" fill="var(--gold)"/>`,
 };
 
 export function cover(motif) {

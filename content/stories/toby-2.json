@@ -1,0 +1,51 @@
+{
+  "id": "toby-2",
+  "series": "Julia and Toby",
+  "number": 2,
+  "title": "The Bent Wheel",
+  "cover": "wheel",
+  "names": [
+    "Julia",
+    "Toby",
+    "Super",
+    "Tall"
+  ],
+  "pages": [
+    {
+      "text": "Julia has a play house in her backyard. It is pink, with a green roof.",
+      "picture": "a small plastic playhouse, pink with a green roof"
+    },
+    {
+      "text": "\"Toby, you can hide in here,\" she said. Toby just fits.",
+      "picture": "the dragon squeezed inside the little playhouse"
+    },
+    {
+      "text": "\"Now I must go in and eat,\" said Julia. \"Wait here!\"",
+      "picture": "girl waving and running to the house"
+    },
+    {
+      "text": "Julia eats toast and jam. Then she runs back to the play house.",
+      "picture": "girl eating toast and jam at the kitchen table"
+    },
+    {
+      "text": "But her scooter is on its side, and the wheel is bent!",
+      "picture": "a scooter lying on its side with a bent wheel"
+    },
+    {
+      "text": "\"Toby! What did you do?\"",
+      "picture": "the girl with hands on hips"
+    },
+    {
+      "text": "Toby looks at his feet. \"I miss my mum. I get upset, and things float up. Then they crash down.\"",
+      "picture": "the dragon looking down guiltily"
+    },
+    {
+      "text": "Julia stamps her foot. \"That is my best scooter!\" She stomps off into the house.",
+      "picture": "the girl stomping off angrily"
+    },
+    {
+      "text": "Toby sits in the play house. He is so sad that the cups and dolls lift up, just a bit, and bob there.",
+      "picture": "toy cups and dolls drifting gently in the air around the sad dragon"
+    }
+  ]
+}

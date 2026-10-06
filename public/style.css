@@ -24,6 +24,12 @@
   --cover-bog: #4f8a6b;
   --cover-sun: #e9a23b;
   --cover-moon: #3c3570;
+  --cover-sparkle: #7fb3d5;
+  --cover-wheel: #e58c8a;
+  --cover-crash: #8a64b8;
+  --cover-whoa: #e0533a;
+  --cover-feelings: #4f8a6b;
+  --cover-float: #3c3570;
 }
 
 * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }

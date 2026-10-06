@@ -33,9 +33,10 @@ Never loosen the inventory to make a story pass.
   "Coming later" includes alternative sounds for letters she knows, with ids like "ow (snow)" (`letters(id)` gives the letters).
   Names and words she can't read yet are still broken down, using the whole catalog: tiles for sounds she hasn't learned are plum (`part.new`).
   Only tricky words and words no catalog sound can explain show as one block.
+- `docs/stories/`: one brief per series (Tom's briefs, decisions, chapter outline). Read it before writing the next chapter.
 - `docs/vocabulary.md`: coverage findings and the queue of what to teach or add next. `node tools/coverage.mjs` re-measures.
 - `content/stories/*.json`: `{ id, series, number, title, cover, names?, pages: [{ text, picture, image? }] }`. `cover` is a motif in `public/art.js#COVERS`
-  (egg, tear, bog, sun, moon; add new ones there with a `--cover-<name>` color in style.css). `picture` is a scene description for image generation;
+  (egg, tear, bog, sun, moon, sparkle, wheel, crash, whoa, feelings, float; add new ones there with a `--cover-<name>` color in style.css). `picture` is a scene description for image generation;
   `image` is an R2 key ("fizz-1/1.jpg") for the page's actual picture, with the file in `content/pictures/<key>`. `names` are characters known only in that story.
 - **Books from home** (`kind: "book"`): real books the family owns, e.g. Mittu and the Yellow Mango. They live in `content/home/<id>/book.json` plus
   their page images, and that folder is **gitignored: the repo is public and these are other people's books**. D1 and R2 hold the real copies.

@@ -1,0 +1,55 @@
+{
+  "id": "toby-6",
+  "series": "Julia and Toby",
+  "number": 6,
+  "title": "Julia Floats",
+  "cover": "float",
+  "names": [
+    "Julia",
+    "Toby",
+    "Super",
+    "Tall"
+  ],
+  "pages": [
+    {
+      "text": "Julia and Toby sit next to the play house. It is dusk.",
+      "picture": "girl and dragon by the playhouse at dusk"
+    },
+    {
+      "text": "\"Toby, tell me about your home,\" said Julia.",
+      "picture": "the girl leaning in to listen"
+    },
+    {
+      "text": "Toby looks up at Super-Tall Peak. \"My mum is up there,\" he said. \"I miss her.\"",
+      "picture": "the dragon gazing at a far mountain in the sunset"
+    },
+    {
+      "text": "A tear drips down his nose. He is sad.",
+      "picture": "a tear on the dragon's nose"
+    },
+    {
+      "text": "And then Julia feels her feet lift off the grass. Just a bit. Then a bit higher.",
+      "picture": "the girl's feet lifting off the grass"
+    },
+    {
+      "text": "Julia is floating! She drifts and bobs, soft as a cloud.",
+      "picture": "the girl floating gently in the air, arms out"
+    },
+    {
+      "text": "\"Toby! Look at me!\" she said. \"I am floating! This is the best!\"",
+      "picture": "the girl laughing in midair"
+    },
+    {
+      "text": "Toby grins. And, bump, Julia sinks back down.",
+      "picture": "the girl bumping down onto the grass, the dragon grinning"
+    },
+    {
+      "text": "\"Toby!\" said Julia. \"When you are sad, I float. When you are glad, I sink. That is not fair!\"",
+      "picture": "the girl on the grass, pretending to be cross, both laughing"
+    },
+    {
+      "text": "Far away, on top of Super-Tall Peak, a big dragon is looking for Toby.",
+      "picture": "a large dragon on the mountaintop, looking out over the land"
+    }
+  ]
+}
