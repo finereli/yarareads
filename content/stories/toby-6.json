@@ -2,8 +2,8 @@
   "id": "toby-6",
   "series": "Julia and Toby",
   "number": 6,
-  "title": "Julia Floats",
-  "cover": "float",
+  "title": "Day After Day",
+  "cover": "feelings",
   "names": [
     "Julia",
     "Toby",
@@ -12,47 +12,44 @@
   ],
   "pages": [
     {
-      "text": "Julia and Toby sit next to the play house. It is dusk.",
-      "picture": "girl and dragon by the playhouse at dusk",
-      "image": "toby-6/1.jpg"
+      "text": "Day six. Toby gets upset, and a log zooms into the pond. Splash!",
+      "picture": "a log splashing into a woodland pond"
     },
     {
-      "text": "\"Toby, tell me about your home,\" said Julia.",
-      "picture": "the girl leaning in to listen",
-      "image": "toby-6/2.jpg"
+      "text": "Day nine. A branch shoots up and lands on the play house. Crunch!",
+      "picture": "a branch crashing onto the pink playhouse roof"
     },
     {
-      "text": "Toby looks up at Super-Tall Peak. \"My mum is up there,\" he said. \"I miss her.\"",
-      "picture": "the dragon gazing at a far mountain in the sunset",
-      "image": "toby-6/3.jpg"
+      "text": "Day ten. Toby sits on a log and sighs. \"I can not do it,\" he said. \"I give up.\"",
+      "picture": "the dragon sitting on a log, giving up"
     },
     {
-      "text": "A tear drips down his nose. He is sad.",
-      "picture": "a tear on the dragon's nose"
+      "text": "\"No, you can,\" said Julia. But she is fed up too.",
+      "picture": "the girl sitting beside him, tired too"
     },
     {
-      "text": "And then Julia feels her feet lift off the grass. Just a bit. Then a bit higher.",
-      "picture": "the girl's feet lifting off the grass"
+      "text": "It is dusk. Julia sits on the grass with her hand up, flat. \"Just one last go,\" she said.",
+      "picture": "dusk in the woods, the girl sitting with her palm up"
     },
     {
-      "text": "Julia is floating! She drifts and bobs, soft as a cloud.",
-      "picture": "the girl floating gently in the air, arms out"
+      "text": "Toby is not looking at the branch. He is looking at Julia. He is not cross. He is not sad.",
+      "picture": "the dragon looking gently at the girl, calm"
     },
     {
-      "text": "\"Toby! Look at me!\" she said. \"I am floating! This is the best!\"",
-      "picture": "the girl laughing in midair"
+      "text": "And then the branch lifts up. It drifts this way. It drifts that way.",
+      "picture": "a branch gently floating in the dusk air, glowing softly"
     },
     {
-      "text": "Toby grins. And, bump, Julia sinks back down.",
-      "picture": "the girl bumping down onto the grass, the dragon grinning"
+      "text": "It floats down, soft as a leaf, and lands in Julia's hand.",
+      "picture": "the branch landing softly in the girl's open hand"
     },
     {
-      "text": "\"Toby!\" said Julia. \"When you are sad, I float. When you are glad, I sink. That is not fair!\"",
-      "picture": "the girl on the grass, pretending to be cross, both laughing"
+      "text": "Julia looks at the branch. Toby looks at the branch. \"Toby!\" said Julia. \"You did it!\"",
+      "picture": "both staring at the branch in her hand, amazed"
     },
     {
-      "text": "Far away, on top of Super-Tall Peak, a big dragon is looking for Toby.",
-      "picture": "a large dragon on the mountaintop, looking out over the land"
+      "text": "Toby blinks. \"I did it,\" he said. \"I did it! But how?\"",
+      "picture": "the dragon blinking in amazement"
     }
   ]
 }

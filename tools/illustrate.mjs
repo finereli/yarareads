@@ -7,6 +7,7 @@
 //                                                            -> content/art/<series>/candidates/<cast>-<i>.jpg
 //   (pick one: copy it to content/art/<series>/<cast>.jpg)
 //   node tools/illustrate.mjs pages <story-id> [page ...]   draw pages (1-based), set page.image
+//   node tools/illustrate.mjs pages <story-id> --missing    draw only pages that have no picture yet
 //                                                            -> content/pictures/<story-id>/<page>.jpg
 //   node tools/illustrate.mjs cover <story-id> <page>       use that page's picture as the cover
 //
@@ -78,7 +79,10 @@ if (cmd === 'sheet') {
   const { art, dir } = loadArt(story.series);
   const out = join(root, 'content/pictures', id);
   mkdirSync(out, { recursive: true });
-  const pages = which.length ? which.map(Number) : story.pages.map((_, i) => i + 1);
+  // --missing: only pages without a picture (keeps reused ones); numbers: just those; nothing: every page.
+  const pages = which.includes('--missing')
+    ? story.pages.map((p, i) => (p.image ? 0 : i + 1)).filter(Boolean)
+    : which.length ? which.map(Number) : story.pages.map((_, i) => i + 1);
   for (const n of pages) {
     const page = story.pages[n - 1];
     const cast = castFor(page, art).filter((c) => existsSync(join(dir, `${c}.jpg`))).slice(0, 4);

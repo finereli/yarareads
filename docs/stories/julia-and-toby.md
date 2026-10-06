@@ -50,26 +50,40 @@ inventory (TYM + silent e, Oct 2026):
   - Cross/mad: things shoot up high and quick, uncontrolled, then crash down hard. In her words: zoom up high, crash, smash.
   - Happy: nothing floats. That's because of how Toby *thinks* about his feelings: he believes feeling good
     keeps him from breaking things. **This will change later; it's part of the plot. Don't resolve it yet.**
-- **Chapter 6 ending (ours):** Julia floats for the first time, but only because Toby is sad (homesick);
-  when he grins she sinks back down ("That is not fair!"), which seeds the happy-floating change. Last line hooks
-  the next arc: a big dragon on Super-Tall Peak is looking for Toby.
-- **Length:** like the Fizz books: 9-10 pages, about 120 words.
+- **Toby has no idea how his powers work (Tom, rewrite).** He never explains them, and he hides them: in chapter 1
+  he won't say why he ran away. Nobody, not Julia and not the reader, sees anything float until chapter 4. It's a twist.
+- **The breakages (Tom):** Toby breaks four things of Julia's. He never blames anyone or explains; he just gets very sad.
+  Julia isn't very mad, just annoyed: she huffs, stomps off, and is back to play a few minutes later.
+  The fourth time she sees it happen ("Whoa! Do it on me!"), which starts the lessons.
+- **Timeline (Tom):** Julia goes to class; they meet and practise in the afternoon, sneaking off to the wood every day.
+  ("School" isn't readable for her yet; the text says "class".)
+- **The lessons (Tom):** about two weeks, over two chapters. They go horribly: when Toby gets upset, cans and sticks
+  go flying. The breakthrough is an accident, like all learning breakthroughs: he isn't even trying, and a branch
+  floats softly into Julia's open hand. They practise once more, then Julia floats.
+- **Julia floating (Tom):** should be awesome: a few pages of her gliding around, Toby steering her, Julia overjoyed.
+  We kept Toby calm and focused rather than happy while she floats, since happy means nothing floats (for now).
+- **The ending:** a properly ominous dragon (Tom): a big black dragon wakes in a dark cave on Super-Tall Peak,
+  claws scraping, smoke curling: "Toby. I can feel you. You can not hide from me."
+- **Length:** 8-12 pages per chapter; the floating chapter is longer (12).
 
-## Chapters
+## Chapters (rewrite, Oct 2026)
 
 | # | Title | Covers |
 |---|---|---|
-| 1 | Julia Meets Toby | Scooter in the backyard, a yelp, up the gate and down, Toby under a tree; Super-Tall Peak; the dragons sent him away; "You can stay with me." |
-| 2 | The Bent Wheel | Hidden in the play house; toast and jam; bent scooter wheel; Toby admits it; Julia stomps off; sad float (cups and dolls bob). |
-| 3 | Crash! | Julia paints Toby, goes in for a drink; the cat jumps on his tail; cross float: paint pots zoom up and smash onto her painting; Julia furious; sad drift. |
-| 4 | Whoa! | A big dog barks; Toby's spikes stick up; bucket, rake and pot zoom up and crash; Julia sees it: "Whoa! That is so cool! Make me float!"; "When I am glad, not a thing floats."; "I will teach you!" |
-| 5 | Float Lessons | Floating is like feelings; Toby explains sad and cross floats; glad = nothing; Julia tests it (a frog on his nose: cross, the frog zooms into a tree); "Sad floats are soft." |
-| 6 | Julia Floats | Dusk; Toby misses his mum; Julia floats, soft as a cloud; Toby grins and she sinks: "That is not fair!"; a big dragon on Super-Tall Peak is looking for Toby. |
+| 1 | Julia Meets Toby | Backyard, a yelp, up the gate and down, Toby crying under a tree. He ran away from his cave on Super-Tall Peak, but won't say why. Julia hides him in her play house: "Mum must not see you." |
+| 2 | The Bent Wheel | Julia goes to class. After lunch she runs back: her scooter wheel is bent (break 1). Toby just looks sad. She huffs and stomps off, but can't stay cross; back with her kite. |
+| 3 | The Painting | She paints Toby, goes in for a drink; comes back to paint everywhere and her painting ruined (break 2). Toby's tail droops. She sulks on the step, then he has a pink nose and they're friends again. |
+| 4 | Whoa! | Her best cup in bits (break 3). Then she peeks into the play house: a bee buzzes, Toby gets cross, spikes up, and her dolls, drum and tea set zoom sky-high and crash (break 4). The twist. "Do it on me! Make me float!" "I can not help it." "Then we will fix it." |
+| 5 | Float Lessons | Every afternoon they sneak to the wood. "I bet floating is like feelings." A tin can lands in a tree; a stick bonks Julia's chin. "I am no good at this." Day after day, nothing floats the right way. |
+| 6 | Day After Day | Day six: a log in the pond. Day nine: a branch on the play house. Day ten: "I give up." At dusk, not even trying, Toby looks at Julia, and a branch drifts down soft as a leaf into her hand. "You did it!" "But how?" |
+| 7 | Julia Floats | They do it again: branch, stick, can. "Now me." Her feet lift; higher than the gate, the play house; gliding past treetops with the birds, looping the loop, dipping to the pond. "This is the best day!" Then: far away, a big black dragon wakes. "Toby. I can feel you." |
 
-Story files: `content/stories/toby-1.json` ... `toby-6.json`. Covers: sparkle, wheel, crash, whoa, feelings, float.
+Story files: `content/stories/toby-1.json` ... `toby-7.json`. Pictures kept from the first draft live under
+`content/pictures/toby-v1-*`; new ones under `content/pictures/toby-N/`.
 
 ## Open threads for the next arc
 
 - Who is the big dragon looking for Toby? (His mum? A cross elder?)
 - Learning that glad feelings can float too: the plot change Tom planned.
+- How did Toby float Julia when he wasn't cross or sad? Calm/focused might be its own feeling; Tom decides.
 - Fixing Julia's scooter wheel (with a careful float?).

@@ -12,49 +12,56 @@
   ],
   "pages": [
     {
-      "text": "Julia is still cross. She will not look at Toby.",
-      "picture": "girl with arms folded, turned away from the dragon",
+      "text": "The next day, Julia gets back from class. Her best cup is in bits on the grass.",
+      "picture": "a broken teacup in pieces on the grass by the playhouse",
       "image": "toby-4/1.jpg"
     },
     {
-      "text": "Then a big black dog runs up the path. Woof! Woof!",
-      "picture": "a big black dog charging up the garden path",
+      "text": "\"Not again, Toby!\" Toby just looks sad. Julia sighs.",
+      "picture": "the girl sighing, the dragon looking sad",
       "image": "toby-4/2.jpg"
     },
     {
-      "text": "The dog barks at Toby. Toby gets cross. His spikes stick up.",
-      "picture": "the dog barking, the dragon's spikes bristling like a porcupine",
+      "text": "Then one day, Julia runs back fast and peeks in at the play house.",
+      "picture": "the girl tiptoeing and peeking into the playhouse doorway",
       "image": "toby-4/3.jpg"
     },
     {
-      "text": "And then a bucket zooms up into the air. A rake zooms up. A pot zooms up, high, high, high!",
-      "picture": "a bucket, a rake and a flower pot shooting high into the sky",
+      "text": "A big bee buzzes at Toby's nose. Buzz! Buzz!",
+      "picture": "a bee buzzing around the dragon's nose inside the playhouse",
       "image": "toby-4/4.jpg"
     },
     {
-      "text": "Crash! Bang! Smash! They all come down. The dog runs off.",
-      "picture": "things crashing down, the dog running away",
-      "image": "toby-4/5.jpg"
+      "text": "Toby gets cross. His spikes stick up.",
+      "picture": "the dragon cross, his spikes bristling like a porcupine"
     },
     {
-      "text": "Julia looks at Toby. Her chin drops.",
-      "picture": "the girl staring, mouth open",
-      "image": "toby-4/6.jpg"
+      "text": "And then her dolls zoom up, high, high, high! Her drum zooms up. Her tea set zooms up!",
+      "picture": "dolls, a toy drum and a tea set shooting high into the air above the playhouse"
     },
     {
-      "text": "\"Whoa!\" said Julia. \"That is so, so cool! Do it on me! Make me float!\"",
+      "text": "Crash! Bang! Smash! They all come down.",
+      "picture": "toys crashing down onto the grass"
+    },
+    {
+      "text": "Julia's chin drops. \"Whoa!\"",
+      "picture": "the girl staring, mouth open in amazement",
+      "image": "toby-v1-4/6.jpg"
+    },
+    {
+      "text": "\"Toby, you did that! That is so, so cool! Do it on me! Make me float!\"",
       "picture": "the girl jumping up and down with excitement",
-      "image": "toby-4/7.jpg"
+      "image": "toby-v1-4/7.jpg"
     },
     {
-      "text": "Toby looks down. \"I can't,\" he said. \"It is not up to me. When I am glad, not a thing floats.\"",
+      "text": "Toby looks down. \"I can not,\" he said. \"I can not help it. I just get upset, and things zoom up and smash.\"",
       "picture": "the dragon looking down sadly",
-      "image": "toby-4/8.jpg"
+      "image": "toby-v1-4/8.jpg"
     },
     {
-      "text": "Julia thinks hard. \"Then we will fix it,\" she said. \"I will teach you!\"",
+      "text": "Julia thinks hard. Then she grins. \"Then we will fix it,\" she said.",
       "picture": "the girl with a determined grin",
-      "image": "toby-4/9.jpg"
+      "image": "toby-v1-4/9.jpg"
     }
   ]
 }
