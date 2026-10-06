@@ -19,6 +19,7 @@
   },
   "homepage": "https://github.com/finereli/yara-reads#readme",
   "devDependencies": {
+    "playwright": "^1.63.0",
     "sharp": "^0.35.5",
     "wrangler": "^4.147.0"
   },

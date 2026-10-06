@@ -251,6 +251,9 @@ async function showReader(id, pageIndex) {
       </div>
     </div>`;
 
+  fitPage();
+  app.querySelector('.picture img')?.addEventListener('load', fitPage);
+
   const go = (i) => (location.hash = `#/read/${id}/${i}`);
   app.querySelector('[data-act=home]').onclick = () => (location.hash = '#/');
   app.querySelector('[data-act=prev]').onclick = () => pageIndex > 0 && go(pageIndex - 1);
@@ -262,6 +265,21 @@ async function showReader(id, pageIndex) {
 }
 
 const pictureUrl = (key) => `/api/pictures/${key}`;
+
+// Keep the page on one screen: CSS lets the picture shrink first; if the text still
+// overflows the sheet, step its size down (never below 20px).
+function fitPage() {
+  const sheet = app.querySelector('.sheet'), text = app.querySelector('.text');
+  if (!sheet || !text) return;
+  text.style.fontSize = '';
+  let size = parseFloat(getComputedStyle(text).fontSize);
+  while (sheet.scrollHeight > sheet.clientHeight + 1 && size > 20) {
+    size -= 2;
+    text.style.fontSize = `${size}px`;
+  }
+}
+addEventListener('resize', fitPage);
+document.fonts?.ready.then(fitPage);
 
 // ---------- Word card: the hint lives right on the word ----------
 
@@ -304,12 +322,23 @@ function openPop(el, story, inv) {
       <div class="actions"><button class="press" data-a="say">${ICONS.speaker} Say it</button></div>`;
   }
   document.body.appendChild(pop);
+  fitPop(pop);
   if (info.parts) drawLinks(pop, info.parts);
   place(pop, el);
 
   pop.querySelector('[data-a=say]').onclick = () => speak(word);
   const sound = pop.querySelector('[data-a=sound]');
   if (sound) sound.onclick = () => soundOut(pop, word, info.parts);
+}
+
+// Long words: shrink the tiles until the card fits the screen width.
+function fitPop(p) {
+  const max = innerWidth - 16;
+  let size = 46;
+  while (p.offsetWidth > max && size > 20) {
+    size -= 2;
+    p.style.setProperty('--chip', `${size}px`);
+  }
 }
 
 // Sound buttons: a dot for one letter, a bar for letters making one sound,
