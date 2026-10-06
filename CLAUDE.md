@@ -73,6 +73,8 @@ one SVG icon set in art.js (24px grid, 2.5 stroke, round caps), illustrated cove
 Sound buttons follow classroom convention: a dot under a single letter, a bar under a digraph/trigraph.
 The reader is exactly one screen tall: the picture shrinks first, then `fitPage` steps the text down (min 20px).
 Word cards shrink their tiles (`--chip`) for long words instead of scrolling, so the whole word stays visible.
+Word cards have **one speaker button**. If the word has tiles, it always sounds it out first (tiles light in turn) and only
+then says the word: Eli doesn't want the voice reading words for her without the sounding out. Tricky words just get said.
 
 Content changes need only `tools/push.mjs`, no deploy.
 

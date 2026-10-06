@@ -311,22 +311,23 @@ function openPop(el, story, inv) {
       <div class="chips">${info.parts.map((p) => `<div class="chip ${chipClass(p)}">${esc(p.text)}<span class="mark"></span></div>`).join('')}</div>
       ${badge ? `<div class="badge ${info.kind === 'unknown' ? 'new' : ''}">${badge}</div>` : ''}
       <div class="actions">
-        <button class="press" data-a="sound">${ICONS.sound} Sound it out</button>
-        <button class="press" data-a="say" aria-label="Say it">${ICONS.speaker}</button>
+        <button class="press speak" data-a="sound" aria-label="Sound it out">${ICONS.speaker}</button>
       </div>`;
   } else {
     const badge = { tricky: `${STAR(true)} Tricky word`, name: 'A name', unknown: 'New word' }[info.kind];
     pop.innerHTML = `
       <div class="whole">${esc(word)}</div>
       ${badge ? `<div class="badge">${badge}</div>` : ''}
-      <div class="actions"><button class="press" data-a="say">${ICONS.speaker} Say it</button></div>`;
+      <div class="actions"><button class="press speak" data-a="say" aria-label="Say it">${ICONS.speaker}</button></div>`;
   }
   document.body.appendChild(pop);
   fitPop(pop);
   if (info.parts) drawLinks(pop, info.parts);
   place(pop, el);
 
-  pop.querySelector('[data-a=say]').onclick = () => speak(word);
+  // One speaker button. If the word can be sounded out, it always is (tiles light in turn) before
+  // the word is said, so the voice never reads a word for her without the sounding out.
+  pop.querySelector('[data-a=say]')?.addEventListener('click', () => speak(word));
   const sound = pop.querySelector('[data-a=sound]');
   if (sound) sound.onclick = () => soundOut(pop, word, info.parts);
 }
@@ -371,6 +372,8 @@ function drawLinks(p, parts) {
 
 // Light up each sound in turn (a silent-e vowel lights with its e), then blend: say the whole word.
 function soundOut(p, word, parts) {
+  if (p.dataset.busy) return; // one sounding-out at a time
+  p.dataset.busy = '1';
   const chips = [...p.querySelectorAll('.chip')];
   const steps = parts.map((_, i) => i).filter((i) => !parts[i].silent);
   steps.forEach((i, n) => setTimeout(() => {
@@ -381,6 +384,7 @@ function soundOut(p, word, parts) {
   setTimeout(() => {
     chips.forEach((c) => c.classList.add('lit'));
     speak(word);
+    delete p.dataset.busy;
   }, steps.length * 650);
 }
 

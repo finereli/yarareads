@@ -273,6 +273,8 @@ button { border: none; background: none; cursor: pointer; padding: 0; }
   font-size: 19px; font-weight: 600;
 }
 .pop .actions .icon { font-size: 24px; }
+.pop .actions .speak { width: 60px; height: 56px; padding: 0; justify-content: center; border-radius: 18px; }
+.pop .actions .speak .icon { font-size: 28px; }
 
 /* ---------- The End ---------- */
 
