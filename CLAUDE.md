@@ -75,6 +75,7 @@ The reader is exactly one screen tall: the picture shrinks first, then `fitPage`
 Word cards shrink their tiles (`--chip`) for long words instead of scrolling, so the whole word stays visible.
 Word cards have **one speaker button**. If the word has tiles, it always sounds it out first (tiles light in turn) and only
 then says the word: Eli doesn't want the voice reading words for her without the sounding out. Tricky words just get said.
+iOS only allows speech started inside a tap, so the tap speaks a silent utterance first (`primeSpeech`) to unlock the delayed word.
 
 Content changes need only `tools/push.mjs`, no deploy.
 
@@ -85,7 +86,10 @@ Content changes need only `tools/push.mjs`, no deploy.
    ~~Silent e (split digraphs), coverage tool.~~
    Next: more stories. AI writes, the checker validates, and we loop until clean. Vocabulary queue: docs/vocabulary.md.
 3. Pictures: generate per page from `picture`, keeping characters consistent; store in R2.
-4. Real phoneme audio: Eli records each sound, so the sound buttons speak (TTS can't say a clean /t/).
+4. Real phoneme audio. In progress: `tools/sounds.mjs` generates TTS candidates per sound (Deepgram Aura-2 "pandora", Aura-1
+   "athena", MeloTTS; several spellings each) into R2 `sounds/candidates/`; the grown-ups **Sound lab** (`#/sounds`) plays them
+   and stores Eli's pick per sound in D1 `sound_picks`. Sounds no voice gets right will need Eli's own recordings.
+   Speech recognition (Whisper) can't pre-screen: it hallucinates on isolated sounds.
 5. ~~Books from home, with pictures (first: Mittu and the Yellow Mango).~~ Next: show which *sounds* a book needs, not just words.
 6. Practise: grow the grown-ups "Practise" panel into something Eli can work through with her.
 

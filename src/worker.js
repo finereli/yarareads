@@ -64,6 +64,33 @@ export default {
       });
     }
 
+    // Phonics sound audio (candidates and recordings), also in R2, under sounds/.
+    const sound = path.match(/^\/api\/sounds\/([\w./-]+)$/);
+    if (sound && request.method === 'GET' && !sound[1].includes('..')) {
+      const obj = await env.PICTURES.get(`sounds/${sound[1]}`);
+      if (!obj) return json({ error: 'not found' }, { status: 404 });
+      return new Response(obj.body, {
+        headers: { 'content-type': obj.httpMetadata?.contentType || 'audio/mpeg', 'cache-control': 'private, max-age=3600' },
+      });
+    }
+
+    // Which audio plays for each sound, picked in the Sound lab.
+    if (path === '/api/sound-picks' && request.method === 'GET') {
+      const { results } = await env.DB.prepare('SELECT sound, key FROM sound_picks').all();
+      return json(Object.fromEntries(results.map((r) => [r.sound, r.key])));
+    }
+    if (path === '/api/sound-picks' && request.method === 'PUT') {
+      const { sound: s, key } = await request.json();
+      if (typeof s !== 'string' || s.length > 20) return json({ error: 'bad sound' }, { status: 400 });
+      if (key) {
+        await env.DB.prepare('INSERT OR REPLACE INTO sound_picks (sound, key, updated_at) VALUES (?, ?, CURRENT_TIMESTAMP)')
+          .bind(s, String(key).slice(0, 200)).run();
+      } else {
+        await env.DB.prepare('DELETE FROM sound_picks WHERE sound = ?').bind(s).run();
+      }
+      return json({ ok: true });
+    }
+
     // What Yara knows. Edited from the grown-ups section.
     if (path === '/api/inventory' && request.method === 'GET') {
       const row = await env.DB.prepare('SELECT body FROM inventory WHERE id = 1').first();

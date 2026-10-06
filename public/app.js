@@ -50,6 +50,15 @@ if ('speechSynthesis' in window) {
   speechSynthesis.onvoiceschanged = pickVoice;
 }
 
+// iOS only lets a page speak if speech starts inside a tap. Sounding out says the word seconds
+// after the tap (from a timer), so the tap first speaks a silent utterance to unlock speech.
+function primeSpeech() {
+  if (!('speechSynthesis' in window)) return;
+  const u = new SpeechSynthesisUtterance(' ');
+  u.volume = 0;
+  speechSynthesis.speak(u);
+}
+
 function speak(text) {
   if (!('speechSynthesis' in window)) return;
   speechSynthesis.cancel();
@@ -104,6 +113,7 @@ async function route() {
   try {
     if (view === 'read' && id) await showReader(id, Number(page) || 0);
     else if (view === 'grownups') grownUp ? await showGrownups() : showGate();
+    else if (view === 'sounds') grownUp ? await showSoundLab() : showGate();
     else await showLibrary();
   } catch (e) {
     if (e instanceof NeedPin) showPin();
@@ -329,7 +339,10 @@ function openPop(el, story, inv) {
   // the word is said, so the voice never reads a word for her without the sounding out.
   pop.querySelector('[data-a=say]')?.addEventListener('click', () => speak(word));
   const sound = pop.querySelector('[data-a=sound]');
-  if (sound) sound.onclick = () => soundOut(pop, word, info.parts);
+  if (sound) sound.onclick = () => {
+    primeSpeech();
+    soundOut(pop, word, info.parts);
+  };
 }
 
 // Long words: shrink the tiles until the card fits the screen width.
@@ -485,6 +498,12 @@ async function showGrownups() {
       </section>
 
       <section class="panel">
+        <h2>Sound lab</h2>
+        <p>Recordings of each phonics sound for the sound buttons. Listen to the candidates and pick the ones that sound right.</p>
+        <button class="press check" data-act="lab">Open the sound lab</button>
+      </section>
+
+      <section class="panel">
         <h2>App <small>version ${esc(version || 'unknown')}</small></h2>
         <p>The app updates itself, and new books and pictures appear whenever the library opens. If something still looks out of date:</p>
         <button class="press check" data-act="update">Refresh now</button>
@@ -507,6 +526,7 @@ async function showGrownups() {
     scrollTo(0, y);
   };
   app.querySelector('[data-act=done]').onclick = () => (location.hash = '#/');
+  app.querySelector('[data-act=lab]').onclick = () => (location.hash = '#/sounds');
   // A full reload: fresh code, books, pictures and sounds. Lands back here in grown-ups.
   app.querySelector('[data-act=update]').onclick = () => location.reload();
   app.querySelectorAll('.tile').forEach((t) => (t.onclick = () => {
@@ -524,6 +544,65 @@ async function showGrownups() {
     if (!w || inv[f.dataset.add].includes(w)) return;
     inv[f.dataset.add] = [...inv[f.dataset.add], w];
     save();
+  }));
+}
+
+// ---------- Sound lab (grown-ups) ----------
+// Candidate recordings of each pure phonics sound (tools/sounds.mjs). Eli taps to listen and stars
+// the one that sounds right; picks are saved, and the sound buttons will play them.
+
+const EXAMPLES = {
+  s: 'sun', m: 'map', f: 'fan', sh: 'ship', n: 'net', l: 'leg', z: 'zip', v: 'van', t: 'top', p: 'pig', k: 'kit',
+  b: 'bat', d: 'dog', g: 'got', a: 'ant', e: 'egg', i: 'ink', o: 'on', u: 'up', ai: 'rain', ee: 'see',
+  igh: 'night', oa: 'boat', oo: 'moon', ar: 'car', or: 'fork', ur: 'fur', ow: 'cow', oi: 'coin', ch: 'chip', th: 'thin',
+};
+const VOICE_NAMES = { pandora: 'Voice 1', athena: 'Voice 2', melo: 'Voice 3' };
+let labAudio;
+
+async function showSoundLab() {
+  const [manifest, picks] = await Promise.all([
+    fetch('/api/sounds/candidates.json').then((r) => (r.ok ? r.json() : [])),
+    api('sound-picks'),
+  ]);
+  const picked = Object.keys(picks).length;
+  app.innerHTML = `
+    <div class="admin lab">
+      <header>
+        <h1>Sound lab</h1>
+        <button class="done press" data-act="back">${ICONS.back} Grown-ups</button>
+      </header>
+      <section class="panel">
+        <p>Tap a take to hear it. Star the one that sounds like the pure sound from class: "sss", not "suh",
+          and a short clipped "t". Leave a sound unstarred if none are right; those will need recording.</p>
+        <p class="muted">${picked} of ${manifest.length} sounds picked. Each take is labelled with how it was spelled for the voice.</p>
+      </section>
+      ${manifest.map(({ sound, takes }) => `
+        <section class="panel labrow">
+          <div class="labsound"><span class="tile on">${esc(sound)}</span><span class="muted">${esc(EXAMPLES[sound] || '')}</span></div>
+          <div class="labtakes">
+            ${Object.keys(VOICE_NAMES).map((v) => `
+              <div class="labvoice"><span class="muted">${VOICE_NAMES[v]}</span>
+                ${takes.filter((t) => t.voice === v).map((t) => `
+                  <span class="take ${picks[sound] === t.key ? 'picked' : ''}">
+                    <button class="press play" data-key="${esc(t.key)}">${ICONS.speaker} ${esc(t.text)}</button>
+                    <button class="star-btn" data-sound="${esc(sound)}" data-key="${esc(t.key)}" aria-label="Pick">${STAR(picks[sound] === t.key)}</button>
+                  </span>`).join('')}
+              </div>`).join('')}
+          </div>
+        </section>`).join('') || '<section class="panel"><p>No candidates yet: run node tools/sounds.mjs.</p></section>'}
+    </div>`;
+  app.querySelector('[data-act=back]').onclick = () => (location.hash = '#/grownups');
+  app.querySelectorAll('.play').forEach((b) => (b.onclick = () => {
+    labAudio?.pause();
+    labAudio = new Audio(`/api/sounds/${b.dataset.key}`);
+    labAudio.play();
+  }));
+  app.querySelectorAll('.star-btn').forEach((b) => (b.onclick = async () => {
+    const { sound, key } = b.dataset;
+    await api('sound-picks', { method: 'PUT', body: { sound, key: picks[sound] === key ? null : key } });
+    const y = scrollY;
+    await showSoundLab();
+    scrollTo(0, y);
   }));
 }
 

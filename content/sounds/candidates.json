@@ -1,0 +1,1162 @@
+[
+ {
+  "sound": "s",
+  "takes": [
+   {
+    "key": "candidates/s/pandora-1.mp3",
+    "voice": "pandora",
+    "text": "sss"
+   },
+   {
+    "key": "candidates/s/pandora-2.mp3",
+    "voice": "pandora",
+    "text": "ssss."
+   },
+   {
+    "key": "candidates/s/athena-1.mp3",
+    "voice": "athena",
+    "text": "sss"
+   },
+   {
+    "key": "candidates/s/athena-2.mp3",
+    "voice": "athena",
+    "text": "ssss."
+   },
+   {
+    "key": "candidates/s/melo-1.wav",
+    "voice": "melo",
+    "text": "sss"
+   },
+   {
+    "key": "candidates/s/melo-2.wav",
+    "voice": "melo",
+    "text": "ssss."
+   }
+  ]
+ },
+ {
+  "sound": "m",
+  "takes": [
+   {
+    "key": "candidates/m/pandora-1.mp3",
+    "voice": "pandora",
+    "text": "mmm"
+   },
+   {
+    "key": "candidates/m/pandora-2.mp3",
+    "voice": "pandora",
+    "text": "mmmm."
+   },
+   {
+    "key": "candidates/m/athena-1.mp3",
+    "voice": "athena",
+    "text": "mmm"
+   },
+   {
+    "key": "candidates/m/athena-2.mp3",
+    "voice": "athena",
+    "text": "mmmm."
+   },
+   {
+    "key": "candidates/m/melo-1.wav",
+    "voice": "melo",
+    "text": "mmm"
+   },
+   {
+    "key": "candidates/m/melo-2.wav",
+    "voice": "melo",
+    "text": "mmmm."
+   }
+  ]
+ },
+ {
+  "sound": "f",
+  "takes": [
+   {
+    "key": "candidates/f/pandora-1.mp3",
+    "voice": "pandora",
+    "text": "fff"
+   },
+   {
+    "key": "candidates/f/pandora-2.mp3",
+    "voice": "pandora",
+    "text": "ffff."
+   },
+   {
+    "key": "candidates/f/athena-1.mp3",
+    "voice": "athena",
+    "text": "fff"
+   },
+   {
+    "key": "candidates/f/athena-2.mp3",
+    "voice": "athena",
+    "text": "ffff."
+   },
+   {
+    "key": "candidates/f/melo-1.wav",
+    "voice": "melo",
+    "text": "fff"
+   },
+   {
+    "key": "candidates/f/melo-2.wav",
+    "voice": "melo",
+    "text": "ffff."
+   }
+  ]
+ },
+ {
+  "sound": "sh",
+  "takes": [
+   {
+    "key": "candidates/sh/pandora-1.mp3",
+    "voice": "pandora",
+    "text": "shhh"
+   },
+   {
+    "key": "candidates/sh/pandora-2.mp3",
+    "voice": "pandora",
+    "text": "sh!"
+   },
+   {
+    "key": "candidates/sh/athena-1.mp3",
+    "voice": "athena",
+    "text": "shhh"
+   },
+   {
+    "key": "candidates/sh/athena-2.mp3",
+    "voice": "athena",
+    "text": "sh!"
+   },
+   {
+    "key": "candidates/sh/melo-1.wav",
+    "voice": "melo",
+    "text": "shhh"
+   },
+   {
+    "key": "candidates/sh/melo-2.wav",
+    "voice": "melo",
+    "text": "sh!"
+   }
+  ]
+ },
+ {
+  "sound": "n",
+  "takes": [
+   {
+    "key": "candidates/n/pandora-1.mp3",
+    "voice": "pandora",
+    "text": "nnn"
+   },
+   {
+    "key": "candidates/n/pandora-2.mp3",
+    "voice": "pandora",
+    "text": "nnnn."
+   },
+   {
+    "key": "candidates/n/athena-1.mp3",
+    "voice": "athena",
+    "text": "nnn"
+   },
+   {
+    "key": "candidates/n/athena-2.mp3",
+    "voice": "athena",
+    "text": "nnnn."
+   },
+   {
+    "key": "candidates/n/melo-1.wav",
+    "voice": "melo",
+    "text": "nnn"
+   },
+   {
+    "key": "candidates/n/melo-2.wav",
+    "voice": "melo",
+    "text": "nnnn."
+   }
+  ]
+ },
+ {
+  "sound": "l",
+  "takes": [
+   {
+    "key": "candidates/l/pandora-1.mp3",
+    "voice": "pandora",
+    "text": "lll"
+   },
+   {
+    "key": "candidates/l/pandora-2.mp3",
+    "voice": "pandora",
+    "text": "llll."
+   },
+   {
+    "key": "candidates/l/athena-1.mp3",
+    "voice": "athena",
+    "text": "lll"
+   },
+   {
+    "key": "candidates/l/athena-2.mp3",
+    "voice": "athena",
+    "text": "llll."
+   },
+   {
+    "key": "candidates/l/melo-1.wav",
+    "voice": "melo",
+    "text": "lll"
+   },
+   {
+    "key": "candidates/l/melo-2.wav",
+    "voice": "melo",
+    "text": "llll."
+   }
+  ]
+ },
+ {
+  "sound": "z",
+  "takes": [
+   {
+    "key": "candidates/z/pandora-1.mp3",
+    "voice": "pandora",
+    "text": "zzz"
+   },
+   {
+    "key": "candidates/z/pandora-2.mp3",
+    "voice": "pandora",
+    "text": "bzzz"
+   },
+   {
+    "key": "candidates/z/athena-1.mp3",
+    "voice": "athena",
+    "text": "zzz"
+   },
+   {
+    "key": "candidates/z/athena-2.mp3",
+    "voice": "athena",
+    "text": "bzzz"
+   },
+   {
+    "key": "candidates/z/melo-1.wav",
+    "voice": "melo",
+    "text": "zzz"
+   },
+   {
+    "key": "candidates/z/melo-2.wav",
+    "voice": "melo",
+    "text": "bzzz"
+   }
+  ]
+ },
+ {
+  "sound": "v",
+  "takes": [
+   {
+    "key": "candidates/v/pandora-1.mp3",
+    "voice": "pandora",
+    "text": "vvv"
+   },
+   {
+    "key": "candidates/v/pandora-2.mp3",
+    "voice": "pandora",
+    "text": "vvvv."
+   },
+   {
+    "key": "candidates/v/athena-1.mp3",
+    "voice": "athena",
+    "text": "vvv"
+   },
+   {
+    "key": "candidates/v/athena-2.mp3",
+    "voice": "athena",
+    "text": "vvvv."
+   },
+   {
+    "key": "candidates/v/melo-1.wav",
+    "voice": "melo",
+    "text": "vvv"
+   },
+   {
+    "key": "candidates/v/melo-2.wav",
+    "voice": "melo",
+    "text": "vvvv."
+   }
+  ]
+ },
+ {
+  "sound": "t",
+  "takes": [
+   {
+    "key": "candidates/t/pandora-1.mp3",
+    "voice": "pandora",
+    "text": "t"
+   },
+   {
+    "key": "candidates/t/pandora-2.mp3",
+    "voice": "pandora",
+    "text": "tuh"
+   },
+   {
+    "key": "candidates/t/pandora-3.mp3",
+    "voice": "pandora",
+    "text": "t!"
+   },
+   {
+    "key": "candidates/t/athena-1.mp3",
+    "voice": "athena",
+    "text": "t"
+   },
+   {
+    "key": "candidates/t/athena-2.mp3",
+    "voice": "athena",
+    "text": "tuh"
+   },
+   {
+    "key": "candidates/t/athena-3.mp3",
+    "voice": "athena",
+    "text": "t!"
+   },
+   {
+    "key": "candidates/t/melo-1.wav",
+    "voice": "melo",
+    "text": "t"
+   },
+   {
+    "key": "candidates/t/melo-2.wav",
+    "voice": "melo",
+    "text": "tuh"
+   },
+   {
+    "key": "candidates/t/melo-3.wav",
+    "voice": "melo",
+    "text": "t!"
+   }
+  ]
+ },
+ {
+  "sound": "p",
+  "takes": [
+   {
+    "key": "candidates/p/pandora-1.mp3",
+    "voice": "pandora",
+    "text": "p"
+   },
+   {
+    "key": "candidates/p/pandora-2.mp3",
+    "voice": "pandora",
+    "text": "puh"
+   },
+   {
+    "key": "candidates/p/pandora-3.mp3",
+    "voice": "pandora",
+    "text": "p!"
+   },
+   {
+    "key": "candidates/p/athena-1.mp3",
+    "voice": "athena",
+    "text": "p"
+   },
+   {
+    "key": "candidates/p/athena-2.mp3",
+    "voice": "athena",
+    "text": "puh"
+   },
+   {
+    "key": "candidates/p/athena-3.mp3",
+    "voice": "athena",
+    "text": "p!"
+   },
+   {
+    "key": "candidates/p/melo-1.wav",
+    "voice": "melo",
+    "text": "p"
+   },
+   {
+    "key": "candidates/p/melo-2.wav",
+    "voice": "melo",
+    "text": "puh"
+   },
+   {
+    "key": "candidates/p/melo-3.wav",
+    "voice": "melo",
+    "text": "p!"
+   }
+  ]
+ },
+ {
+  "sound": "k",
+  "takes": [
+   {
+    "key": "candidates/k/pandora-1.mp3",
+    "voice": "pandora",
+    "text": "k"
+   },
+   {
+    "key": "candidates/k/pandora-2.mp3",
+    "voice": "pandora",
+    "text": "kuh"
+   },
+   {
+    "key": "candidates/k/pandora-3.mp3",
+    "voice": "pandora",
+    "text": "k!"
+   },
+   {
+    "key": "candidates/k/athena-1.mp3",
+    "voice": "athena",
+    "text": "k"
+   },
+   {
+    "key": "candidates/k/athena-2.mp3",
+    "voice": "athena",
+    "text": "kuh"
+   },
+   {
+    "key": "candidates/k/athena-3.mp3",
+    "voice": "athena",
+    "text": "k!"
+   },
+   {
+    "key": "candidates/k/melo-1.wav",
+    "voice": "melo",
+    "text": "k"
+   },
+   {
+    "key": "candidates/k/melo-2.wav",
+    "voice": "melo",
+    "text": "kuh"
+   },
+   {
+    "key": "candidates/k/melo-3.wav",
+    "voice": "melo",
+    "text": "k!"
+   }
+  ]
+ },
+ {
+  "sound": "b",
+  "takes": [
+   {
+    "key": "candidates/b/pandora-1.mp3",
+    "voice": "pandora",
+    "text": "b"
+   },
+   {
+    "key": "candidates/b/pandora-2.mp3",
+    "voice": "pandora",
+    "text": "buh"
+   },
+   {
+    "key": "candidates/b/athena-1.mp3",
+    "voice": "athena",
+    "text": "b"
+   },
+   {
+    "key": "candidates/b/athena-2.mp3",
+    "voice": "athena",
+    "text": "buh"
+   },
+   {
+    "key": "candidates/b/melo-1.wav",
+    "voice": "melo",
+    "text": "b"
+   },
+   {
+    "key": "candidates/b/melo-2.wav",
+    "voice": "melo",
+    "text": "buh"
+   }
+  ]
+ },
+ {
+  "sound": "d",
+  "takes": [
+   {
+    "key": "candidates/d/pandora-1.mp3",
+    "voice": "pandora",
+    "text": "d"
+   },
+   {
+    "key": "candidates/d/pandora-2.mp3",
+    "voice": "pandora",
+    "text": "duh"
+   },
+   {
+    "key": "candidates/d/athena-1.mp3",
+    "voice": "athena",
+    "text": "d"
+   },
+   {
+    "key": "candidates/d/athena-2.mp3",
+    "voice": "athena",
+    "text": "duh"
+   },
+   {
+    "key": "candidates/d/melo-1.wav",
+    "voice": "melo",
+    "text": "d"
+   },
+   {
+    "key": "candidates/d/melo-2.wav",
+    "voice": "melo",
+    "text": "duh"
+   }
+  ]
+ },
+ {
+  "sound": "g",
+  "takes": [
+   {
+    "key": "candidates/g/pandora-1.mp3",
+    "voice": "pandora",
+    "text": "g"
+   },
+   {
+    "key": "candidates/g/pandora-2.mp3",
+    "voice": "pandora",
+    "text": "guh"
+   },
+   {
+    "key": "candidates/g/athena-1.mp3",
+    "voice": "athena",
+    "text": "g"
+   },
+   {
+    "key": "candidates/g/athena-2.mp3",
+    "voice": "athena",
+    "text": "guh"
+   },
+   {
+    "key": "candidates/g/melo-1.wav",
+    "voice": "melo",
+    "text": "g"
+   },
+   {
+    "key": "candidates/g/melo-2.wav",
+    "voice": "melo",
+    "text": "guh"
+   }
+  ]
+ },
+ {
+  "sound": "a",
+  "takes": [
+   {
+    "key": "candidates/a/pandora-1.mp3",
+    "voice": "pandora",
+    "text": "a"
+   },
+   {
+    "key": "candidates/a/pandora-2.mp3",
+    "voice": "pandora",
+    "text": "ah"
+   },
+   {
+    "key": "candidates/a/pandora-3.mp3",
+    "voice": "pandora",
+    "text": "æ"
+   },
+   {
+    "key": "candidates/a/athena-1.mp3",
+    "voice": "athena",
+    "text": "a"
+   },
+   {
+    "key": "candidates/a/athena-2.mp3",
+    "voice": "athena",
+    "text": "ah"
+   },
+   {
+    "key": "candidates/a/athena-3.mp3",
+    "voice": "athena",
+    "text": "æ"
+   },
+   {
+    "key": "candidates/a/melo-1.wav",
+    "voice": "melo",
+    "text": "a"
+   },
+   {
+    "key": "candidates/a/melo-2.wav",
+    "voice": "melo",
+    "text": "ah"
+   },
+   {
+    "key": "candidates/a/melo-3.wav",
+    "voice": "melo",
+    "text": "æ"
+   }
+  ]
+ },
+ {
+  "sound": "e",
+  "takes": [
+   {
+    "key": "candidates/e/pandora-1.mp3",
+    "voice": "pandora",
+    "text": "eh"
+   },
+   {
+    "key": "candidates/e/pandora-2.mp3",
+    "voice": "pandora",
+    "text": "e"
+   },
+   {
+    "key": "candidates/e/athena-1.mp3",
+    "voice": "athena",
+    "text": "eh"
+   },
+   {
+    "key": "candidates/e/athena-2.mp3",
+    "voice": "athena",
+    "text": "e"
+   },
+   {
+    "key": "candidates/e/melo-1.wav",
+    "voice": "melo",
+    "text": "eh"
+   },
+   {
+    "key": "candidates/e/melo-2.wav",
+    "voice": "melo",
+    "text": "e"
+   }
+  ]
+ },
+ {
+  "sound": "i",
+  "takes": [
+   {
+    "key": "candidates/i/pandora-1.mp3",
+    "voice": "pandora",
+    "text": "ih"
+   },
+   {
+    "key": "candidates/i/pandora-2.mp3",
+    "voice": "pandora",
+    "text": "i"
+   },
+   {
+    "key": "candidates/i/athena-1.mp3",
+    "voice": "athena",
+    "text": "ih"
+   },
+   {
+    "key": "candidates/i/athena-2.mp3",
+    "voice": "athena",
+    "text": "i"
+   },
+   {
+    "key": "candidates/i/melo-1.wav",
+    "voice": "melo",
+    "text": "ih"
+   },
+   {
+    "key": "candidates/i/melo-2.wav",
+    "voice": "melo",
+    "text": "i"
+   }
+  ]
+ },
+ {
+  "sound": "o",
+  "takes": [
+   {
+    "key": "candidates/o/pandora-1.mp3",
+    "voice": "pandora",
+    "text": "o"
+   },
+   {
+    "key": "candidates/o/pandora-2.mp3",
+    "voice": "pandora",
+    "text": "aw"
+   },
+   {
+    "key": "candidates/o/pandora-3.mp3",
+    "voice": "pandora",
+    "text": "ah"
+   },
+   {
+    "key": "candidates/o/athena-1.mp3",
+    "voice": "athena",
+    "text": "o"
+   },
+   {
+    "key": "candidates/o/athena-2.mp3",
+    "voice": "athena",
+    "text": "aw"
+   },
+   {
+    "key": "candidates/o/athena-3.mp3",
+    "voice": "athena",
+    "text": "ah"
+   },
+   {
+    "key": "candidates/o/melo-1.wav",
+    "voice": "melo",
+    "text": "o"
+   },
+   {
+    "key": "candidates/o/melo-2.wav",
+    "voice": "melo",
+    "text": "aw"
+   },
+   {
+    "key": "candidates/o/melo-3.wav",
+    "voice": "melo",
+    "text": "ah"
+   }
+  ]
+ },
+ {
+  "sound": "u",
+  "takes": [
+   {
+    "key": "candidates/u/pandora-1.mp3",
+    "voice": "pandora",
+    "text": "uh"
+   },
+   {
+    "key": "candidates/u/pandora-2.mp3",
+    "voice": "pandora",
+    "text": "u"
+   },
+   {
+    "key": "candidates/u/athena-1.mp3",
+    "voice": "athena",
+    "text": "uh"
+   },
+   {
+    "key": "candidates/u/athena-2.mp3",
+    "voice": "athena",
+    "text": "u"
+   },
+   {
+    "key": "candidates/u/melo-1.wav",
+    "voice": "melo",
+    "text": "uh"
+   },
+   {
+    "key": "candidates/u/melo-2.wav",
+    "voice": "melo",
+    "text": "u"
+   }
+  ]
+ },
+ {
+  "sound": "ai",
+  "takes": [
+   {
+    "key": "candidates/ai/pandora-1.mp3",
+    "voice": "pandora",
+    "text": "ay"
+   },
+   {
+    "key": "candidates/ai/pandora-2.mp3",
+    "voice": "pandora",
+    "text": "aye"
+   },
+   {
+    "key": "candidates/ai/athena-1.mp3",
+    "voice": "athena",
+    "text": "ay"
+   },
+   {
+    "key": "candidates/ai/athena-2.mp3",
+    "voice": "athena",
+    "text": "aye"
+   },
+   {
+    "key": "candidates/ai/melo-1.wav",
+    "voice": "melo",
+    "text": "ay"
+   },
+   {
+    "key": "candidates/ai/melo-2.wav",
+    "voice": "melo",
+    "text": "aye"
+   }
+  ]
+ },
+ {
+  "sound": "ee",
+  "takes": [
+   {
+    "key": "candidates/ee/pandora-1.mp3",
+    "voice": "pandora",
+    "text": "ee"
+   },
+   {
+    "key": "candidates/ee/pandora-2.mp3",
+    "voice": "pandora",
+    "text": "eee"
+   },
+   {
+    "key": "candidates/ee/athena-1.mp3",
+    "voice": "athena",
+    "text": "ee"
+   },
+   {
+    "key": "candidates/ee/athena-2.mp3",
+    "voice": "athena",
+    "text": "eee"
+   },
+   {
+    "key": "candidates/ee/melo-1.wav",
+    "voice": "melo",
+    "text": "ee"
+   },
+   {
+    "key": "candidates/ee/melo-2.wav",
+    "voice": "melo",
+    "text": "eee"
+   }
+  ]
+ },
+ {
+  "sound": "igh",
+  "takes": [
+   {
+    "key": "candidates/igh/pandora-1.mp3",
+    "voice": "pandora",
+    "text": "eye"
+   },
+   {
+    "key": "candidates/igh/pandora-2.mp3",
+    "voice": "pandora",
+    "text": "igh"
+   },
+   {
+    "key": "candidates/igh/athena-1.mp3",
+    "voice": "athena",
+    "text": "eye"
+   },
+   {
+    "key": "candidates/igh/athena-2.mp3",
+    "voice": "athena",
+    "text": "igh"
+   },
+   {
+    "key": "candidates/igh/melo-1.wav",
+    "voice": "melo",
+    "text": "eye"
+   },
+   {
+    "key": "candidates/igh/melo-2.wav",
+    "voice": "melo",
+    "text": "igh"
+   }
+  ]
+ },
+ {
+  "sound": "oa",
+  "takes": [
+   {
+    "key": "candidates/oa/pandora-1.mp3",
+    "voice": "pandora",
+    "text": "oh"
+   },
+   {
+    "key": "candidates/oa/pandora-2.mp3",
+    "voice": "pandora",
+    "text": "oa"
+   },
+   {
+    "key": "candidates/oa/athena-1.mp3",
+    "voice": "athena",
+    "text": "oh"
+   },
+   {
+    "key": "candidates/oa/athena-2.mp3",
+    "voice": "athena",
+    "text": "oa"
+   },
+   {
+    "key": "candidates/oa/melo-1.wav",
+    "voice": "melo",
+    "text": "oh"
+   },
+   {
+    "key": "candidates/oa/melo-2.wav",
+    "voice": "melo",
+    "text": "oa"
+   }
+  ]
+ },
+ {
+  "sound": "oo",
+  "takes": [
+   {
+    "key": "candidates/oo/pandora-1.mp3",
+    "voice": "pandora",
+    "text": "oo"
+   },
+   {
+    "key": "candidates/oo/pandora-2.mp3",
+    "voice": "pandora",
+    "text": "ooo"
+   },
+   {
+    "key": "candidates/oo/athena-1.mp3",
+    "voice": "athena",
+    "text": "oo"
+   },
+   {
+    "key": "candidates/oo/athena-2.mp3",
+    "voice": "athena",
+    "text": "ooo"
+   },
+   {
+    "key": "candidates/oo/melo-1.wav",
+    "voice": "melo",
+    "text": "oo"
+   },
+   {
+    "key": "candidates/oo/melo-2.wav",
+    "voice": "melo",
+    "text": "ooo"
+   }
+  ]
+ },
+ {
+  "sound": "ar",
+  "takes": [
+   {
+    "key": "candidates/ar/pandora-1.mp3",
+    "voice": "pandora",
+    "text": "ar"
+   },
+   {
+    "key": "candidates/ar/pandora-2.mp3",
+    "voice": "pandora",
+    "text": "ah"
+   },
+   {
+    "key": "candidates/ar/athena-1.mp3",
+    "voice": "athena",
+    "text": "ar"
+   },
+   {
+    "key": "candidates/ar/athena-2.mp3",
+    "voice": "athena",
+    "text": "ah"
+   },
+   {
+    "key": "candidates/ar/melo-1.wav",
+    "voice": "melo",
+    "text": "ar"
+   },
+   {
+    "key": "candidates/ar/melo-2.wav",
+    "voice": "melo",
+    "text": "ah"
+   }
+  ]
+ },
+ {
+  "sound": "or",
+  "takes": [
+   {
+    "key": "candidates/or/pandora-1.mp3",
+    "voice": "pandora",
+    "text": "or"
+   },
+   {
+    "key": "candidates/or/pandora-2.mp3",
+    "voice": "pandora",
+    "text": "aw"
+   },
+   {
+    "key": "candidates/or/athena-1.mp3",
+    "voice": "athena",
+    "text": "or"
+   },
+   {
+    "key": "candidates/or/athena-2.mp3",
+    "voice": "athena",
+    "text": "aw"
+   },
+   {
+    "key": "candidates/or/melo-1.wav",
+    "voice": "melo",
+    "text": "or"
+   },
+   {
+    "key": "candidates/or/melo-2.wav",
+    "voice": "melo",
+    "text": "aw"
+   }
+  ]
+ },
+ {
+  "sound": "ur",
+  "takes": [
+   {
+    "key": "candidates/ur/pandora-1.mp3",
+    "voice": "pandora",
+    "text": "ur"
+   },
+   {
+    "key": "candidates/ur/pandora-2.mp3",
+    "voice": "pandora",
+    "text": "er"
+   },
+   {
+    "key": "candidates/ur/athena-1.mp3",
+    "voice": "athena",
+    "text": "ur"
+   },
+   {
+    "key": "candidates/ur/athena-2.mp3",
+    "voice": "athena",
+    "text": "er"
+   },
+   {
+    "key": "candidates/ur/melo-1.wav",
+    "voice": "melo",
+    "text": "ur"
+   },
+   {
+    "key": "candidates/ur/melo-2.wav",
+    "voice": "melo",
+    "text": "er"
+   }
+  ]
+ },
+ {
+  "sound": "ow",
+  "takes": [
+   {
+    "key": "candidates/ow/pandora-1.mp3",
+    "voice": "pandora",
+    "text": "ow"
+   },
+   {
+    "key": "candidates/ow/pandora-2.mp3",
+    "voice": "pandora",
+    "text": "ouch"
+   },
+   {
+    "key": "candidates/ow/athena-1.mp3",
+    "voice": "athena",
+    "text": "ow"
+   },
+   {
+    "key": "candidates/ow/athena-2.mp3",
+    "voice": "athena",
+    "text": "ouch"
+   },
+   {
+    "key": "candidates/ow/melo-1.wav",
+    "voice": "melo",
+    "text": "ow"
+   },
+   {
+    "key": "candidates/ow/melo-2.wav",
+    "voice": "melo",
+    "text": "ouch"
+   }
+  ]
+ },
+ {
+  "sound": "oi",
+  "takes": [
+   {
+    "key": "candidates/oi/pandora-1.mp3",
+    "voice": "pandora",
+    "text": "oy"
+   },
+   {
+    "key": "candidates/oi/pandora-2.mp3",
+    "voice": "pandora",
+    "text": "oi"
+   },
+   {
+    "key": "candidates/oi/athena-1.mp3",
+    "voice": "athena",
+    "text": "oy"
+   },
+   {
+    "key": "candidates/oi/athena-2.mp3",
+    "voice": "athena",
+    "text": "oi"
+   },
+   {
+    "key": "candidates/oi/melo-1.wav",
+    "voice": "melo",
+    "text": "oy"
+   },
+   {
+    "key": "candidates/oi/melo-2.wav",
+    "voice": "melo",
+    "text": "oi"
+   }
+  ]
+ },
+ {
+  "sound": "ch",
+  "takes": [
+   {
+    "key": "candidates/ch/pandora-1.mp3",
+    "voice": "pandora",
+    "text": "ch"
+   },
+   {
+    "key": "candidates/ch/pandora-2.mp3",
+    "voice": "pandora",
+    "text": "chuh"
+   },
+   {
+    "key": "candidates/ch/athena-1.mp3",
+    "voice": "athena",
+    "text": "ch"
+   },
+   {
+    "key": "candidates/ch/athena-2.mp3",
+    "voice": "athena",
+    "text": "chuh"
+   },
+   {
+    "key": "candidates/ch/melo-1.wav",
+    "voice": "melo",
+    "text": "ch"
+   },
+   {
+    "key": "candidates/ch/melo-2.wav",
+    "voice": "melo",
+    "text": "chuh"
+   }
+  ]
+ },
+ {
+  "sound": "th",
+  "takes": [
+   {
+    "key": "candidates/th/pandora-1.mp3",
+    "voice": "pandora",
+    "text": "th"
+   },
+   {
+    "key": "candidates/th/pandora-2.mp3",
+    "voice": "pandora",
+    "text": "thh"
+   },
+   {
+    "key": "candidates/th/athena-1.mp3",
+    "voice": "athena",
+    "text": "th"
+   },
+   {
+    "key": "candidates/th/athena-2.mp3",
+    "voice": "athena",
+    "text": "thh"
+   },
+   {
+    "key": "candidates/th/melo-1.wav",
+    "voice": "melo",
+    "text": "th"
+   },
+   {
+    "key": "candidates/th/melo-2.wav",
+    "voice": "melo",
+    "text": "thh"
+   }
+  ]
+ }
+]
