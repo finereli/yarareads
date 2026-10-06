@@ -1,0 +1,71 @@
+{
+  "id": "mittu",
+  "kind": "book",
+  "series": "Books from home",
+  "number": 1,
+  "title": "Mittu and the Yellow Mango",
+  "author": "Chitra Narendran",
+  "source": "NCERT Class 1 English, lesson 12. Eli owns it in print.",
+  "coverImage": "mittu/7.jpg",
+  "names": [
+    "Mittu"
+  ],
+  "pages": [
+    {
+      "text": "Mittu was a parrot. A green parrot with a red beak. One day Mittu was flying. He loved to fly.",
+      "image": "mittu/1.jpg"
+    },
+    {
+      "text": "He looked down. He saw a big yellow mango on a tree. Mittu liked mangoes.",
+      "image": "mittu/1.jpg"
+    },
+    {
+      "text": "\"I want to eat that yellow mango,\" he said. He flew down to the tree.",
+      "image": "mittu/1.jpg"
+    },
+    {
+      "text": "\"Caw, caw, go away. This is my tree,\" said a voice. Mittu looked up.",
+      "image": "mittu/2.jpg"
+    },
+    {
+      "text": "He saw a big black crow. \"Caw, caw, go, go,\" the crow shouted.",
+      "image": "mittu/3.jpg"
+    },
+    {
+      "text": "He had a very loud voice. Mittu was afraid of the crow. He flew away.",
+      "image": "mittu/3.jpg"
+    },
+    {
+      "text": "Mittu saw a red balloon. It was under a tree. He had an idea.",
+      "image": "mittu/4.jpg"
+    },
+    {
+      "text": "He picked up the red balloon. He was careful not to burst it.",
+      "image": "mittu/4.jpg"
+    },
+    {
+      "text": "He flew to the mango tree. The crow was sitting on the tree. Mittu went behind the tree.",
+      "image": "mittu/5.jpg"
+    },
+    {
+      "text": "He pecked the balloon with his red beak. \"Pop!\" The balloon burst.",
+      "image": "mittu/5.jpg"
+    },
+    {
+      "text": "It made a loud noise. \"Caw!\" said the crow. And he fell off the tree.",
+      "image": "mittu/6.jpg"
+    },
+    {
+      "text": "\"Caw, caw, a big gun is after me,\" said the crow. He flew away. He never came back to the tree.",
+      "image": "mittu/6.jpg"
+    },
+    {
+      "text": "Mittu came to the tree. He ate the big yellow mango.",
+      "image": "mittu/7.jpg"
+    },
+    {
+      "text": "\"Yummy yummy, what a nice mango!\" he said. He was very happy. Clever Mittu!",
+      "image": "mittu/7.jpg"
+    }
+  ]
+}
