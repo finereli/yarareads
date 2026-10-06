@@ -1,4 +1,4 @@
-import { tokenize, isWord, normalize, classify, unreadable, CATALOG_GROUPS } from './phonics.js';
+import { tokenize, isWord, normalize, classify, unreadable, forStory, CATALOG_GROUPS } from './phonics.js';
 import { ICONS, STAR, LOGO, cover } from './art.js';
 
 const app = document.getElementById('app');
@@ -145,7 +145,7 @@ function showGate() {
 async function showLibrary() {
   const stories = await api('stories');
   const series = [...new Set(stories.map((s) => s.series))];
-  const nextUp = stories.find((s) => !s.finished);
+  const nextUp = stories.find((s) => !s.finished && s.kind !== 'book');
   app.innerHTML = `
     <div class="library">
       <header>${BRAND}</header>
@@ -155,9 +155,11 @@ async function showLibrary() {
           ${stories.filter((s) => s.series === name).map((s) => `
             <button class="book press ${s === nextUp ? 'next' : ''}" data-id="${esc(s.id)}">
               ${s === nextUp ? '<span class="tag">Read me next</span>' : ''}
-              <span class="art" style="background: var(--cover-${esc(s.cover || 'egg')})">${cover(s.cover)}</span>
+              ${s.coverImage
+                ? `<span class="art photo"><img src="${pictureUrl(s.coverImage)}" alt=""></span>`
+                : `<span class="art" style="background: var(--cover-${esc(s.cover || 'egg')})">${cover(s.cover)}</span>`}
               <span class="meta">
-                <span class="num">Book ${s.number}</span>
+                <span class="num">${s.kind === 'book' ? 'From home' : `Book ${s.number}`}</span>
                 <span class="title">${esc(s.title)}</span>
                 <span class="stars">${[0, 1, 2].map((i) => STAR(i < s.finished)).join('')}</span>
               </span>
@@ -174,15 +176,20 @@ async function showLibrary() {
 // ---------- Reader ----------
 
 async function showReader(id, pageIndex) {
-  const [story, inv] = await Promise.all([getStory(id), getInventory()]);
+  const [story, all] = await Promise.all([getStory(id), getInventory()]);
+  const inv = forStory(all, story);
   if (pageIndex >= story.pages.length) return showEnd(story);
   if (pageIndex === 0) log('open', { storyId: id });
   log('page', { storyId: id, page: pageIndex });
 
   const page = story.pages[pageIndex];
+  // Words she can't read yet (only in books from home) get a quiet dotted underline.
+  const known = (t) => classify(t, inv, story.words?.[normalize(t)] || []).kind !== 'unknown';
   const words = tokenize(page.text).map((t) =>
-    isWord(t) ? `<span class="w" data-word="${esc(t)}">${esc(t)}</span>` : esc(t),
+    isWord(t) ? `<span class="w ${known(t) ? '' : 'new'}" data-word="${esc(t)}">${esc(t)}</span>` : esc(t),
   );
+  const next = story.pages[pageIndex + 1];
+  if (next?.image) new Image().src = pictureUrl(next.image);
   const last = pageIndex === story.pages.length - 1;
 
   app.innerHTML = `
@@ -192,7 +199,10 @@ async function showReader(id, pageIndex) {
         <div class="title">${esc(story.title)}</div>
         <span class="spacer"></span>
       </div>
-      <div class="sheet"><div class="text">${words.join('')}</div></div>
+      <div class="sheet ${page.image ? 'with-picture' : ''}">
+        ${page.image ? `<div class="picture"><img src="${pictureUrl(page.image)}" alt=""></div>` : ''}
+        <div class="text">${words.join('')}</div>
+      </div>
       <div class="nav">
         <button class="round press" data-act="prev" ${pageIndex === 0 ? 'disabled' : ''} aria-label="Back">${ICONS.prev}</button>
         <div class="progress">${story.pages.map((_, i) => `<span class="${i <= pageIndex ? 'on' : ''}"></span>`).join('')}</div>
@@ -209,6 +219,8 @@ async function showReader(id, pageIndex) {
     openPop(el, story, inv);
   }));
 }
+
+const pictureUrl = (key) => `/api/pictures/${key}`;
 
 // ---------- Word card: the hint lives right on the word ----------
 
@@ -237,7 +249,7 @@ function openPop(el, story, inv) {
         <button class="press" data-a="say" aria-label="Say it">${ICONS.speaker}</button>
       </div>`;
   } else {
-    const badge = { tricky: `${STAR(true)} Tricky word`, name: 'A name' }[info.kind];
+    const badge = { tricky: `${STAR(true)} Tricky word`, name: 'A name', unknown: 'New word' }[info.kind];
     pop.innerHTML = `
       <div class="whole">${esc(word)}</div>
       ${badge ? `<div class="badge">${badge}</div>` : ''}
@@ -369,6 +381,16 @@ async function showGrownups() {
         <p>Whether each book is still readable with what she knows.</p>
         ${stories.map((s) => {
           const missing = unreadable(s, inv);
+          if (s.kind === 'book') {
+            const tokens = s.pages.flatMap((p) => tokenize(p.text).filter(isWord)).map(normalize);
+            const share = Math.round((100 * tokens.filter((w) => !missing.includes(w)).length) / tokens.length);
+            return `<div class="bookrow">
+              <span class="dot home">${share}</span>
+              <div><b>${esc(s.title)}</b> <span class="muted">from home</span>
+                <div>She can read ${share}% of it. Not yet: ${missing.map(esc).join(', ')}</div>
+              </div>
+            </div>`;
+          }
           return `<div class="bookrow">
             <span class="dot ${missing.length ? 'bad' : 'ok'}">${missing.length ? '!' : ICONS.check}</span>
             <div><b>Book ${s.number}: ${esc(s.title)}</b>

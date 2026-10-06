@@ -32,7 +32,9 @@ export default {
 
     if (path === '/api/stories' && request.method === 'GET') {
       const { results: stories } = await env.DB.prepare(
-        "SELECT id, series, number, title, json_extract(body, '$.cover') AS cover FROM stories ORDER BY series, number",
+        `SELECT id, series, number, title, json_extract(body, '$.cover') AS cover,
+           json_extract(body, '$.coverImage') AS coverImage, coalesce(json_extract(body, '$.kind'), 'story') AS kind
+         FROM stories ORDER BY kind = 'book', series, number`,
       ).all();
       const { results: done } = await env.DB.prepare(
         "SELECT story_id, COUNT(*) AS times FROM events WHERE type = 'finish' GROUP BY story_id",
@@ -46,6 +48,20 @@ export default {
       const row = await env.DB.prepare('SELECT body FROM stories WHERE id = ?').bind(storyMatch[1]).first();
       if (!row) return json({ error: 'not found' }, { status: 404 });
       return new Response(row.body, { headers: { 'content-type': 'application/json' } });
+    }
+
+    // Page pictures live in R2, behind the PIN like everything else: some are scans of books we own.
+    const picture = path.match(/^\/api\/pictures\/([\w-]+\/[\w.-]+)$/);
+    if (picture && request.method === 'GET') {
+      const obj = await env.PICTURES.get(picture[1]);
+      if (!obj) return json({ error: 'not found' }, { status: 404 });
+      return new Response(obj.body, {
+        headers: {
+          'content-type': obj.httpMetadata?.contentType || 'image/jpeg',
+          'cache-control': 'private, max-age=604800',
+          etag: obj.httpEtag,
+        },
+      });
     }
 
     // What Yara knows. Edited from the grown-ups section.

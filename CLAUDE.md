@@ -29,10 +29,17 @@ CMU is a US dictionary, so a few UK-normal words fail ("from" has a US vowel). R
   Silent e is a split digraph (a_e, i_e...): `decode` returns parts in spelling order, `{ text, g }`, so "make" is m, a (g a_e), k, e (g a_e, silent).
   The word card links the vowel and its e with an arc under the consonant, as taught in class, and sounds them out together.
 - `docs/vocabulary.md`: coverage findings and the queue of what to teach or add next. `node tools/coverage.mjs` re-measures.
-- `content/stories/*.json`: `{ id, series, number, title, cover, pages: [{ text, picture }] }`. `cover` is a motif in `public/art.js#COVERS`
-  (egg, tear, bog, sun, moon; add new ones there with a `--cover-<name>` color in style.css). `picture` is a scene description for future image generation.
+- `content/stories/*.json`: `{ id, series, number, title, cover, names?, pages: [{ text, picture, image? }] }`. `cover` is a motif in `public/art.js#COVERS`
+  (egg, tear, bog, sun, moon; add new ones there with a `--cover-<name>` color in style.css). `picture` is a scene description for image generation;
+  `image` is an R2 key ("fizz-1/1.jpg") for the page's actual picture, with the file in `content/pictures/<key>`. `names` are characters known only in that story.
+- **Books from home** (`kind: "book"`): real books the family owns, e.g. Mittu and the Yellow Mango. They live in `content/home/<id>/book.json` plus
+  their page images, and that folder is **gitignored: the repo is public and these are other people's books**. D1 and R2 hold the real copies.
+  They're exempt from the readability rule; the checker reports what share she can read, and the reader underlines words she can't read yet.
+  To add one: extract text and pictures (for PDFs, `pdftohtml -xml` gives each illustration's tile positions; render with `pdftoppm -aaVector no`
+  or tile seams show), split into short pages, set `coverImage`, then `node tools/push.mjs --images`.
+- Page pictures are served from R2 (bucket `yara-reads-pictures`) at `/api/pictures/<key>`, behind the PIN.
 - `public/`: the app (no build step). `art.js` holds the icons, logo and cover motifs; `fonts/` are self-hosted Andika (reading) and Fredoka (UI).
-- `src/worker.js`: API. `/api/login`, `/api/stories`, `/api/stories/:id`, `/api/inventory` (GET/PUT), `/api/events`, `/api/progress`.
+- `src/worker.js`: API. `/api/login`, `/api/stories`, `/api/stories/:id`, `/api/pictures/<key>`, `/api/inventory` (GET/PUT), `/api/events`, `/api/progress`.
 - `migrations/`: D1 schema. Stories are stored with each word's pronunciations (`story.words`), so the app classifies words against the live inventory at read time.
 - Events (open, page, tap, finish) go to the `events` table. Taps are the signal for which words to practise.
 
@@ -41,6 +48,7 @@ CMU is a US dictionary, so a few UK-normal words fail ("from" has a US vowel). R
 - `npm run check`: check all stories against the inventory.
 - `node tools/pull.mjs`: copy the live inventory from D1 into content/inventory.json.
 - `node tools/push.mjs`: push stories to remote D1 (`--local` for dev). `--inventory` also overwrites the live inventory: only after a pull.
+  `--images` uploads every page picture to R2.
 - `npx wrangler deploy`: deploy the app. Secrets: `PIN`, `SESSION_SECRET` (never write the PIN into the repo).
 - Local dev: `.dev.vars` with PIN and SESSION_SECRET, `npx wrangler d1 migrations apply yara-reads --local`, `node tools/push.mjs --local --inventory`, `npx wrangler dev`.
 
@@ -60,7 +68,7 @@ Content changes need only `tools/push.mjs`, no deploy.
    Next: more stories. AI writes, the checker validates, and we loop until clean. Vocabulary queue: docs/vocabulary.md.
 3. Pictures: generate per page from `picture`, keeping characters consistent; store in R2.
 4. Real phoneme audio: Eli records each sound, so the sound buttons speak (TTS can't say a clean /t/).
-5. Import books they own: report which graphemes/tricky words she's missing for each, and highlight those words in the text.
+5. ~~Books from home, with pictures (first: Mittu and the Yellow Mango).~~ Next: show which *sounds* a book needs, not just words.
 6. Practise: grow the grown-ups "Practise" panel into something Eli can work through with her.
 
 Not here: whole-page read-aloud. Browser TTS was too weak and it's a shortcut around reading. A proper version (OpenAI TTS with word timings for highlighting) is a separate project.

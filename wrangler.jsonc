@@ -11,6 +11,7 @@
   "d1_databases": [
     { "binding": "DB", "database_name": "yara-reads", "database_id": "9d8e4cf4-a64d-4ff3-8cb6-93ebe2156a49" }
   ],
+  "r2_buckets": [{ "binding": "PICTURES", "bucket_name": "yara-reads-pictures" }],
   "routes": [{ "pattern": "yarareads.finereli.com", "custom_domain": true }]
   // Secrets (wrangler secret put): PIN, SESSION_SECRET
 }

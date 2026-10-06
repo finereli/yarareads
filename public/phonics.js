@@ -120,9 +120,15 @@ export function isWord(token) {
   return /[A-Za-z]/.test(token);
 }
 
+// The inventory as it applies inside one story: plus that story's own characters' names.
+export function forStory(inv, story) {
+  return story.names ? { ...inv, names: [...inv.names, ...story.names] } : inv;
+}
+
 // Words in a compiled story that Yara can't read with this inventory.
 export function unreadable(story, inv) {
+  const local = forStory(inv, story);
   return Object.entries(story.words)
-    .filter(([w, prons]) => classify(w, inv, prons).kind === 'unknown')
+    .filter(([w, prons]) => classify(w, local, prons).kind === 'unknown')
     .map(([w]) => w);
 }
