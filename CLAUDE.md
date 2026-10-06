@@ -18,7 +18,9 @@ The check uses pronunciation, not just spelling. `public/phonics.js#decode` alig
 pronunciation (`data/cmudict.dict`) with the sounds she knows for each grapheme (`content/inventory.json`).
 That's what rejects "cake" (c-a-k-e spells, but the a isn't /a/) and "dry". Unstressed single vowels may be schwa (the o in "dragon").
 Weak forms with no stressed syllable are ignored (otherwise "into" sneaks through as IH0 N T AH0); one-letter words like "a" are special-cased.
-CMU is a US dictionary, so a few UK-normal words fail ("from" has a US vowel). Rewrite the sentence; don't loosen the inventory.
+CMU is a US dictionary. `data/extra.dict` adds British pronunciations next to CMU's (from, been, parrot) and names CMU lacks (Yara, Mittu);
+add to it when a word fails only because of American English. Words in neither dictionary are built from their stem (pecked = peck + T).
+Never loosen the inventory to make a story pass.
 
 ## Layout
 
@@ -28,6 +30,9 @@ CMU is a US dictionary, so a few UK-normal words fail ("from" has a US vowel). R
 - `public/phonics.js#CATALOG_GROUPS`: every grapheme with its ARPAbet sounds, grouped (TYM, Silent e, Coming later). The inventory lists only grapheme names.
   Silent e is a split digraph (a_e, i_e...): `decode` returns parts in spelling order, `{ text, g }`, so "make" is m, a (g a_e), k, e (g a_e, silent).
   The word card links the vowel and its e with an arc under the consonant, as taught in class, and sounds them out together.
+  "Coming later" includes alternative sounds for letters she knows, with ids like "ow (snow)" (`letters(id)` gives the letters).
+  Names and words she can't read yet are still broken down, using the whole catalog: tiles for sounds she hasn't learned are plum (`part.new`).
+  Only tricky words and words no catalog sound can explain show as one block.
 - `docs/vocabulary.md`: coverage findings and the queue of what to teach or add next. `node tools/coverage.mjs` re-measures.
 - `content/stories/*.json`: `{ id, series, number, title, cover, names?, pages: [{ text, picture, image? }] }`. `cover` is a motif in `public/art.js#COVERS`
   (egg, tear, bog, sun, moon; add new ones there with a `--cover-<name>` color in style.css). `picture` is a scene description for image generation;

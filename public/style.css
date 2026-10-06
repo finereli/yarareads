@@ -238,9 +238,15 @@ button { border: none; background: none; cursor: pointer; padding: 0; }
 .chip.split { background: var(--ember-soft); }
 .chip.split .mark::after { display: none; }
 .chip.split.lit { background: var(--gold-soft); }
+/* A sound she hasn't learned yet: plum instead of ember, so known sounds still stand out. */
+.chip.new { background: var(--plum-soft); color: var(--dusk); }
+.chip.new .mark::after { background: var(--dusk); }
+.chip.new.lit { background: var(--gold-soft); }
+.badge.new { background: var(--paper-2); color: var(--ink-soft); }
 .chips.linked { position: relative; padding-bottom: 18px; }
 .chips .links { position: absolute; left: 0; top: 0; pointer-events: none; overflow: visible; }
 .chips .links path { fill: none; stroke: var(--ember); stroke-width: 7; stroke-linecap: round; }
+.chips .links path.new { stroke: var(--dusk); }
 
 .whole { font-family: var(--read); font-size: 46px; padding: 2px 14px; }
 .badge {
@@ -298,6 +304,8 @@ button { border: none; background: none; cursor: pointer; padding: 0; }
   box-shadow: 0 0 0 2px var(--line) inset;
   transition: background 0.12s, color 0.12s;
 }
+.tile { flex-direction: column; gap: 0; line-height: 1; }
+.tile small { font-family: var(--ui); font-size: 11px; font-weight: 500; opacity: 0.8; margin-top: 3px; }
 .tile.on { background: var(--dusk); color: #fff; box-shadow: 0 4px 0 #29234f; }
 
 .wordlist { display: flex; flex-wrap: wrap; gap: 8px; }

@@ -1,0 +1,9 @@
+;;; Pronunciations added on top of CMU, same format (ARPAbet, stress digits). Entries here are tried
+;;; alongside CMU's, so a British pronunciation sits next to the American one.
+;;; Characters' names CMU doesn't know:
+yara Y AA1 R AH0
+mittu M IH1 T UW0
+;;; British pronunciations of words CMU only has in American:
+from F R AA1 M
+been B IY1 N
+parrot P AE1 R AH0 T

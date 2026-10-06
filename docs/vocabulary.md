@@ -50,7 +50,7 @@ Common in early readers, irregular, and useful for storytelling. In order of fre
 
 ## Next candidates, in rough order of value
 
-1. UK pronunciation overrides (from, been, and any others the checker flags that shouldn't fail).
+1. ~~UK pronunciation overrides~~: data/extra.dict (from, been, parrot so far). Add words as they turn up.
 2. y at the end: as "ee" (very, happy, funny) and as "igh" (by, my, fly, try).
 3. -ed endings: the three sounds (t in jumped, d in lived, id in wanted).
 4. The tricky words above, when stories need them.

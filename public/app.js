@@ -1,4 +1,4 @@
-import { tokenize, isWord, normalize, classify, unreadable, forStory, CATALOG_GROUPS } from './phonics.js';
+import { tokenize, isWord, normalize, classify, unreadable, forStory, letters, CATALOG_GROUPS } from './phonics.js';
 import { ICONS, STAR, LOGO, cover } from './art.js';
 
 const app = document.getElementById('app');
@@ -241,9 +241,16 @@ function openPop(el, story, inv) {
 
   pop = document.createElement('div');
   pop.className = 'pop';
-  if (info.kind === 'decodable') {
+  // Anything that can be sounded out gets sound buttons: her words, names, and new words
+  // (whose unfamiliar sounds are marked). Only tricky words and the truly irregular stay whole.
+  const badge = {
+    name: 'A name',
+    unknown: info.parts?.some((p) => p.new) ? 'New sounds' : 'New word',
+  }[info.kind];
+  if (info.parts) {
     pop.innerHTML = `
       <div class="chips">${info.parts.map((p) => `<div class="chip ${chipClass(p)}">${esc(p.text)}<span class="mark"></span></div>`).join('')}</div>
+      ${badge ? `<div class="badge ${info.kind === 'unknown' ? 'new' : ''}">${badge}</div>` : ''}
       <div class="actions">
         <button class="press" data-a="sound">${ICONS.sound} Sound it out</button>
         <button class="press" data-a="say" aria-label="Say it">${ICONS.speaker}</button>
@@ -256,7 +263,7 @@ function openPop(el, story, inv) {
       <div class="actions"><button class="press" data-a="say">${ICONS.speaker} Say it</button></div>`;
   }
   document.body.appendChild(pop);
-  if (info.kind === 'decodable') drawLinks(pop, info.parts);
+  if (info.parts) drawLinks(pop, info.parts);
   place(pop, el);
 
   pop.querySelector('[data-a=say]').onclick = () => speak(word);
@@ -266,9 +273,11 @@ function openPop(el, story, inv) {
 
 // Sound buttons: a dot for one letter, a bar for letters making one sound,
 // and for silent e an arc joining the vowel to its e (drawn by drawLinks).
+// A sound she hasn't learned yet gets the plum "new" look on top.
+const isSplit = (p) => p.g.length === 3 && p.g[1] === '_';
 function chipClass(p) {
-  if (p.g !== p.text) return 'split';
-  return p.text.length > 1 ? 'many' : 'one';
+  const shape = isSplit(p) ? 'split' : p.text.length > 1 ? 'many' : 'one';
+  return p.new ? `${shape} new` : shape;
 }
 
 // The silent e partner of the vowel at index i: the next silent part with the same grapheme.
@@ -282,10 +291,10 @@ function drawLinks(p, parts) {
   // Layout offsets, not getBoundingClientRect: the card is mid scale-in animation right now.
   const centre = (c) => c.offsetLeft + c.offsetWidth / 2;
   const paths = parts.map((part, i) => {
-    if (part.g === part.text || part.silent) return '';
+    if (!isSplit(part) || part.silent) return '';
     const a = chips[i], b = chips[partner(parts, i)];
     const x1 = centre(a), x2 = centre(b), y = a.offsetTop + a.offsetHeight - 6;
-    return `<path d="M${x1} ${y} Q${(x1 + x2) / 2} ${y + 30} ${x2} ${y}"/>`;
+    return `<path class="${part.new ? 'new' : ''}" d="M${x1} ${y} Q${(x1 + x2) / 2} ${y + 30} ${x2} ${y}"/>`;
   }).join('');
   row.insertAdjacentHTML('beforeend', `<svg class="links" width="${row.offsetWidth}" height="${row.offsetHeight + 24}">${paths}</svg>`);
 }
@@ -297,7 +306,7 @@ function soundOut(p, word, parts) {
   steps.forEach((i, n) => setTimeout(() => {
     chips.forEach((x) => x.classList.remove('lit'));
     chips[i].classList.add('lit');
-    if (parts[i].g !== parts[i].text) chips[partner(parts, i)].classList.add('lit');
+    if (isSplit(parts[i])) chips[partner(parts, i)].classList.add('lit');
   }, n * 650));
   setTimeout(() => {
     chips.forEach((c) => c.classList.add('lit'));
@@ -340,7 +349,8 @@ async function showGrownups() {
   const stories = await Promise.all(list.map((s) => getStory(s.id)));
 
   const tiles = (entries) => entries.map(([g]) =>
-    `<button class="tile ${inv.graphemes.includes(g) ? 'on' : ''}" data-g="${esc(g)}">${esc(g)}</button>`).join('');
+    `<button class="tile ${inv.graphemes.includes(g) ? 'on' : ''}" data-g="${esc(g)}">${esc(letters(g))}${
+      g.includes(' (') ? `<small>${esc(g.slice(g.indexOf('(') + 1, -1))}</small>` : ''}</button>`).join('');
   const words = (key) => inv[key].map((w) =>
     `<span class="wordchip">${esc(w)}<button data-remove="${key}" data-w="${esc(w)}" aria-label="Remove ${esc(w)}">${ICONS.close}</button></span>`).join('');
   const adder = (key, placeholder) => `
