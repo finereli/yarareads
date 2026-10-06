@@ -13,39 +13,48 @@
   "pages": [
     {
       "text": "Julia sits Toby down on the grass. \"Floating is like feelings,\" she said.",
-      "picture": "girl sitting the dragon down like a teacher"
+      "picture": "girl sitting the dragon down like a teacher",
+      "image": "toby-5/1.jpg"
     },
     {
       "text": "\"When you are sad, what floats?\"",
-      "picture": "the girl asking, finger raised"
+      "picture": "the girl asking, finger raised",
+      "image": "toby-5/2.jpg"
     },
     {
       "text": "Toby thinks. \"When I am sad, things lift up a bit. They drift and bob.\"",
-      "picture": "small things drifting gently, low to the ground"
+      "picture": "small things drifting gently, low to the ground",
+      "image": "toby-5/3.jpg"
     },
     {
       "text": "\"When I am cross, things zoom up high, quick as a flash. Then they crash down.\"",
-      "picture": "things shooting up fast and high"
+      "picture": "things shooting up fast and high",
+      "image": "toby-5/4.jpg"
     },
     {
       "text": "\"And when you are glad?\" asked Julia. \"Then not a thing floats,\" said Toby. \"And I do not smash things.\"",
-      "picture": "the dragon smiling, everything still on the ground"
+      "picture": "the dragon smiling, everything still on the ground",
+      "image": "toby-5/5.jpg"
     },
     {
       "text": "Julia grins. \"Let's see!\" She sets a frog on Toby's nose.",
-      "picture": "the girl placing a frog on the dragon's nose"
+      "picture": "the girl placing a frog on the dragon's nose",
+      "image": "toby-5/6.jpg"
     },
     {
       "text": "\"Yikes!\" said Toby. He is not glad now. The frog zooms up into a tree!",
-      "picture": "a frog flying up into a tree, the dragon startled"
+      "picture": "a frog flying up into a tree, the dragon startled",
+      "image": "toby-5/7.jpg"
     },
     {
       "text": "\"No, no,\" said Julia. \"Not cross. Just a bit sad. Sad floats are soft.\"",
-      "picture": "the girl shaking her head"
+      "picture": "the girl shaking her head",
+      "image": "toby-5/8.jpg"
     },
     {
       "text": "Toby sighs. Julia waits. Not a thing floats.",
-      "picture": "the two sitting quietly on the grass"
+      "picture": "the two sitting quietly on the grass",
+      "image": "toby-5/9.jpg"
     }
   ]
 }

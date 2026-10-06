@@ -13,39 +13,48 @@
   "pages": [
     {
       "text": "Julia is still cross. She will not look at Toby.",
-      "picture": "girl with arms folded, turned away from the dragon"
+      "picture": "girl with arms folded, turned away from the dragon",
+      "image": "toby-4/1.jpg"
     },
     {
       "text": "Then a big black dog runs up the path. Woof! Woof!",
-      "picture": "a big black dog charging up the garden path"
+      "picture": "a big black dog charging up the garden path",
+      "image": "toby-4/2.jpg"
     },
     {
       "text": "The dog barks at Toby. Toby gets cross. His spikes stick up.",
-      "picture": "the dog barking, the dragon's spikes bristling like a porcupine"
+      "picture": "the dog barking, the dragon's spikes bristling like a porcupine",
+      "image": "toby-4/3.jpg"
     },
     {
       "text": "And then a bucket zooms up into the air. A rake zooms up. A pot zooms up, high, high, high!",
-      "picture": "a bucket, a rake and a flower pot shooting high into the sky"
+      "picture": "a bucket, a rake and a flower pot shooting high into the sky",
+      "image": "toby-4/4.jpg"
     },
     {
       "text": "Crash! Bang! Smash! They all come down. The dog runs off.",
-      "picture": "things crashing down, the dog running away"
+      "picture": "things crashing down, the dog running away",
+      "image": "toby-4/5.jpg"
     },
     {
       "text": "Julia looks at Toby. Her chin drops.",
-      "picture": "the girl staring, mouth open"
+      "picture": "the girl staring, mouth open",
+      "image": "toby-4/6.jpg"
     },
     {
       "text": "\"Whoa!\" said Julia. \"That is so, so cool! Do it on me! Make me float!\"",
-      "picture": "the girl jumping up and down with excitement"
+      "picture": "the girl jumping up and down with excitement",
+      "image": "toby-4/7.jpg"
     },
     {
       "text": "Toby looks down. \"I can't,\" he said. \"It is not up to me. When I am glad, not a thing floats.\"",
-      "picture": "the dragon looking down sadly"
+      "picture": "the dragon looking down sadly",
+      "image": "toby-4/8.jpg"
     },
     {
       "text": "Julia thinks hard. \"Then we will fix it,\" she said. \"I will teach you!\"",
-      "picture": "the girl with a determined grin"
+      "picture": "the girl with a determined grin",
+      "image": "toby-4/9.jpg"
     }
   ]
 }

@@ -1,0 +1,34 @@
+{
+  "series": "Julia and Toby",
+  "style": "Children's picture book illustration. Soft watercolor with gentle colored-pencil lines, warm light, rounded friendly shapes, simple uncluttered backgrounds, expressive faces. Cozy, a little magical. No text, no letters, no words anywhere in the image.",
+  "size": [
+    1024,
+    768
+  ],
+  "cast": {
+    "julia": {
+      "match": [
+        "julia",
+        "girl",
+        "she",
+        "her"
+      ],
+      "look": "Julia, a 6-year-old girl with curly brown hair in two puffs, a few freckles, a yellow t-shirt, blue denim dungarees and red sneakers."
+    },
+    "toby": {
+      "match": [
+        "toby",
+        "dragon"
+      ],
+      "look": "Toby, a small young dragon about the size of a big dog. Pure white scales that shimmer with tiny pink, green and blue sparkles, a round friendly face, big dark eyes, small wings, a row of soft rounded spikes along his back, and a long tail."
+    },
+    "playhouse": {
+      "match": [
+        "play house",
+        "playhouse"
+      ],
+      "look": "Julia's playhouse: a small children's plastic playhouse, pink walls with a little window and door, and a green roof.",
+      "object": true
+    }
+  }
+}

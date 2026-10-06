@@ -13,39 +13,48 @@
   "pages": [
     {
       "text": "Julia has a play house in her backyard. It is pink, with a green roof.",
-      "picture": "a small plastic playhouse, pink with a green roof"
+      "picture": "a small plastic playhouse, pink with a green roof",
+      "image": "toby-2/1.jpg"
     },
     {
       "text": "\"Toby, you can hide in here,\" she said. Toby just fits.",
-      "picture": "the dragon squeezed inside the little playhouse"
+      "picture": "the dragon squeezed inside the little playhouse",
+      "image": "toby-2/2.jpg"
     },
     {
       "text": "\"Now I must go in and eat,\" said Julia. \"Wait here!\"",
-      "picture": "girl waving and running to the house"
+      "picture": "girl waving and running to the house",
+      "image": "toby-2/3.jpg"
     },
     {
       "text": "Julia eats toast and jam. Then she runs back to the play house.",
-      "picture": "girl eating toast and jam at the kitchen table"
+      "picture": "girl eating toast and jam at the kitchen table",
+      "image": "toby-2/4.jpg"
     },
     {
       "text": "But her scooter is on its side, and the wheel is bent!",
-      "picture": "a scooter lying on its side with a bent wheel"
+      "picture": "a scooter lying on its side with a bent wheel",
+      "image": "toby-2/5.jpg"
     },
     {
       "text": "\"Toby! What did you do?\"",
-      "picture": "the girl with hands on hips"
+      "picture": "the girl with hands on hips",
+      "image": "toby-2/6.jpg"
     },
     {
       "text": "Toby looks at his feet. \"I miss my mum. I get upset, and things float up. Then they crash down.\"",
-      "picture": "the dragon looking down guiltily"
+      "picture": "the dragon looking down guiltily",
+      "image": "toby-2/7.jpg"
     },
     {
       "text": "Julia stamps her foot. \"That is my best scooter!\" She stomps off into the house.",
-      "picture": "the girl stomping off angrily"
+      "picture": "the girl stomping off angrily",
+      "image": "toby-2/8.jpg"
     },
     {
       "text": "Toby sits in the play house. He is so sad that the cups and dolls lift up, just a bit, and bob there.",
-      "picture": "toy cups and dolls drifting gently in the air around the sad dragon"
+      "picture": "toy cups and dolls drifting gently in the air around the sad dragon",
+      "image": "toby-2/9.jpg"
     }
   ]
 }
