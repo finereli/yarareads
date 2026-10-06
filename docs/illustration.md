@@ -109,8 +109,17 @@ their sheet; changing a sheet means redrawing every page they appear in.
 
 ## Status (Oct 2026)
 
-- Julia and Toby chapters 1-5: all pages drawn and live. Chapter 6: pages 1-3 drawn; pages 4-10 still to do.
-- Covers: still the drawn motifs; switch to page pictures once favourites are chosen.
+- **On hold.** Eli wants a better model and to mind spend. Likely next: Gemini's image model via OpenRouter
+  (needs `OPENROUTER_API_KEY` in the environment), with character sheets as references as before.
+- Julia and Toby was rewritten (7 chapters, Tom's notes) and published **text only**. Every page's FLUX picture is
+  parked as `draftImage` (not shown in the app); `illustrate.mjs pages <id> --missing` treats those pages as undrawn.
+  Drafts: `content/pictures/toby-v1-*` (first draft) and `content/pictures/toby-N/` (rewrite, FLUX). Cost so far ~$8.
+- Problems seen with FLUX on the rewrite, to fix with the new model:
+  - Text painted into a picture despite "no text" (ch4 p7, "Crash! Bang! Smash!").
+  - **Cast detection matched "dragon" to Toby** on the ominous black-dragon pages (ch7 p10-12), so cute Toby appeared
+    in the dark cave. The black dragon needs its own cast entry and sheet, and `match` words must not collide
+    ("big black dragon" vs "dragon"). Consider explicit per-page `cast` lists instead of keyword matching.
+  - The black dragon itself came out bear-like.
 - Mittu and the Yellow Mango: pictures are scans from the book (see CLAUDE.md, books from home), not generated.
 
 ## A new series
