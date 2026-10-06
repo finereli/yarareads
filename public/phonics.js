@@ -141,7 +141,7 @@ export function classify(word, inv, pronunciations = []) {
     return { kind: 'name', parts: stretch(w, inv, pronunciations) };
   }
   if (inv.tricky.map(normalize).includes(w)) return { kind: 'tricky' };
-  if (w.length === 1 && inv.graphemes.includes(w)) return { kind: 'decodable', parts: [{ text: w, g: w }] }; // "a"
+  if (w === 'a' && inv.graphemes.includes('a')) return { kind: 'decodable', parts: [{ text: 'a', g: 'a' }] }; // "a" is taught as decodable
   const parts = breakdown(w, inv.graphemes, pronunciations);
   if (parts) return { kind: 'decodable', parts };
   return { kind: 'unknown', parts: stretch(w, inv, pronunciations) };

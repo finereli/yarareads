@@ -14,14 +14,16 @@ export function pronunciations(word) {
       if (line.startsWith(';;;')) continue;
       const [head, ...phones] = line.split('#')[0].trim().split(/\s+/);
       if (!head || !phones.length) continue;
-      const w = head.replace(/\(\d+\)$/, '').replace(/[^a-z]/g, '');
+      // Keep apostrophes in the key: "we're" (W IY R) must not merge into "were" (W ER).
+      const w = head.replace(/\(\d+\)$/, '').toLowerCase().replace(/[^a-z']/g, '');
       dict.set(w, [...(dict.get(w) || []), phones]);
     }
   }
-  const possessive = /[’']s$/.test(word);
-  const w = word.toLowerCase().replace(/[’']s$/, '').replace(/[^a-z]/g, '');
-  const prons = lookup(w);
-  return possessive ? prons.map((p) => [...p, ending(p, 's')]) : prons;
+  const w = word.toLowerCase().replace(/’/g, "'").replace(/[^a-z']/g, '');
+  if (dict.has(w)) return dict.get(w); // includes contractions: let's, can't
+  // Possessives CMU doesn't list: Toby's = Toby + Z.
+  if (/'s$/.test(w)) return lookup(w.slice(0, -2)).map((p) => [...p, ending(p, 's')]);
+  return lookup(w.replace(/'/g, ''));
 }
 
 function lookup(w) {
