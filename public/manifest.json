@@ -3,7 +3,7 @@
   "short_name": "Yara Reads",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#fff7ec",
-  "theme_color": "#fff7ec",
+  "background_color": "#fbf5ea",
+  "theme_color": "#fbf5ea",
   "icons": [{ "src": "icon.svg", "sizes": "any", "type": "image/svg+xml" }]
 }

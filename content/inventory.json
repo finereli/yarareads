@@ -1,20 +1,18 @@
 {
-  "_note": "PLACEHOLDER: Letters and Sounds phases 2-4, roughly what Teach Your Monster to Read covers. Replace with what Yara actually knows once Eli sends TYM screenshots. Sounds are ARPAbet (US dictionary), so 'o' allows both AA (hot) and AO (dog).",
-  "graphemes": {
-    "s": ["S", "Z"], "a": ["AE"], "t": ["T"], "p": ["P"], "i": ["IH"], "n": ["N", "NG"],
-    "m": ["M"], "d": ["D"], "g": ["G"], "o": ["AA", "AO"], "c": ["K"], "k": ["K"], "ck": ["K"],
-    "e": ["EH"], "u": ["AH"], "r": ["R"], "h": ["HH"], "b": ["B"], "f": ["F"], "ff": ["F"], "gg": ["G"],
-    "l": ["L"], "ll": ["L"], "ss": ["S"],
-    "j": ["JH"], "v": ["V"], "w": ["W"], "x": ["K S"], "y": ["Y"], "z": ["Z"], "zz": ["Z"], "qu": ["K W"],
-    "ch": ["CH"], "sh": ["SH"], "th": ["TH", "DH"], "ng": ["NG"],
-    "ai": ["EY"], "ee": ["IY"], "igh": ["AY"], "oa": ["OW"], "oo": ["UW", "UH"],
-    "ar": ["AA R"], "or": ["AO R"], "ur": ["ER"], "ow": ["AW"], "oi": ["OY"],
-    "ear": ["IH R"], "air": ["EH R"], "ure": ["UH R"], "er": ["ER"]
-  },
-  "tricky": [
-    "the", "to", "i", "no", "go", "into", "of",
-    "he", "she", "we", "me", "be", "was", "my", "you", "they", "her", "all", "are",
-    "said", "have", "like", "so", "do", "some", "come", "were", "there", "little", "one", "out", "what", "when"
+  "_note": "Seed only. The live inventory is in D1 and edited from the grown-ups section; `node tools/pull.mjs` copies it back here. Graphemes and tricky words are what Yara finished in Teach Your Monster to Read (screenshots, Oct 2026). 'egg' and 'house' are extra words Eli wanted in book 1.",
+  "graphemes": [
+    "s", "a", "t", "p", "i", "n", "m", "d", "g", "o", "c", "k", "ck", "e", "u", "r", "h", "b",
+    "f", "ff", "l", "ll", "ss", "j",
+    "qu", "v", "w", "x", "y", "z", "zz", "ch", "sh", "th", "ng",
+    "ai", "ee", "igh", "oa", "oo", "ar", "or", "ur", "ow", "oi", "ear",
+    "air", "ure", "er", "ay", "ou", "ie", "ea", "oy", "ir", "ue", "aw", "wh", "ph"
   ],
-  "names": ["Yara", "Fizz"]
+  "tricky": [
+    "to", "the", "no", "go", "I", "he", "she", "we", "me", "be", "was", "my",
+    "you", "they", "her", "all", "are", "said", "so", "have", "like", "some", "there", "were",
+    "come", "little", "one", "do", "when", "out", "what", "oh", "their", "people", "Mr", "Mrs",
+    "looked", "called", "asked", "your", "give",
+    "egg", "house"
+  ],
+  "names": ["Yara", "Fizz", "Grub"]
 }

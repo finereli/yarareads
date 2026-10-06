@@ -17,33 +17,46 @@ Every word in a story must be readable by Yara: decodable with her graphemes, a 
 The check uses pronunciation, not just spelling. `public/phonics.js#decode` aligns each word's CMU dictionary
 pronunciation (`data/cmudict.dict`) with the sounds she knows for each grapheme (`content/inventory.json`).
 That's what rejects "cake" (c-a-k-e spells, but the a isn't /a/) and "dry". Unstressed single vowels may be schwa (the o in "dragon").
+Weak forms with no stressed syllable are ignored (otherwise "into" sneaks through as IH0 N T AH0); one-letter words like "a" are special-cased.
 CMU is a US dictionary, so a few UK-normal words fail ("from" has a US vowel). Rewrite the sentence; don't loosen the inventory.
 
 ## Layout
 
-- `content/inventory.json`: what Yara knows. Graphemes map to ARPAbet sounds. **Still a placeholder** (Letters and Sounds phases 2-4) until Eli sends TYM screenshots.
-- `content/stories/*.json`: `{ id, series, number, title, pages: [{ text, picture }] }`. `picture` is a scene description for future image generation.
-- `public/`: the app (no build step). `phonics.js` is shared with the Node tools.
-- `src/worker.js`: API. `/api/login`, `/api/stories`, `/api/stories/:id`, `/api/events`, `/api/progress`.
-- `migrations/`: D1 schema. Stories are stored compiled (with per-word breakdowns) in `stories.body`.
+- **The live inventory is in D1**, edited by Eli in the grown-ups section (gate: type a birth year that makes you an adult, like TYM).
+  `content/inventory.json` is the seed: her TYM sounds and tricky words from his screenshots (Oct 2026), plus "egg" and "house".
+  Run `node tools/pull.mjs` before writing stories, so you check against what she knows now.
+- `public/phonics.js#CATALOG`: every grapheme with its ARPAbet sounds, in TYM order. The inventory lists only grapheme names.
+- `content/stories/*.json`: `{ id, series, number, title, cover, pages: [{ text, picture }] }`. `cover` is a motif in `public/art.js#COVERS`
+  (egg, tear, bog, sun, moon; add new ones there with a `--cover-<name>` color in style.css). `picture` is a scene description for future image generation.
+- `public/`: the app (no build step). `art.js` holds the icons, logo and cover motifs; `fonts/` are self-hosted Andika (reading) and Fredoka (UI).
+- `src/worker.js`: API. `/api/login`, `/api/stories`, `/api/stories/:id`, `/api/inventory` (GET/PUT), `/api/events`, `/api/progress`.
+- `migrations/`: D1 schema. Stories are stored with each word's pronunciations (`story.words`), so the app classifies words against the live inventory at read time.
 - Events (open, page, tap, finish) go to the `events` table. Taps are the signal for which words to practise.
 
 ## Commands
 
 - `npm run check`: check all stories against the inventory.
-- `node tools/push.mjs`: push the inventory + stories to remote D1 (`--local` for dev).
+- `node tools/pull.mjs`: copy the live inventory from D1 into content/inventory.json.
+- `node tools/push.mjs`: push stories to remote D1 (`--local` for dev). `--inventory` also overwrites the live inventory: only after a pull.
 - `npx wrangler deploy`: deploy the app. Secrets: `PIN`, `SESSION_SECRET` (never write the PIN into the repo).
-- Local dev: `.dev.vars` with PIN and SESSION_SECRET, `npx wrangler d1 migrations apply yara-reads --local`, `node tools/push.mjs --local`, `npx wrangler dev`.
+- Local dev: `.dev.vars` with PIN and SESSION_SECRET, `npx wrangler d1 migrations apply yara-reads --local`, `node tools/push.mjs --local --inventory`, `npx wrangler dev`.
+
+## Design
+
+Storybook at dusk: warm paper, plum ink, dragon ember and gold (tokens at the top of style.css). Chunky `.press` buttons that sink when tapped,
+one SVG icon set in art.js (24px grid, 2.5 stroke, round caps), illustrated cover motifs. No emoji in the UI.
+Sound buttons follow classroom convention: a dot under a single letter, a bar under a digraph/trigraph.
 
 Content changes need only `tools/push.mjs`, no deploy.
 
 ## Roadmap
 
 1. ~~v0: reader, tap-a-word sound buttons, sound-it-out, first series (Yara and Fizz, 5 books), checker, progress.~~
-2. Real inventory from TYM screenshots, then more stories: AI writes, the checker validates, and we loop until clean.
+2. ~~Real inventory from TYM, grown-ups section, visual design, books 2-5 rewritten with the full TYM set.~~
+   Next: more stories. AI writes, the checker validates, and we loop until clean.
 3. Pictures: generate per page from `picture`, keeping characters consistent; store in R2.
 4. Real phoneme audio: Eli records each sound, so the sound buttons speak (TTS can't say a clean /t/).
 5. Import books they own: report which graphemes/tricky words she's missing for each, and highlight those words in the text.
-6. Parent view: grow "For grown-ups" into a proper practise list driven by taps.
+6. Practise: grow the grown-ups "Practise" panel into something Eli can work through with her.
 
 Not here: whole-page read-aloud. Browser TTS was too weak and it's a shortcut around reading. A proper version (OpenAI TTS with word timings for highlighting) is a separate project.

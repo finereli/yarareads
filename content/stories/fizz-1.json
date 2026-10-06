@@ -3,13 +3,14 @@
   "series": "Yara and Fizz",
   "number": 1,
   "title": "The Red Egg",
+  "cover": "egg",
   "pages": [
     {
       "text": "Yara is in the wood. She sees a big red egg in the moss.",
       "picture": "a girl finds a big red egg in mossy woods"
     },
     {
-      "text": "The egg is hot! Yara picks it up and runs back to her den.",
+      "text": "The egg is hot! Yara picks it up and runs back to her house.",
       "picture": "girl running home holding a red egg"
     },
     {

@@ -32,7 +32,7 @@ export default {
 
     if (path === '/api/stories' && request.method === 'GET') {
       const { results: stories } = await env.DB.prepare(
-        'SELECT id, series, number, title FROM stories ORDER BY series, number',
+        "SELECT id, series, number, title, json_extract(body, '$.cover') AS cover FROM stories ORDER BY series, number",
       ).all();
       const { results: done } = await env.DB.prepare(
         "SELECT story_id, COUNT(*) AS times FROM events WHERE type = 'finish' GROUP BY story_id",
@@ -46,6 +46,27 @@ export default {
       const row = await env.DB.prepare('SELECT body FROM stories WHERE id = ?').bind(storyMatch[1]).first();
       if (!row) return json({ error: 'not found' }, { status: 404 });
       return new Response(row.body, { headers: { 'content-type': 'application/json' } });
+    }
+
+    // What Yara knows. Edited from the grown-ups section.
+    if (path === '/api/inventory' && request.method === 'GET') {
+      const row = await env.DB.prepare('SELECT body FROM inventory WHERE id = 1').first();
+      return new Response(row ? row.body : '{"graphemes":[],"tricky":[],"names":[]}', {
+        headers: { 'content-type': 'application/json' },
+      });
+    }
+
+    if (path === '/api/inventory' && request.method === 'PUT') {
+      const inv = await request.json();
+      const strings = (a) => Array.isArray(a) && a.every((x) => typeof x === 'string' && x.length < 40);
+      if (!strings(inv.graphemes) || !strings(inv.tricky) || !strings(inv.names)) {
+        return json({ error: 'bad inventory' }, { status: 400 });
+      }
+      const body = JSON.stringify({ graphemes: inv.graphemes, tricky: inv.tricky, names: inv.names });
+      await env.DB.prepare(
+        'INSERT OR REPLACE INTO inventory (id, body, updated_at) VALUES (1, ?, CURRENT_TIMESTAMP)',
+      ).bind(body).run();
+      return json({ ok: true });
     }
 
     if (path === '/api/events' && request.method === 'POST') {

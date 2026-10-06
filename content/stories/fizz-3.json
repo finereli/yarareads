@@ -3,34 +3,43 @@
   "series": "Yara and Fizz",
   "number": 3,
   "title": "The Bog Monster",
+  "cover": "bog",
   "pages": [
     {
-      "text": "Yara and Fizz go down the path.",
-      "picture": "girl and baby dragon walking down a path"
+      "text": "Yara and Fizz go down a long path in the wood.",
+      "picture": "girl and dragon walking down a forest path"
     },
     {
-      "text": "The path ends at a big, wet bog. Mud! Muck! Fog!",
-      "picture": "a foggy muddy bog"
+      "text": "The trees get thick. The path gets wet. Then it ends at a big, deep bog.",
+      "picture": "the path ending at a dark wide bog"
     },
     {
-      "text": "Then the mud starts to fizz. A monster pops up in the bog.",
-      "picture": "a monster rising out of a bog"
+      "text": "Mud! Muck! Fog! It smells bad. \"Yuck!\" said Fizz.",
+      "picture": "dragon holding his nose in the fog"
     },
     {
-      "text": "It is Grub, the Bog Monster! He has six arms and a big wet chin.",
-      "picture": "a funny six-armed mud monster"
+      "text": "Then the mud starts to churn. Blob, blob, blob!",
+      "picture": "the bog churning with bubbles"
     },
     {
-      "text": "\"No one gets past my bog!\" said Grub.",
-      "picture": "the mud monster blocking the way"
+      "text": "Up pops a monster with six arms and a big, wet chin. \"I am Grub!\" he shouts.",
+      "picture": "a funny six-armed mud monster rising out of the bog"
     },
     {
-      "text": "Fizz huffs. Puff! But no spark pops out. Fizz is too little.",
-      "picture": "baby dragon failing to make a spark"
+      "text": "\"This is my bog. No one gets past me!\"",
+      "picture": "the mud monster blocking the way with all six arms"
+    },
+    {
+      "text": "Fizz huffs a big huff. But he is too little. No sparks shoot out.",
+      "picture": "baby dragon huffing but no fire comes out"
+    },
+    {
+      "text": "Grub grins. Fizz looks down at his feet.",
+      "picture": "monster grinning, dragon looking embarrassed"
     },
     {
       "text": "Yara thinks and thinks. Then she has a plan.",
-      "picture": "girl thinking with a lightbulb moment"
+      "picture": "girl with a clever idea"
     }
   ]
 }

@@ -1,4 +1,5 @@
-// Compiles stories: attaches how each word breaks down, and lists words Yara can't read yet.
+// Compiles stories: attaches each word's pronunciations (so the app can decide, against the
+// live inventory, how to break it down), and lists words Yara can't read yet.
 import { readFileSync, readdirSync } from 'node:fs';
 import { join } from 'node:path';
 import { classify, tokenize, isWord, normalize } from '../public/phonics.js';
@@ -20,9 +21,8 @@ export function compile(story, inv = inventory) {
     for (const t of tokenize(page.text).filter(isWord)) {
       count++;
       const w = normalize(t);
-      const c = classify(t, inv, pronunciations(t));
-      words[w] = c;
-      if (c.kind === 'unknown') unknown.set(w, [...(unknown.get(w) || []), n + 1]);
+      words[w] = pronunciations(t);
+      if (classify(t, inv, words[w]).kind === 'unknown') unknown.set(w, [...(unknown.get(w) || []), n + 1]);
     }
   });
   return { story: { ...story, words }, unknown, count };

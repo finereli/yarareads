@@ -3,34 +3,47 @@
   "series": "Yara and Fizz",
   "number": 4,
   "title": "Yara's Plan",
+  "cover": "sun",
   "pages": [
     {
-      "text": "\"Grub, I bet you are sick of mud,\" said Yara.",
+      "text": "\"Grub,\" said Yara, \"do you like your bog?\"",
       "picture": "girl talking to the mud monster"
     },
     {
-      "text": "\"I am,\" said Grub. \"Mud in my hair. Mud in my ears. Mud on my feet.\"",
-      "picture": "grumpy mud monster covered in mud"
+      "text": "Grub sighs. \"No,\" he said. \"It is wet and it is dark. Mud gets in my ears and in my hair.\"",
+      "picture": "grumpy mud monster dripping with mud"
     },
     {
-      "text": "\"Fizz can help,\" said Yara.",
-      "picture": "girl pointing at the baby dragon"
+      "text": "\"I wish I had a hot rock in the sun to sit on.\"",
+      "picture": "the monster dreaming of a sunny rock"
     },
     {
-      "text": "Fizz huffs and puffs. A hot wind fills the bog.",
-      "picture": "baby dragon blowing warm wind over the bog"
+      "text": "\"Fizz can help,\" said Yara. \"He is a dragon. Dragons are hot!\"",
+      "picture": "girl pointing proudly at the dragon"
     },
     {
-      "text": "The mud gets hard. It cracks. Then Grub is not wet at all.",
-      "picture": "dry cracked mud and a happy clean monster"
+      "text": "Fizz huffs and puffs. He puffs and huffs. A hot wind sweeps across the bog.",
+      "picture": "dragon blowing a warm wind over the bog"
     },
     {
-      "text": "Grub grins. \"Thank you!\" he said. \"You can go past my bog.\"",
-      "picture": "monster grinning and waving them past"
+      "text": "The mud gets hard and cracks. Steam curls up and up.",
+      "picture": "dried cracked mud with steam rising"
     },
     {
-      "text": "Yara and Fizz run on. Dragon Hill is near.",
-      "picture": "girl and dragon running toward a hill"
+      "text": "Grub sits down on a hot, flat rock in the sun.",
+      "picture": "the monster sitting happily on a sunny rock"
+    },
+    {
+      "text": "\"Oh!\" said Grub. \"This is the best day!\"",
+      "picture": "the monster beaming"
+    },
+    {
+      "text": "\"You can go past my bog,\" said Grub. \"And if you need help, just shout for Grub!\"",
+      "picture": "the monster waving them past"
+    },
+    {
+      "text": "Yara and Fizz run on. Dragon Hill looms near.",
+      "picture": "girl and dragon running toward a looming hill"
     }
   ]
 }

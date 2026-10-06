@@ -3,38 +3,51 @@
   "series": "Yara and Fizz",
   "number": 5,
   "title": "Dragon Hill",
+  "cover": "moon",
   "pages": [
     {
-      "text": "The hill is steep. Yara gets hot and her legs hurt.",
-      "picture": "girl climbing a steep hill"
+      "text": "Dragon Hill is steep and high. Yara's legs hurt.",
+      "picture": "girl climbing a steep rocky hill"
     },
     {
-      "text": "Fizz flaps his wings. Flap, flap, flap! Then Fizz is up in the air!",
-      "picture": "baby dragon flying for the first time"
+      "text": "Then the wind gets up. It howls. It tugs at Yara's coat.",
+      "picture": "wind howling around the girl on the hillside"
     },
     {
-      "text": "\"Fizz, look at you!\" said Yara.",
-      "picture": "girl cheering"
+      "text": "Yara slips on a wet rock. Down, down, down she skids!",
+      "picture": "girl slipping down the rocks"
     },
     {
-      "text": "At the top, the big dragon gets up. Her wings are as big as a ship.",
-      "picture": "a huge mother dragon standing up"
+      "text": "\"Fizz!\" Yara screams.",
+      "picture": "girl calling out"
     },
     {
-      "text": "\"Mum!\" said Fizz. The big dragon hugs him with her tail.",
-      "picture": "mother dragon hugging baby with her tail"
+      "text": "Fizz flaps his wings. Flap, flap, flap! He zooms down and grabs Yara's coat.",
+      "picture": "baby dragon diving to grab the girl's coat"
     },
     {
-      "text": "Then the big dragon looks at Yara. \"Thank you for this,\" she said. \"Get on my back.\"",
-      "picture": "mother dragon inviting the girl onto her back"
+      "text": "Fizz lifts Yara up and up. They land on the top.",
+      "picture": "dragon carrying the girl up to the hilltop"
     },
     {
-      "text": "Yara and Fizz and Mum zoom up into the night. The moon is big. The stars are bright.",
-      "picture": "girl riding a dragon under the moon and stars"
+      "text": "A big dragon looks down at them. Her teeth are as long as Yara's arm.",
+      "picture": "a huge dragon looking down at them"
+    },
+    {
+      "text": "\"Mum!\" shouts Fizz. \"Fizz! My little one!\" Mum hugs him with her wings and her tail.",
+      "picture": "the mother dragon hugging the baby with wings and tail"
+    },
+    {
+      "text": "Then Mum looks at Yara. \"Thank you, Yara,\" she said. \"You got my little one back to me.\"",
+      "picture": "mother dragon bowing her head to the girl"
+    },
+    {
+      "text": "\"Get on my back,\" said Mum. And they zoom up, up, up to the moon. The stars are bright.",
+      "picture": "girl riding the dragon under the moon and stars"
     },
     {
       "text": "The End... for now!",
-      "picture": "the dragons and girl silhouetted against the moon"
+      "picture": "dragons and girl silhouetted against the moon"
     }
   ]
 }

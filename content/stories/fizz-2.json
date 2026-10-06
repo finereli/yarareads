@@ -3,34 +3,39 @@
   "series": "Yara and Fizz",
   "number": 2,
   "title": "Fizz Is Sad",
+  "cover": "tear",
   "pages": [
     {
-      "text": "Fizz is sad. He sits in the rain and looks up at the hill.",
-      "picture": "sad baby dragon in the rain looking at a hill"
+      "text": "Fizz is a little dragon, but he can eat a lot. He eats ten buns in one day!",
+      "picture": "baby dragon happily eating a pile of buns"
     },
     {
-      "text": "\"Fizz, what is it?\" said Yara.",
-      "picture": "girl kneeling by the dragon"
+      "text": "But one day, Fizz will not eat. He sits on the step and looks out at the hills.",
+      "picture": "baby dragon sitting on a doorstep looking at far hills"
     },
     {
-      "text": "Fizz points up at the top of Dragon Hill.",
-      "picture": "dragon pointing at a tall hill"
+      "text": "\"What is it, Fizz?\" asked Yara.",
+      "picture": "girl kneeling beside the sad dragon"
     },
     {
-      "text": "On the top of the hill is a big dragon. She is fast asleep.",
-      "picture": "a huge dragon asleep on a hilltop"
+      "text": "Fizz points his claw at the highest hill. \"That is Dragon Hill,\" he said. \"My mum is up there.\"",
+      "picture": "dragon pointing a claw at a tall misty hill"
     },
     {
-      "text": "\"That is my mum,\" said Fizz.",
-      "picture": "baby dragon looking hopeful"
+      "text": "\"I miss her,\" said Fizz. A big tear drips down his cheek.",
+      "picture": "close-up of the baby dragon with a tear on his cheek"
     },
     {
-      "text": "\"Then we will go to her,\" said Yara. \"We will go up Dragon Hill.\"",
-      "picture": "girl and dragon determined"
+      "text": "Yara hugs Fizz. \"Then we will go to her,\" she said.",
+      "picture": "girl hugging the baby dragon"
     },
     {
-      "text": "Yara gets her backpack and her torch. Fizz flaps his wings. The quest starts!",
-      "picture": "girl with backpack and torch, dragon flapping"
+      "text": "That night, Yara packs her bag. A torch, a coat, and ten jam buns for Fizz.",
+      "picture": "girl packing a backpack by lamplight"
+    },
+    {
+      "text": "At dawn, they set off. Dragon Hill is far away, but Yara is not afraid. The quest starts now!",
+      "picture": "girl and dragon setting off at sunrise toward the hill"
     }
   ]
 }
