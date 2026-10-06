@@ -13,11 +13,15 @@
 // Then `node tools/push.mjs --images` uploads them.
 import { readFileSync, writeFileSync, mkdirSync, existsSync } from 'node:fs';
 import { join } from 'node:path';
+import sharp from 'sharp';
 
 const root = new URL('..', import.meta.url).pathname;
 const ACCOUNT = '7485eb8ab648601f411b650cd794bce3';
 const MODEL = '@cf/black-forest-labs/flux-2-dev';
 const slug = (s) => s.toLowerCase().replace(/[^a-z0-9]+/g, '-');
+
+// FLUX returns near-lossless JPEGs (~400 KB). Quality 80 is visually identical at reading size and ~5x smaller.
+export const webJpeg = (buf) => sharp(buf).jpeg({ quality: 80, progressive: true, mozjpeg: true }).toBuffer();
 
 async function draw(prompt, refs = [], [width, height] = [1024, 768], seed) {
   const form = new FormData();
@@ -81,7 +85,7 @@ if (cmd === 'sheet') {
     const refs = cast.map((c) => join(dir, `${c}.jpg`));
     const who = cast.map((c, i) => `Image ${i + 1} is the reference for ${art.cast[c].look} Keep this exact design, colours and outfit.`).join(' ');
     const prompt = `${art.style} ${who} Scene: ${page.picture}. The words on this page of the story are: "${page.text}"`;
-    writeFileSync(join(out, `${n}.jpg`), await draw(prompt, refs, art.size));
+    writeFileSync(join(out, `${n}.jpg`), await webJpeg(await draw(prompt, refs, art.size)));
     page.image = `${id}/${n}.jpg`;
     writeFileSync(file, JSON.stringify(story, null, 2) + '\n');
     console.log(`${id} page ${n}  [${cast.join(', ') || 'no cast'}]`);

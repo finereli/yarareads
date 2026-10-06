@@ -43,6 +43,8 @@ Never loosen the inventory to make a story pass.
   They're exempt from the readability rule; the checker reports what share she can read, and the reader underlines words she can't read yet.
   To add one: extract text and pictures (for PDFs, `pdftohtml -xml` gives each illustration's tile positions; render with `pdftoppm -aaVector no`
   or tile seams show), split into short pages, set `coverImage`, then `node tools/push.mjs --images`.
+- Page pictures: `node tools/illustrate.mjs` (FLUX.2 on Workers AI, character sheets in content/art/ as references) writes
+  web-quality JPEGs (~60 KB); `node tools/shrink.mjs` re-compresses any added another way. 1024x768 is the right size.
 - Page pictures are served from R2 (bucket `yara-reads-pictures`) at `/api/pictures/<key>`, behind the PIN.
 - `public/`: the app (no build step). `art.js` holds the icons, logo and cover motifs; `fonts/` are self-hosted Andika (reading) and Fredoka (UI).
 - `src/worker.js`: API. `/api/login`, `/api/stories`, `/api/stories/:id`, `/api/pictures/<key>`, `/api/inventory` (GET/PUT), `/api/events`, `/api/progress`.

@@ -19,6 +19,7 @@
   },
   "homepage": "https://github.com/finereli/yara-reads#readme",
   "devDependencies": {
+    "sharp": "^0.35.5",
     "wrangler": "^4.147.0"
   },
   "type": "module"
