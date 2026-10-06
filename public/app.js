@@ -1,4 +1,4 @@
-import { tokenize, isWord, normalize, classify, unreadable, CATALOG } from './phonics.js';
+import { tokenize, isWord, normalize, classify, unreadable, CATALOG_GROUPS } from './phonics.js';
 import { ICONS, STAR, LOGO, cover } from './art.js';
 
 const app = document.getElementById('app');
@@ -231,7 +231,7 @@ function openPop(el, story, inv) {
   pop.className = 'pop';
   if (info.kind === 'decodable') {
     pop.innerHTML = `
-      <div class="chips">${info.parts.map((g) => `<div class="chip ${g.length > 1 ? 'many' : 'one'}">${esc(g)}<span class="mark"></span></div>`).join('')}</div>
+      <div class="chips">${info.parts.map((p) => `<div class="chip ${chipClass(p)}">${esc(p.text)}<span class="mark"></span></div>`).join('')}</div>
       <div class="actions">
         <button class="press" data-a="sound">${ICONS.sound} Sound it out</button>
         <button class="press" data-a="say" aria-label="Say it">${ICONS.speaker}</button>
@@ -244,24 +244,53 @@ function openPop(el, story, inv) {
       <div class="actions"><button class="press" data-a="say">${ICONS.speaker} Say it</button></div>`;
   }
   document.body.appendChild(pop);
+  if (info.kind === 'decodable') drawLinks(pop, info.parts);
   place(pop, el);
 
   pop.querySelector('[data-a=say]').onclick = () => speak(word);
   const sound = pop.querySelector('[data-a=sound]');
-  if (sound) sound.onclick = () => soundOut(pop, word);
+  if (sound) sound.onclick = () => soundOut(pop, word, info.parts);
 }
 
-// Light up each sound button in turn, then blend: say the whole word.
-function soundOut(p, word) {
+// Sound buttons: a dot for one letter, a bar for letters making one sound,
+// and for silent e an arc joining the vowel to its e (drawn by drawLinks).
+function chipClass(p) {
+  if (p.g !== p.text) return 'split';
+  return p.text.length > 1 ? 'many' : 'one';
+}
+
+// The silent e partner of the vowel at index i: the next silent part with the same grapheme.
+const partner = (parts, i) => parts.findIndex((p, k) => k > i && p.silent && p.g === parts[i].g);
+
+function drawLinks(p, parts) {
+  if (!parts.some((part) => part.silent)) return;
+  const row = p.querySelector('.chips');
+  row.classList.add('linked'); // position: relative, so chip offsets are relative to the row
+  const chips = row.querySelectorAll('.chip');
+  // Layout offsets, not getBoundingClientRect: the card is mid scale-in animation right now.
+  const centre = (c) => c.offsetLeft + c.offsetWidth / 2;
+  const paths = parts.map((part, i) => {
+    if (part.g === part.text || part.silent) return '';
+    const a = chips[i], b = chips[partner(parts, i)];
+    const x1 = centre(a), x2 = centre(b), y = a.offsetTop + a.offsetHeight - 6;
+    return `<path d="M${x1} ${y} Q${(x1 + x2) / 2} ${y + 30} ${x2} ${y}"/>`;
+  }).join('');
+  row.insertAdjacentHTML('beforeend', `<svg class="links" width="${row.offsetWidth}" height="${row.offsetHeight + 24}">${paths}</svg>`);
+}
+
+// Light up each sound in turn (a silent-e vowel lights with its e), then blend: say the whole word.
+function soundOut(p, word, parts) {
   const chips = [...p.querySelectorAll('.chip')];
-  chips.forEach((c, i) => setTimeout(() => {
+  const steps = parts.map((_, i) => i).filter((i) => !parts[i].silent);
+  steps.forEach((i, n) => setTimeout(() => {
     chips.forEach((x) => x.classList.remove('lit'));
-    c.classList.add('lit');
-  }, i * 650));
+    chips[i].classList.add('lit');
+    if (parts[i].g !== parts[i].text) chips[partner(parts, i)].classList.add('lit');
+  }, n * 650));
   setTimeout(() => {
     chips.forEach((c) => c.classList.add('lit'));
     speak(word);
-  }, chips.length * 650);
+  }, steps.length * 650);
 }
 
 function place(p, el) {
@@ -294,8 +323,6 @@ async function showEnd(story) {
 
 // ---------- Grown-ups ----------
 
-const TYM_COUNT = CATALOG.findIndex(([g]) => g === 'ew');
-
 async function showGrownups() {
   const [inv, list, progress] = await Promise.all([getInventory(), api('stories'), api('progress')]);
   const stories = await Promise.all(list.map((s) => getStory(s.id)));
@@ -320,10 +347,7 @@ async function showGrownups() {
       <section class="panel">
         <h2>Sounds she knows <small>${inv.graphemes.length} on</small></h2>
         <p>Tap a sound to switch it on or off. Books only use sounds that are on, and a word with a sound that's off stops being one she can sound out.</p>
-        <h3>From Teach Your Monster to Read</h3>
-        <div class="tiles">${tiles(CATALOG.slice(0, TYM_COUNT))}</div>
-        <h3>Coming later</h3>
-        <div class="tiles">${tiles(CATALOG.slice(TYM_COUNT))}</div>
+        ${CATALOG_GROUPS.map(([title, entries]) => `<h3>${esc(title)}</h3><div class="tiles">${tiles(entries)}</div>`).join('')}
       </section>
 
       <section class="panel">

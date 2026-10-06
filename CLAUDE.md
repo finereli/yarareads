@@ -25,7 +25,10 @@ CMU is a US dictionary, so a few UK-normal words fail ("from" has a US vowel). R
 - **The live inventory is in D1**, edited by Eli in the grown-ups section (gate: type a birth year that makes you an adult, like TYM).
   `content/inventory.json` is the seed: her TYM sounds and tricky words from his screenshots (Oct 2026), plus "egg" and "house".
   Run `node tools/pull.mjs` before writing stories, so you check against what she knows now.
-- `public/phonics.js#CATALOG`: every grapheme with its ARPAbet sounds, in TYM order. The inventory lists only grapheme names.
+- `public/phonics.js#CATALOG_GROUPS`: every grapheme with its ARPAbet sounds, grouped (TYM, Silent e, Coming later). The inventory lists only grapheme names.
+  Silent e is a split digraph (a_e, i_e...): `decode` returns parts in spelling order, `{ text, g }`, so "make" is m, a (g a_e), k, e (g a_e, silent).
+  The word card links the vowel and its e with an arc under the consonant, as taught in class, and sounds them out together.
+- `docs/vocabulary.md`: coverage findings and the queue of what to teach or add next. `node tools/coverage.mjs` re-measures.
 - `content/stories/*.json`: `{ id, series, number, title, cover, pages: [{ text, picture }] }`. `cover` is a motif in `public/art.js#COVERS`
   (egg, tear, bog, sun, moon; add new ones there with a `--cover-<name>` color in style.css). `picture` is a scene description for future image generation.
 - `public/`: the app (no build step). `art.js` holds the icons, logo and cover motifs; `fonts/` are self-hosted Andika (reading) and Fredoka (UI).
@@ -53,7 +56,8 @@ Content changes need only `tools/push.mjs`, no deploy.
 
 1. ~~v0: reader, tap-a-word sound buttons, sound-it-out, first series (Yara and Fizz, 5 books), checker, progress.~~
 2. ~~Real inventory from TYM, grown-ups section, visual design, books 2-5 rewritten with the full TYM set.~~
-   Next: more stories. AI writes, the checker validates, and we loop until clean.
+   ~~Silent e (split digraphs), coverage tool.~~
+   Next: more stories. AI writes, the checker validates, and we loop until clean. Vocabulary queue: docs/vocabulary.md.
 3. Pictures: generate per page from `picture`, keeping characters consistent; store in R2.
 4. Real phoneme audio: Eli records each sound, so the sound buttons speak (TTS can't say a clean /t/).
 5. Import books they own: report which graphemes/tricky words she's missing for each, and highlight those words in the text.

@@ -1,5 +1,5 @@
 {
-  "_note": "Seed only. The live inventory is in D1 and edited from the grown-ups section; `node tools/pull.mjs` copies it back here. Graphemes and tricky words are what Yara finished in Teach Your Monster to Read (screenshots, Oct 2026). 'egg' and 'house' are extra words Eli wanted in book 1.",
+  "_note": "Seed only. The live inventory is in D1 and edited from the grown-ups section; `node tools/pull.mjs` copies it back here. Graphemes and tricky words are what Yara finished in Teach Your Monster to Read (screenshots, Oct 2026). 'egg' and 'house' are extra words Eli wanted in book 1. Silent e (a_e etc.) switched on Oct 2026, ahead of TYM.",
   "graphemes": [
     "s",
     "a",
@@ -59,7 +59,12 @@
     "ue",
     "aw",
     "wh",
-    "ph"
+    "ph",
+    "a_e",
+    "e_e",
+    "i_e",
+    "o_e",
+    "u_e"
   ],
   "tricky": [
     "to",

@@ -9,6 +9,7 @@
   --line: #e6dac4;
   --ember: #e0533a;
   --ember-deep: #b53b27;
+  --ember-soft: #fbe2da;
   --gold: #f2b33d;
   --gold-soft: #fde9b8;
   --moss: #4f8a6b;
@@ -213,6 +214,13 @@ button { border: none; background: none; cursor: pointer; padding: 0; }
 .chip.one .mark::after { width: 11px; height: 11px; }
 .chip.many .mark::after { width: 78%; height: 8px; }
 .chip.lit { background: var(--gold-soft); transform: translateY(-3px); }
+/* Silent e: the vowel and its e share a tint and an arc, the way it's drawn in class. */
+.chip.split { background: var(--ember-soft); }
+.chip.split .mark::after { display: none; }
+.chip.split.lit { background: var(--gold-soft); }
+.chips.linked { position: relative; padding-bottom: 18px; }
+.chips .links { position: absolute; left: 0; top: 0; pointer-events: none; overflow: visible; }
+.chips .links path { fill: none; stroke: var(--ember); stroke-width: 7; stroke-linecap: round; }
 
 .whole { font-family: var(--read); font-size: 46px; padding: 2px 14px; }
 .badge {
