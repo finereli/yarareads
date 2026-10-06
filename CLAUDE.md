@@ -59,6 +59,8 @@ Never loosen the inventory to make a story pass.
   Secrets: `PIN`, `SESSION_SECRET` (never write the PIN into the repo).
   The installed app (home screen PWA) checks version.json on returning to the foreground and every 15 minutes, and reloads
   when it changed. There's deliberately no service worker: assets are served must-revalidate, so a reload is the whole update.
+  Content (books, pictures, inventory) isn't versioned: the app drops its cached books and inventory whenever the library
+  shows, and re-renders the library on returning to the foreground. Grown-ups has "Refresh now" (a full reload).
 - Icons: `public/icons/*.svg` are the sources; the PNGs are rendered from them (Playwright screenshot at each size).
 - Local dev: `.dev.vars` with PIN and SESSION_SECRET, `npx wrangler d1 migrations apply yara-reads --local`, `node tools/push.mjs --local --inventory`, `npx wrangler dev`.
 

@@ -24,10 +24,16 @@ function log(type, data = {}) {
   api('events', { method: 'POST', body: { type, ...data } }).catch(() => {});
 }
 
+// Books and the sounds list are cached while she reads, and dropped every time the library shows,
+// so new books, pictures and inventory changes appear without reinstalling or reloading.
 let inventory;
 const getInventory = async () => inventory || (inventory = await api('inventory'));
-const storyCache = {};
+let storyCache = {};
 const getStory = async (id) => storyCache[id] || (storyCache[id] = await api('stories/' + id));
+const forgetContent = () => {
+  inventory = null;
+  storyCache = {};
+};
 
 // ---------- Speech (single words only) ----------
 
@@ -74,12 +80,22 @@ async function checkForUpdate() {
   return latest;
 }
 latestVersion().then((v) => (version = v));
-document.addEventListener('visibilitychange', () => document.visibilityState === 'visible' && checkForUpdate());
+document.addEventListener('visibilitychange', async () => {
+  if (document.visibilityState !== 'visible') return;
+  await checkForUpdate();
+  // Back from the background on the library: show it fresh (new books, pictures).
+  if (!location.hash.startsWith('#/read') && !location.hash.startsWith('#/grownups')) route();
+});
 setInterval(checkForUpdate, 15 * 60 * 1000);
 
 // ---------- Router ----------
 
-let grownUp = false; // passed the gate this session
+// Passed the gate this session (survives the grown-ups "Refresh now" reload).
+const session = {
+  get: (k) => { try { return sessionStorage.getItem(k); } catch { return null; } },
+  set: (k, v) => { try { sessionStorage.setItem(k, v); } catch {} },
+};
+let grownUp = session.get('grownUp') === '1';
 
 async function route() {
   closePop();
@@ -157,6 +173,7 @@ function showGate() {
       const age = new Date().getFullYear() - Number(year);
       if (age < 18 || age > 100) return false;
       grownUp = true;
+      session.set('grownUp', '1');
       route();
       return true;
     },
@@ -166,6 +183,7 @@ function showGate() {
 // ---------- Library ----------
 
 async function showLibrary() {
+  forgetContent();
   const stories = await api('stories');
   const series = [...new Set(stories.map((s) => s.series))];
   const nextUp = stories.find((s) => !s.finished && s.kind !== 'book');
@@ -435,8 +453,8 @@ async function showGrownups() {
 
       <section class="panel">
         <h2>App <small>version ${esc(version || 'unknown')}</small></h2>
-        <p>The app updates itself when it's opened from the home screen. To check now:</p>
-        <button class="press check" data-act="update">Check for updates</button>
+        <p>The app updates itself, and new books and pictures appear whenever the library opens. If something still looks out of date:</p>
+        <button class="press check" data-act="update">Refresh now</button>
       </section>
 
       <section class="panel">
@@ -456,10 +474,8 @@ async function showGrownups() {
     scrollTo(0, y);
   };
   app.querySelector('[data-act=done]').onclick = () => (location.hash = '#/');
-  app.querySelector('[data-act=update]').onclick = async () => {
-    const latest = await checkForUpdate();
-    toast(latest ? 'This is the latest version' : "Couldn't check. Are we online?");
-  };
+  // A full reload: fresh code, books, pictures and sounds. Lands back here in grown-ups.
+  app.querySelector('[data-act=update]').onclick = () => location.reload();
   app.querySelectorAll('.tile').forEach((t) => (t.onclick = () => {
     const g = t.dataset.g;
     inv.graphemes = inv.graphemes.includes(g) ? inv.graphemes.filter((x) => x !== g) : [...inv.graphemes, g];
