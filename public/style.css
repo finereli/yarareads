@@ -336,6 +336,7 @@ button { border: none; background: none; cursor: pointer; padding: 0; }
 .muted { color: var(--ink-soft); font-size: 15px; }
 .bookrow b { font-weight: 600; font-size: 18px; }
 .bookrow div div { color: var(--ink-soft); font-size: 15px; margin-top: 2px; }
+.panel .check { height: 48px; padding: 0 20px; border-radius: 14px; font-weight: 600; font-size: 17px; }
 .days { font-size: 16px; color: var(--ink-soft); line-height: 1.7; }
 
 .toast {

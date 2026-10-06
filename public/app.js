@@ -54,6 +54,29 @@ function speak(text) {
   speechSynthesis.speak(u);
 }
 
+// ---------- Updates ----------
+// The installed app (home screen) has no reload button, so it checks for a new deploy whenever it
+// comes back to the foreground, and every 15 minutes while open. Files are served must-revalidate,
+// so a reload is all an update takes; the hash route keeps her place.
+
+let version;
+async function latestVersion() {
+  try {
+    const res = await fetch('/version.json', { cache: 'no-store' });
+    return res.ok ? (await res.json()).version : null;
+  } catch {
+    return null; // offline: keep going
+  }
+}
+async function checkForUpdate() {
+  const latest = await latestVersion();
+  if (version && latest && latest !== version) location.reload();
+  return latest;
+}
+latestVersion().then((v) => (version = v));
+document.addEventListener('visibilitychange', () => document.visibilityState === 'visible' && checkForUpdate());
+setInterval(checkForUpdate, 15 * 60 * 1000);
+
 // ---------- Router ----------
 
 let grownUp = false; // passed the gate this session
@@ -411,6 +434,12 @@ async function showGrownups() {
       </section>
 
       <section class="panel">
+        <h2>App <small>version ${esc(version || 'unknown')}</small></h2>
+        <p>The app updates itself when it's opened from the home screen. To check now:</p>
+        <button class="press check" data-act="update">Check for updates</button>
+      </section>
+
+      <section class="panel">
         <h2>Practise</h2>
         <p>The words she taps most for help. These are the ones to practise together.</p>
         <div class="wordlist">${progress.taps.map((t) => `<span class="wordchip plain">${esc(t.word)}<span class="count">×${t.taps}</span></span>`).join('') || '<span class="days">Nothing yet.</span>'}</div>
@@ -427,6 +456,10 @@ async function showGrownups() {
     scrollTo(0, y);
   };
   app.querySelector('[data-act=done]').onclick = () => (location.hash = '#/');
+  app.querySelector('[data-act=update]').onclick = async () => {
+    const latest = await checkForUpdate();
+    toast(latest ? 'This is the latest version' : "Couldn't check. Are we online?");
+  };
   app.querySelectorAll('.tile').forEach((t) => (t.onclick = () => {
     const g = t.dataset.g;
     inv.graphemes = inv.graphemes.includes(g) ? inv.graphemes.filter((x) => x !== g) : [...inv.graphemes, g];

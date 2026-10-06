@@ -54,7 +54,11 @@ Never loosen the inventory to make a story pass.
 - `node tools/pull.mjs`: copy the live inventory from D1 into content/inventory.json.
 - `node tools/push.mjs`: push stories to remote D1 (`--local` for dev). `--inventory` also overwrites the live inventory: only after a pull.
   `--images` uploads every page picture to R2.
-- `npx wrangler deploy`: deploy the app. Secrets: `PIN`, `SESSION_SECRET` (never write the PIN into the repo).
+- `npm run deploy`: check, stamp `public/version.json`, deploy. Commit first so the version names a real commit.
+  Secrets: `PIN`, `SESSION_SECRET` (never write the PIN into the repo).
+  The installed app (home screen PWA) checks version.json on returning to the foreground and every 15 minutes, and reloads
+  when it changed. There's deliberately no service worker: assets are served must-revalidate, so a reload is the whole update.
+- Icons: `public/icons/*.svg` are the sources; the PNGs are rendered from them (Playwright screenshot at each size).
 - Local dev: `.dev.vars` with PIN and SESSION_SECRET, `npx wrangler d1 migrations apply yara-reads --local`, `node tools/push.mjs --local --inventory`, `npx wrangler dev`.
 
 ## Design
