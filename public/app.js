@@ -536,7 +536,7 @@ function openPop(el, story, inv) {
       if (info.parts[i].silent) i = info.parts.findIndex((p, k) => k < i && p.g === info.parts[i].g && !p.silent);
       const lit = [i, isSplit(info.parts[i]) ? partner(info.parts, i) : -1].filter((k) => k >= 0).map((k) => card.querySelectorAll('.chip')[k]);
       lit.forEach((c) => c.classList.add('lit'));
-      const buffers = (await Promise.all(partFiles(info.parts[i]).map(loadSound))).filter(Boolean);
+      const buffers = await partAudio(info.parts[i]);
       await playSounds(buffers);
       setTimeout(() => lit.forEach((c) => c.classList.remove('lit')), 150);
     }));
@@ -588,7 +588,8 @@ const RECORDED = 'eli';
 const SOUND_FILES = {
   S: 's', Z: 'z', M: 'm', F: 'f', N: 'n', L: 'l', R: 'r', V: 'v', SH: 'sh', TH: 'th', DH: 'dh', NG: 'ng',
   T: 't', P: 'p', K: 'k', B: 'b', D: 'd', G: 'g', HH: 'h', JH: 'j', W: 'w', Y: 'y', CH: 'ch', 'K S': 'x', 'K W': 'qu',
-  AE: 'a', EH: 'e', IH: 'i', AA: 'o', AO: 'o', AH: 'u', UH: 'oo-short',
+  ZH: 'zh', 'T S': 'ts',
+  AE: 'a', EH: 'e', IH: 'i', AA: 'o', AO: 'aw', AH: 'u', UH: 'oo-short',
   EY: 'ai', IY: 'ee', AY: 'igh', OW: 'oa', UW: 'oo', 'AA R': 'ar', 'AO R': 'or', ER: 'ur', AW: 'ow', OY: 'oi',
   'IH R': 'ear', 'EH R': 'air', 'UH R': 'ure', 'Y UW': 'ue',
 };
@@ -597,6 +598,14 @@ const partFiles = (part) => {
   if (!part.sound) return [];
   if (SOUND_FILES[part.sound]) return [SOUND_FILES[part.sound]];
   return part.sound.split(' ').map((ph) => SOUND_FILES[ph]).filter(Boolean);
+};
+// Sounds added to the sheet on Oct 27 (zh, aw, ts): a voice recorded before then plays these instead.
+const FALLBACK = { aw: ['o'], ts: ['t', 's'] };
+const partAudio = async (part) => {
+  const files = partFiles(part);
+  const got = (await Promise.all(files.map(loadSound))).filter(Boolean);
+  if (got.length || files.length !== 1 || !FALLBACK[files[0]]) return got;
+  return (await Promise.all(FALLBACK[files[0]].map(loadSound))).filter(Boolean);
 };
 const soundAudio = new Map(); // id -> Promise<AudioBuffer | null>
 const loadSound = (id) => {

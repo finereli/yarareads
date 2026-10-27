@@ -159,7 +159,20 @@ export const SOUNDED = {
   liked: [['l', 'L'], ['i', 'AY'], ['k', 'K'], ['ed', 'T']],
 };
 
+// A t and s ending a word (cats, its) show as one "ts" button with one sound, the way x is "ks" (Eli, Oct 27).
+// Only on the word card: what counts as readable is still t + s.
+function joinTs(parts) {
+  const [t, s] = parts?.slice(-2) || [];
+  if (!t || t.text !== 't' || t.sound !== 'T' || s.text !== 's' || s.sound !== 'S') return parts;
+  return [...parts.slice(0, -2), { text: 'ts', g: 't', sound: 'T S', ...(t.new || s.new ? { new: true } : {}) }];
+}
+
 export function classify(word, inv, pronunciations = []) {
+  const c = classifyParts(word, inv, pronunciations);
+  return c.parts ? { ...c, parts: joinTs(c.parts) } : c;
+}
+
+function classifyParts(word, inv, pronunciations) {
   const w = normalize(word);
   const base = normalize(word.replace(/[’']s$/, ''));
   const names = inv.names.map(normalize);

@@ -84,6 +84,7 @@ Never loosen the inventory to make a story pass.
   `SOUNDED` in phonics.js lists words sounded out a particular way, by Eli's choice, as [letters, sound] per button, ahead of
   the sight word list: "they" is th-e-y (the e and consonant y glide into its /ai/), "again" and "said" play their ai as "eh", "looked" and "liked" end in ed as /t/ (Oct 19).
   Add to it one word at a time; it changes only the word card, not what counts as readable.
+  A t and s ending a word (cats, its) show as one "ts" button with one sound (`joinTs`, Eli, Oct 27), like x is ks: also card-only.
 - `docs/stories/`: one brief per series (Tom's briefs, decisions, chapter outline). Read it before writing the next chapter.
 - `docs/vocabulary.md`: coverage findings and the queue of what to teach or add next. `node tools/coverage.mjs` re-measures.
 - `content/stories/*.json`: `{ id, series, number, title, cover, names?, pages: [{ text, picture, image? }] }`. `cover` is a motif in `public/art.js#COVERS`
@@ -215,6 +216,9 @@ Content changes need only `tools/push.mjs`, no deploy.
    the sound is the piece just before it, so stray noises and redos don't matter), levels and fades each clip, and uploads it to R2
    `sounds/recorded/<who>/<id>.mp3` (+ `words/`). Local copies in content/sounds/recorded/
    are in git, public (Eli's call, Oct 23: the app doesn't work well without them).
+   **Re-recording (Oct 27):** the sheet is now American and has 48 sounds (zh in treasure, aw in saw, ts in cats added; ar, or,
+   ur, ear, air, ure said with their r). Tom records it (`who` = tom), then `RECORDED` in app.js switches to his voice and
+   the `ADJUST` levels get re-measured for him. Until then `FALLBACK` in app.js plays o for aw and t, s for ts.
    `node tools/sounds-upload.mjs eli --local` puts them in the local R2 so sounding out works under `wrangler dev`. All 45 recorded by Eli in one take (Oct 16, `all`): with exactly
    two pieces per sound the tool pairs them in order, since Whisper mishears single words ("yeah" for hat).
    ~~The tiles play each sound as they light.~~
