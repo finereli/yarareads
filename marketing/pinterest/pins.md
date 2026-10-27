@@ -138,7 +138,7 @@ The posting order is the queue in posted.json (the scheduled task posts two ever
 
 ## 21-dad-and-son
 
-**Title:** My son wrote a dragon chapter book for his little sister, and I built the app so she can read it herself
+**Title:** My son wrote a dragon chapter book for his sister, and I built the app so she can read it herself
 
 **Description:** Tom is 12 and reads fantasy. His sister Yara is 6, loves dragons, and had just learned to read. So Tom wrote her Julia and Toby, a real fantasy series with a runaway dragon, a magic system and a villain, and I built the app that helps her sound out any word she gets stuck on. Now she gets lost in a story by herself. Early chapter books for kids who just learned to read, books for 6 year olds to read themselves. Free to read on any tablet, phone or computer. No ads, no account.
 
@@ -158,7 +158,7 @@ The posting order is the queue in posted.json (the scheduled task posts two ever
 
 ## 23-big-brother
 
-**Title:** Her big brother writes the dragon books, and she reads them herself: a chapter book series for new readers
+**Title:** Her big brother writes the dragon books, and she reads them herself: chapter books for new readers
 
 **Description:** Tom, 12, is writing a dragon series for his sister Yara, 6, one chapter at a time, in words she can sound out. Seven chapters of Julia and Toby are out, with more on the way. A fantasy serial of early chapter books for kids who just learned to read: a girl, a runaway dragon, and a villain waking up far away. Chapter books for beginning readers, kindergarten and 1st grade. Free to read on any tablet, phone or computer. No ads, no account.
 
@@ -168,7 +168,7 @@ The posting order is the queue in posted.json (the scheduled task posts two ever
 
 ## 24-big-kid-writes
 
-**Title:** Have your older kid write a story for the younger one: how our 12-year-old wrote a dragon series for his sister
+**Title:** Have your big kid write a story for the little one: how our 12-year-old wrote a dragon series
 
 **Description:** Our son Tom, 12, wrote a dragon series for his little sister, Yara, who had just learned to read. What worked: one magic rule (feelings make things float), only words she could sound out, and a hook at the end of every chapter. A great writing project for big kids and a reading project for little ones. Read the result, Julia and Toby, early chapter books for beginning readers. Free to read on any tablet, phone or computer. No ads, no account.
 
