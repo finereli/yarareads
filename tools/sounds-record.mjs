@@ -24,7 +24,7 @@ export const PARTS = {
     ['w', 'wet'], ['y', 'yes'], ['ch', 'chip'], ['x', 'box'], ['ts', 'cats'], ['qu', 'queen']],
   3: [['a', 'ant'], ['e', 'egg'], ['i', 'ink'], ['o', 'on'], ['u', 'up'], ['oo-short', 'book']],
   4: [['ai', 'rain'], ['ee', 'see'], ['igh', 'night'], ['oa', 'boat'], ['oo', 'moon'], ['aw', 'saw'], ['ow', 'cow'], ['oi', 'coin'],
-    ['ue', 'cue'], ['ar', 'car'], ['or', 'fork'], ['ur', 'fur'], ['ear', 'near'], ['air', 'hair'], ['ure', 'sure']],
+    ['ue', 'cue'], ['ar', 'car'], ['or', 'fork'], ['ur', 'fur'], ['ear', 'near'], ['air', 'hair'], ['ure', 'cure']],
 };
 
 const [file, partArg, whoArg] = process.argv.slice(2).filter((a) => !a.startsWith('--'));

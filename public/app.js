@@ -591,7 +591,7 @@ const SOUND_FILES = {
   ZH: 'zh', 'T S': 'ts',
   AE: 'a', EH: 'e', IH: 'i', AA: 'o', AO: 'aw', AH: 'u', UH: 'oo-short',
   EY: 'ai', IY: 'ee', AY: 'igh', OW: 'oa', UW: 'oo', 'AA R': 'ar', 'AO R': 'or', ER: 'ur', AW: 'ow', OY: 'oi',
-  'IH R': 'ear', 'EH R': 'air', 'UH R': 'ure', 'Y UW': 'ue',
+  'IH R': 'ear', 'EH R': 'air', 'Y UH R': 'ure', 'Y UW': 'ue',
 };
 // A part's recordings in order: the whole sound if there's one for it ("K S" is x), else each phoneme ("AH L" in "little").
 const partFiles = (part) => {

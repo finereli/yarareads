@@ -15,7 +15,7 @@ export const CATALOG_GROUPS = [
     ['zz', ['Z']], ['ch', ['CH']], ['sh', ['SH']], ['th', ['TH', 'DH']], ['ng', ['NG']],
     ['ai', ['EY']], ['ee', ['IY']], ['igh', ['AY']], ['oa', ['OW']], ['oo', ['UW', 'UH']],
     ['ar', ['AA R']], ['or', ['AO R']], ['ur', ['ER']], ['ow', ['AW']], ['oi', ['OY']], ['ear', ['IH R']],
-    ['air', ['EH R']], ['ure', ['UH R']], ['er', ['ER']], ['ay', ['EY']], ['ou', ['AW']], ['ie', ['AY']],
+    ['air', ['EH R']], ['ure', ['Y UH R', 'UH R']], ['er', ['ER']], ['ay', ['EY']], ['ou', ['AW']], ['ie', ['AY']],
     ['ea', ['IY']], ['oy', ['OY']], ['ir', ['ER']], ['ue', ['UW', 'Y UW']], ['aw', ['AO']], ['wh', ['W']],
     ['ph', ['F']],
   ]],
