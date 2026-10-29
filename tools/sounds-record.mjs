@@ -1,9 +1,9 @@
 // Recorded phonics sounds: slice a recording of the recording sheet into one file per sound. The sheet (claude.ai artifact
 // "Yara Reads Sound Recording", https://claude.ai/artifact/6ugcAzsrpm9rbePAVRzGzA; American, 48 sounds since Oct 27: zh, aw and ts added,
-// r sounds with their r) is read top to bottom, usually as one file (`all`):
+// r sounds with their r; then 26 little words since Oct 29) is read top to bottom, usually as one file (`all`):
 // each sound, a pause, its example word, a pause ("sss ... sun ... mmm ... map ..."). One file per part.
 //
-//   node tools/sounds-record.mjs <recording> <part 1-4 | all> [who] [--local]     (all: the whole sheet in one file)
+//   node tools/sounds-record.mjs <recording> <part 1-5 | all> [who] [--local]     (all: the whole sheet in one file)
 //
 // The recording is cut at its silences, each piece is transcribed (Whisper), and each example word is found in order;
 // the sound is the piece just before it. Stray taps and noises at either end don't matter, and a fumbled sound said
@@ -11,7 +11,10 @@
 // uploaded to R2 as sounds/recorded/<who>/<id>.mp3, its word as sounds/recorded/<who>/words/<word>.mp3.
 // Local copies go to content/sounds/recorded/<who>/ (in git, public: Eli's call, Oct 23).
 // Ids are the sound in lower-case ARPAbet-ish names (s, sh, th, dh, ng, ...).
+// Part 5 (Oct 29) is little words with no sound before them ("the ... and ... up ..."): the AI voices can't say them
+// alone (LITTLE_WORDS in phonics.js), so the word card plays these instead. Each goes to sounds/recorded/<who>/say/<word>.mp3.
 import { execFileSync } from 'node:child_process';
+import { LITTLE_WORDS } from '../public/phonics.js';
 import { mkdirSync, writeFileSync, readFileSync, existsSync } from 'node:fs';
 import { join } from 'node:path';
 
@@ -25,14 +28,16 @@ export const PARTS = {
   3: [['a', 'ant'], ['e', 'egg'], ['i', 'ink'], ['o', 'on'], ['u', 'up'], ['oo-short', 'book']],
   4: [['ai', 'rain'], ['ee', 'see'], ['igh', 'night'], ['oa', 'boat'], ['oo', 'moon'], ['aw', 'saw'], ['ow', 'cow'], ['oi', 'coin'],
     ['ue', 'cue'], ['ar', 'car'], ['or', 'fork'], ['ur', 'fur'], ['ear', 'near'], ['air', 'hair'], ['ure', 'cure']],
+  5: LITTLE_WORDS.map((word) => [null, word]), // a word on its own, no sound before it
 };
 
 const [file, partArg, whoArg] = process.argv.slice(2).filter((a) => !a.startsWith('--'));
 const where = process.argv.includes('--local') ? '--local' : '--remote';
 const who = whoArg || 'eli';
 const part = partArg === 'all' ? Object.values(PARTS).flat() : PARTS[partArg];
+const takes = (n) => (n ? 2 : 1); // a sound and its word, or a little word alone
 if (!file || !part) {
-  console.log('usage: node tools/sounds-record.mjs <recording> <part 1-4 | all> [who] [--local]');
+  console.log('usage: node tools/sounds-record.mjs <recording> <part 1-5 | all> [who] [--local]');
   process.exit(1);
 }
 
@@ -83,24 +88,40 @@ const close = (said, word) => {
   for (let i = 0; i < Math.min(s.length, word.length); i++) same += s[i] === word[i];
   return same >= Math.max(2, word.length - 1);
 };
-// A clean take has exactly two pieces per sound (sound, word), so they simply pair up in order; Whisper is then only a
-// check (it mishears single words: "yeah" for hat, "end" for ant). Otherwise, find each word to skip stray pieces.
+const SAME = { to: ['too', 'two'], i: ['eye', 'aye'], onto: ['on to'], into: ['in to'] }; // what Whisper may write
+// A clean take has exactly two pieces per sound (sound, word) and one per little word, so they simply pair up in order;
+// Whisper is then only a check (it mishears single words: "yeah" for hat, "end" for ant). Otherwise, find each word to
+// skip stray pieces.
 const found = [];
-let at = 1;
-if (kept.length === part.length * 2) {
-  part.forEach(([id, word], i) => found.push({ id, word, sound: kept[2 * i], said: kept[2 * i + 1] }));
-  const agree = part.filter(([, word], i) => close(heard[2 * i + 1], word)).length;
+if (kept.length === part.reduce((n, [id]) => n + takes(id), 0)) {
+  let k = 0, agree = 0;
+  for (const [id, word] of part) {
+    if (id) found.push({ id, word, sound: kept[k], said: kept[k + 1] });
+    else found.push({ word, said: kept[k] });
+    k += takes(id);
+    agree += close(heard[k - 1], word);
+  }
   console.log(`${kept.length} pieces: paired in order (Whisper agrees on ${agree} of ${part.length} words)`);
 }
+let at = 0; // the first piece not used yet
 for (const [id, word] of found.length ? [] : part) {
-  let k = at;
-  while (k < kept.length && !close(heard[k], word)) k++;
-  if (k >= kept.length) {
-    console.log(heard.map((h, i) => `${i + 1}: ${(kept[i][1] - kept[i][0]) / SR}s "${h}"`).join('\n'));
-    throw new Error(`couldn't find "${word}" after piece ${at}: check the list above`);
+  let k = at + takes(id) - 1; // a sound needs a piece before its word
+  // A little word must match exactly, and close by: "in" is close to "into", and these are short enough that a loose
+  // match far ahead would throw off every word after it.
+  const end = id ? kept.length : Math.min(kept.length, at + 3);
+  const same = (said) => [word, ...(SAME[word] || [])].some((w) => said === w || said.split(' ')[0] === w);
+  while (k < end && !(id ? close(heard[k], word) : same(heard[k]))) k++;
+  if (k >= end && !id) { // a little word left out just stays with the AI voice (the app falls back)
+    console.log(`couldn't find "${word}" after piece ${at + 1}: skipped`);
+    at++; // it most likely took a piece of its own
+    continue;
   }
-  found.push({ id, word, sound: kept[k - 1], said: kept[k] });
-  at = k + 2;
+  if (k >= kept.length) {
+    console.log(heard.map((h, i) => `${i + 1}: ${(kept[i][1] - kept[i][0]) / SR}s "${h.slice(0, 40)}"`).join('\n'));
+    throw new Error(`couldn't find "${word}" after piece ${at + 1}: check the list above`);
+  }
+  found.push(id ? { id, word, sound: kept[k - 1], said: kept[k] } : { word, said: kept[k] });
+  at = k + 1;
 }
 
 // Level by how loud each sound *sounds*, matched to the word voice: K-weighted loudness (the ITU BS.1770 filters, as
@@ -137,6 +158,7 @@ function loudness(s) {
 }
 const dir = join(root, 'content/sounds/recorded', who);
 mkdirSync(join(dir, 'words'), { recursive: true });
+mkdirSync(join(dir, 'say'), { recursive: true });
 const clip = (a, b, out, adjust = 0) => {
   const s = Float32Array.from(x.subarray(a, b));
   const peak = s.reduce((m, v) => Math.max(m, Math.abs(v)), 0);
@@ -148,17 +170,20 @@ const clip = (a, b, out, adjust = 0) => {
   execFileSync('ffmpeg', ['-v', 'error', '-y', '-i', tmp, '-af', 'highpass=f=70', '-c:a', 'libmp3lame', '-b:a', '64k', out]);
   execFileSync('rm', [tmp]);
 };
+// A little word is levelled like the AI voice's words (TARGET_LUFS), since it plays in their place.
+const outFile = (f) => (f.id ? join('words', `${f.word}.mp3`) : join('say', `${f.word}.mp3`));
 for (const f of found) {
-  clip(...f.sound, join(dir, `${f.id}.mp3`), ADJUST[f.id] || 0);
-  clip(...f.said, join(dir, 'words', `${f.word}.mp3`));
-  console.log(`${f.id.padEnd(9)} ${((f.sound[1] - f.sound[0]) / SR).toFixed(2)}s   word "${f.word}"`);
+  if (f.id) clip(...f.sound, join(dir, `${f.id}.mp3`), ADJUST[f.id] || 0);
+  clip(...f.said, join(dir, outFile(f)));
+  const [a, b] = f.sound || f.said;
+  console.log(`${(f.id || '(word)').padEnd(9)} ${((b - a) / SR).toFixed(2)}s   word "${f.word}"`);
 }
 
 // Upload each sound and its example word to R2.
 const put = (key, path, type) => execFileSync('npx', ['wrangler', 'r2', 'object', 'put', `yara-reads-pictures/sounds/${key}`,
   where, '--file', path, '--content-type', type], { stdio: 'ignore' });
 for (const f of found) {
-  put(`recorded/${who}/${f.id}.mp3`, join(dir, `${f.id}.mp3`), 'audio/mpeg');
-  put(`recorded/${who}/words/${f.word}.mp3`, join(dir, 'words', `${f.word}.mp3`), 'audio/mpeg');
+  if (f.id) put(`recorded/${who}/${f.id}.mp3`, join(dir, `${f.id}.mp3`), 'audio/mpeg');
+  put(`recorded/${who}/${outFile(f)}`, join(dir, outFile(f)), 'audio/mpeg');
 }
-console.log(`${found.length} sounds from part ${partArg} uploaded (${where})`);
+console.log(`${found.length} sounds and words from part ${partArg} uploaded (${where})`);

@@ -1,4 +1,4 @@
-import { tokenize, isWord, normalize, classify, unreadable, forStory, letters, CATALOG_GROUPS } from './phonics.js';
+import { tokenize, isWord, normalize, classify, unreadable, forStory, letters, CATALOG_GROUPS, LITTLE_WORDS } from './phonics.js';
 import { ICONS, STAR, LOGO, cover } from './art.js';
 import { FinereliLogin } from './login.js';
 
@@ -109,12 +109,18 @@ function stopAudio() {
 }
 
 const sayKey = (word) => word.toLowerCase().replace(/[^a-z' -]/g, '').trim();
+// Who recorded the little words (part 5 of the sound sheet, LITTLE_WORDS in phonics.js), or null while nobody has:
+// the AI voice says them until then. A recording plays in every voice, since no AI voice says them well (Oct 29).
+const SAID_BY = null;
+const LITTLE = new Set(LITTLE_WORDS);
 const wordAudio = new Map(); // "voice|word" -> Promise<{ buffer, why }>: the audio, or why there's none
 function loadWord(word, voice) {
-  const w = sayKey(word), k = `${voice}|${w}`;
+  const w = sayKey(word), recorded = SAID_BY && LITTLE.has(w), k = recorded ? `recorded|${w}` : `${voice}|${w}`;
   if (!wordAudio.has(k)) {
     let why = 'fetch';
-    wordAudio.set(k, fetch(`/api/say?word=${encodeURIComponent(w)}&voice=${encodeURIComponent(voice)}`)
+    const ai = () => fetch(`/api/say?word=${encodeURIComponent(w)}&voice=${encodeURIComponent(voice)}`);
+    wordAudio.set(k, (recorded ? fetch(`/api/sounds/recorded/${SAID_BY}/say/${encodeURIComponent(w)}.mp3`)
+      .then((r) => (r.ok ? r : ai())) : ai())
       .then((r) => (r.ok ? r.arrayBuffer() : Promise.reject(new Error(`http ${r.status}`))))
       .then((bytes) => { why = 'decode'; return new Promise((ok, fail) => ctx().decodeAudioData(bytes, ok, fail)); }) // callback form: older Safari
       .then((buffer) => ({ buffer }))

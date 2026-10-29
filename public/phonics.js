@@ -159,6 +159,13 @@ export const SOUNDED = {
   liked: [['l', 'L'], ['i', 'AY'], ['k', 'K'], ['ed', 'T']],
 };
 
+// Little words the AI voices can't say on their own (Oct 29): said alone they're too short, and Aura mumbles them or
+// adds a sound ("the" came out as "yeah" or "duh" in Luna, "at" as "bad" in Mars). They're recorded instead, as part 5
+// of the sound sheet (tools/sounds-record.mjs), and the word card plays the recording in every voice (SAID_BY in app.js).
+// Most common in the stories first.
+export const LITTLE_WORDS = ['the', 'and', 'up', 'she', 'it', 'i', 'he', 'her', 'at', 'can', 'his', 'to', 'in', 'as', 'of',
+  'off', 'him', 'has', 'my', 'be', 'all', 'am', 'an', 'into', 'onto', 'its'];
+
 // A t and s ending a word (cats, its) show as one "ts" button with one sound, the way x is "ks" (Eli, Oct 27).
 // Only on the word card: what counts as readable is still t + s.
 function joinTs(parts) {

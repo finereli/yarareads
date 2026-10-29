@@ -203,8 +203,8 @@ async function publicApi(request, env, url, path, ctx) {
     return servePicture(env, request, picture[1], url, 'public', ctx);
   }
   // The phonics sounds the tiles play (Eli's recordings; he chose to share them, Oct 16). Only those: not the
-  // AI takes, nor the example words recorded with them.
-  const recorded = path.match(/^\/api\/sounds\/(recorded\/[a-z]+\/[a-z-]+\.mp3)$/);
+  // AI takes, nor the example words recorded with them. Also the little words recorded for the word card (say/).
+  const recorded = path.match(/^\/api\/sounds\/(recorded\/[a-z]+\/(?:say\/)?[a-z-]+\.mp3)$/);
   if (recorded && get) {
     const obj = await env.PICTURES.get(`sounds/${recorded[1]}`);
     if (!obj) return json({ error: 'not found' }, { status: 404 });

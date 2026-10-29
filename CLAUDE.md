@@ -219,6 +219,13 @@ Content changes need only `tools/push.mjs`, no deploy.
    **Re-recording (Oct 27):** the sheet is now American and has 48 sounds (zh in treasure, aw in saw, ts in cats added; ar, or,
    ur, ear, air, ure said with their r). Tom records it (`who` = tom), then `RECORDED` in app.js switches to his voice and
    the `ADJUST` levels get re-measured for him. Until then `FALLBACK` in app.js plays o for aw and t, s for ts.
+   **Little words (Oct 29):** the AI voices can't say short function words alone (Luna's "the" came out as "yeah"/"duh",
+   Mars's "at" as "bad", and Mars puts a consonant before vowel-first words: "bit", "dintu"). Rewording the input
+   ("the!", quotes, "the...") didn't help over 520 takes. So part 5 of the sheet is 26 little words (`LITTLE_WORDS` in
+   phonics.js), each said alone with no sound before it; the tool saves them to `sounds/recorded/<who>/say/<word>.mp3`,
+   levelled like the AI words, and skips one it can't find (it stays with the AI voice). Once recorded, set `SAID_BY` in
+   app.js to the recorder: the word card then plays the recording in every voice (falling back to the AI voice if a file
+   is missing). Accepted trade-off: a human voice says these words, the chosen AI voice says the rest.
    `node tools/sounds-upload.mjs eli --local` puts them in the local R2 so sounding out works under `wrangler dev`. All 45 recorded by Eli in one take (Oct 16, `all`): with exactly
    two pieces per sound the tool pairs them in order, since Whisper mishears single words ("yeah" for hat).
    ~~The tiles play each sound as they light.~~
