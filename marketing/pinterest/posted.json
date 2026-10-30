@@ -49,6 +49,18 @@
       "board": "897975681892083219",
       "at": "2026-10-28",
       "note": "video: REGISTER_MEDIA, upload to the returned S3 form with curl, then CREATE_PIN source_type video_id"
+    },
+    {
+      "id": "22-magic-rule",
+      "pin": "897975613226407047",
+      "board": "897975681892083220",
+      "at": "2026-10-29"
+    },
+    {
+      "id": "03-one-more-chapter",
+      "pin": "897975613226407046",
+      "board": "897975681892083219",
+      "at": "2026-10-29"
     }
   ]
 }
