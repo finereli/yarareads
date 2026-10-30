@@ -217,8 +217,11 @@ Content changes need only `tools/push.mjs`, no deploy.
    `sounds/recorded/<who>/<id>.mp3` (+ `words/`). Local copies in content/sounds/recorded/
    are in git, public (Eli's call, Oct 23: the app doesn't work well without them).
    **Re-recording (Oct 27):** the sheet is now American and has 48 sounds (zh in treasure, aw in saw, ts in cats added; ar, or,
-   ur, ear, air, ure said with their r). Tom records it (`who` = tom), then `RECORDED` in app.js switches to his voice and
-   the `ADJUST` levels get re-measured for him. Until then `FALLBACK` in app.js plays o for aw and t, s for ts.
+   ur, ear, air, ure said with their r). Tom found it hard, so Eli records it again (Oct 30), and the plan is to re-voice his
+   recording with a speech-to-speech model into each word voice, so sounds, little words and words all sound like one voice.
+   That's why the voices get cut to one woman and one man (Oct 30). Whisper on 36 short words, two takes each: Asteria 73%,
+   Saturn 69%, Luna 68%, Orion 63%, ... Mars 40% (last; the family's pick until now). Eli picks by ear (artifact "Yara Reads
+   Voice Pick"). The `ADJUST` levels get re-measured for the new recording. Until then `FALLBACK` in app.js plays o for aw and t, s for ts.
    **Little words (Oct 29):** the AI voices can't say short function words alone (Luna's "the" came out as "yeah"/"duh",
    Mars's "at" as "bad", and Mars puts a consonant before vowel-first words: "bit", "dintu"). Rewording the input
    ("the!", quotes, "the...") didn't help over 520 takes. So part 5 of the sheet is 26 little words (`LITTLE_WORDS` in
