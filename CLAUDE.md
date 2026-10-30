@@ -230,8 +230,10 @@ Content changes need only `tools/push.mjs`, no deploy.
    and "Say it with me.". `sayWord` in worker.js does this for `LITTLE_WORDS` (phonics.js, 26 words) and stores them under
    `tts3/<voice>/<word>.wav`; `tools/lead-in.mjs [voices]` makes them ahead of time, up to five takes each, keeping one
    Whisper hears right (done for Luna and Mars, Oct 30: 42 of 52 approved; Whisper never hears Luna's "the" right).
-   Part 5 of the sound sheet (the same words recorded, `SAID_BY` in app.js) is the fallback if this isn't good enough.
-   Trying the same trick on phonics sounds ("The sound is: sss."), Oct 30: artifact "Yara Reads Sound Test".
+   Eli: the lone words with the lead-in work (Oct 30), so part 5 came off the sound sheet; the code for recorded little
+   words stays as a fallback (`PARTS[5]` in sounds-record.mjs, `SAID_BY` in app.js, `say/` in R2).
+   The same trick on phonics sounds ("The sound is: sss.", "The phoneme is: ...") doesn't work (Eli, Oct 30): the sounds
+   stay recorded, by Eli.
    `node tools/sounds-upload.mjs eli --local` puts them in the local R2 so sounding out works under `wrangler dev`. All 45 recorded by Eli in one take (Oct 16, `all`): with exactly
    two pieces per sound the tool pairs them in order, since Whisper mishears single words ("yeah" for hat).
    ~~The tiles play each sound as they light.~~

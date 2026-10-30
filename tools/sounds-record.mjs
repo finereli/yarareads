@@ -34,7 +34,8 @@ export const PARTS = {
 const [file, partArg, whoArg] = process.argv.slice(2).filter((a) => !a.startsWith('--'));
 const where = process.argv.includes('--local') ? '--local' : '--remote';
 const who = whoArg || 'eli';
-const part = partArg === 'all' ? Object.values(PARTS).flat() : PARTS[partArg];
+// all: the sounds (parts 1-4). Part 5 is off the sheet since the lead-in fixed the little words (Oct 30); record it on its own if needed.
+const part = partArg === 'all' ? [1, 2, 3, 4].flatMap((n) => PARTS[n]) : PARTS[partArg];
 const takes = (n) => (n ? 2 : 1); // a sound and its word, or a little word alone
 if (!file || !part) {
   console.log('usage: node tools/sounds-record.mjs <recording> <part 1-5 | all> [who] [--local]');
