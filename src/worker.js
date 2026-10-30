@@ -4,6 +4,8 @@ import publicInventory from '../content/inventory.json';
 import { verifyLoginToken } from './verify-login.js';
 import { handleMcp, sha256 } from './mcp.js';
 import { oauthRoute, listClients, revoke } from './mcp-auth.js';
+import { leadIn, lastWord } from './lead-in.js';
+import { LITTLE_WORDS } from '../public/phonics.js';
 
 // Tokens from login.finereli.com are made for one origin; these are ours (wrangler dev serves on 8787).
 const AUDIENCE = ['https://yarareads.finereli.com', 'http://localhost:8787'];
@@ -40,7 +42,31 @@ const DEFAULT_VOICE = 'aura-2:luna'; // Eli's pick (Oct 23; Hyperion before)
 // The word goes in as a sentence ("playing."): as a bare word Aura stops mid-sound and clips the end
 // (Hyperion's "playing" ended at full volume, mid "ng"); with the full stop it fades out naturally.
 // tts/ holds the old, sometimes clipped bare-word audio; tts2/ is the fixed set.
+// Little words ("the", "at": LITTLE_WORDS) are said after a lead-in and cut to the word (lead-in.js), as WAV under tts3/.
+// tools/lead-in.mjs makes them ahead of time, choosing among takes; this makes one the first time it's asked for.
+const LITTLE = new Set(LITTLE_WORDS);
+const littleKey = (voiceId, word) => `tts3/${voiceId.replace(':', '-')}/${encodeURIComponent(word)}.wav`;
+async function sayLittle(env, voiceId, word) {
+  const key = littleKey(voiceId, word);
+  const cached = await env.PICTURES.get(key);
+  if (cached) return { body: cached.body, type: 'audio/wav' };
+  const voice = VOICES[voiceId];
+  for (let take = 0; take < 3; take++) {
+    const out = await env.AI.run(voice.model, { text: leadIn(word), speaker: voice.speaker, encoding: 'linear16', container: 'wav' });
+    const bytes = new Uint8Array(out instanceof ReadableStream ? await new Response(out).arrayBuffer() : out);
+    const cut = lastWord(bytes);
+    if (!cut) continue; // no clear pause before the word: another take
+    await env.PICTURES.put(key, cut, { httpMetadata: { contentType: 'audio/wav' } });
+    return { body: cut, type: 'audio/wav' };
+  }
+  return null; // said on its own, as before
+}
+
 async function sayWord(env, voiceId, word) {
+  if (LITTLE.has(word) && VOICES[voiceId].speaker) {
+    const little = await sayLittle(env, voiceId, word);
+    if (little) return little;
+  }
   const voice = VOICES[voiceId];
   const ext = 'mp3';
   const type = 'audio/mpeg';
@@ -215,8 +241,9 @@ async function publicApi(request, env, url, path, ctx) {
   if (path === '/api/say' && get) {
     const word = (url.searchParams.get('word') || '').toLowerCase().replace(/[^a-z' -]/g, '').trim().slice(0, 40);
     const voiceId = DEFAULT_VOICE;
-    const ext = 'mp3';
-    const obj = word && (await env.PICTURES.get(`tts2/${voiceId.replace(':', '-')}/${encodeURIComponent(word)}.${ext}`));
+    const little = word && LITTLE.has(word) && (await env.PICTURES.get(littleKey(voiceId, word)));
+    if (little) return new Response(little.body, { headers: { 'content-type': 'audio/wav', 'cache-control': 'public, max-age=86400' } });
+    const obj = word && (await env.PICTURES.get(`tts2/${voiceId.replace(':', '-')}/${encodeURIComponent(word)}.mp3`));
     if (!obj) return json({ error: 'not ready' }, { status: 404 });
     return new Response(obj.body, { headers: { 'content-type': 'audio/mpeg', 'cache-control': 'public, max-age=86400' } });
   }

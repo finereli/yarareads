@@ -186,7 +186,7 @@ broadband hiss as loud as people do; plus 2.5 dB off the unvoiced hisses by Eli'
 
 **Word voice.** Words are spoken by a Cloudflare Workers AI voice (Deepgram Aura 2, American voices only: Luna, Asteria and 8 men; `VOICES` in worker.js, chosen in grown-ups > Voice,
 stored in D1 `settings`; default Luna since Oct 23, Hyperion before). `/api/say` generates a word once and caches it in R2 under `tts2/<voice>/<word>.mp3` (~0.5-1 s new, ~10 ms cached).
-The word is sent as a sentence (`playing.`): a bare word gets its end clipped.
+The word is sent as a sentence (`playing.`): a bare word gets its end clipped. Little words get a lead-in (see Roadmap 4).
 The word card starts fetching the word when it opens, so it's usually ready by the tap; if not,
 the speaker button shows a spinner. Audio plays through Web Audio: iOS only allows sound started inside a tap, so the tap
 resumes the AudioContext (`unlockAudio`) and the word can play later from a timer. Browser speech is only the fallback.
@@ -222,13 +222,16 @@ Content changes need only `tools/push.mjs`, no deploy.
    That's why the voices get cut to one woman and one man (Oct 30). Whisper on 36 short words, two takes each: Asteria 73%,
    Saturn 69%, Luna 68%, Orion 63%, ... Mars 40% (last; the family's pick until now). Eli picks by ear (artifact "Yara Reads
    Voice Pick"). The `ADJUST` levels get re-measured for the new recording. Until then `FALLBACK` in app.js plays o for aw and t, s for ts.
-   **Little words (Oct 29):** the AI voices can't say short function words alone (Luna's "the" came out as "yeah"/"duh",
-   Mars's "at" as "bad", and Mars puts a consonant before vowel-first words: "bit", "dintu"). Rewording the input
-   ("the!", quotes, "the...") didn't help over 520 takes. So part 5 of the sheet is 26 little words (`LITTLE_WORDS` in
-   phonics.js), each said alone with no sound before it; the tool saves them to `sounds/recorded/<who>/say/<word>.mp3`,
-   levelled like the AI words, and skips one it can't find (it stays with the AI voice). Once recorded, set `SAID_BY` in
-   app.js to the recorder: the word card then plays the recording in every voice (falling back to the AI voice if a file
-   is missing). Accepted trade-off: a human voice says these words, the chosen AI voice says the rest.
+   **Little words (Oct 29-30):** the AI voices can't say short function words alone (Luna's "the" came out as "yeah"/"duh",
+   Mars's "at" as "that", and Mars puts a consonant before vowel-first words: "bit", "dintu"). Rewording the word itself
+   ("the!", quotes, "the...") didn't help over 520 takes, but saying it at the end of a sentence does (Eli's idea, Oct 30):
+   `src/lead-in.js` asks Aura for "The word is: the." as WAV and keeps what follows the last pause of 150 ms or more
+   (quiet = 25 dB under the peak, since Mars has a noisy floor). Eli picked "The word is:" by ear over "This is the word:"
+   and "Say it with me.". `sayWord` in worker.js does this for `LITTLE_WORDS` (phonics.js, 26 words) and stores them under
+   `tts3/<voice>/<word>.wav`; `tools/lead-in.mjs [voices]` makes them ahead of time, up to five takes each, keeping one
+   Whisper hears right (done for Luna and Mars, Oct 30: 42 of 52 approved; Whisper never hears Luna's "the" right).
+   Part 5 of the sound sheet (the same words recorded, `SAID_BY` in app.js) is the fallback if this isn't good enough.
+   Trying the same trick on phonics sounds ("The sound is: sss."), Oct 30: artifact "Yara Reads Sound Test".
    `node tools/sounds-upload.mjs eli --local` puts them in the local R2 so sounding out works under `wrangler dev`. All 45 recorded by Eli in one take (Oct 16, `all`): with exactly
    two pieces per sound the tool pairs them in order, since Whisper mishears single words ("yeah" for hat).
    ~~The tiles play each sound as they light.~~
