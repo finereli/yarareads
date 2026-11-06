@@ -1,5 +1,6 @@
 // API for Yara Reads. Static files are served from public/; everything under /api/ lands here.
 
+import { readingPackRoute, deleteAccountPacks } from './reading-packs.js';
 import publicInventory from '../content/inventory.json';
 import { verifyLoginToken } from './verify-login.js';
 import { handleMcp, sha256 } from './mcp.js';
@@ -268,6 +269,7 @@ export default {
     if (!path.startsWith('/api/')) return env.ASSETS.fetch(request);
 
     if (pub) {
+      if (path.startsWith('/api/reading-packs')) return json({error:'sign in'}, {status:401});
       return publicApi(request, env, url, path, ctx);
     }
 
@@ -284,12 +286,16 @@ export default {
 
     const who = await account(request, env);
     // Not signed in: the free version, the same as the public site (our own books; progress stays on the device).
+    if (!who && path.startsWith('/api/reading-packs')) return json({error:'sign in'}, {status:401});
     if (!who) return publicApi(request, env, url, path, ctx);
     const sub = who.sub;
     // A preview looks and nothing else: no saving, and it leaves no reading history.
     if (who.readOnly && request.method !== 'GET') {
       return path === '/api/events' ? json({ ok: true }) : json({ error: 'preview is read-only' }, { status: 403 });
     }
+
+    const readingPack = await readingPackRoute(request, env, who, path);
+    if (readingPack) return readingPack;
 
     if (path === '/api/stories' && request.method === 'GET') {
       await env.DB.prepare(
@@ -421,6 +427,7 @@ export default {
     }
     if (path === '/api/account' && request.method === 'DELETE') {
       if (who.readOnly) return json({ error: 'not for a preview' }, { status: 403 });
+      await deleteAccountPacks(env, sub);
       const { results: own } = await env.DB.prepare('SELECT id FROM stories WHERE owner = ?').bind(sub).all();
       for (const { id } of own) {
         for (let list = await env.PICTURES.list({ prefix: `${id}/` }); ; list = await env.PICTURES.list({ prefix: `${id}/`, cursor: list.cursor })) {
