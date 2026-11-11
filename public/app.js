@@ -1,6 +1,7 @@
 import { tokenize, isWord, normalize, classify, unreadable, forStory, letters, CATALOG_GROUPS } from './phonics.js';
 import { ICONS, STAR, LOGO, cover } from './art.js';
 import { FinereliLogin } from './login.js';
+import { renderReadingPacks, packWordAsset, packAssetURL } from './reading-packs.js';
 
 const app = document.getElementById('app');
 const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[c]);
@@ -73,9 +74,11 @@ const getInventory = async () => inventory || (inventory = (PUBLIC && local.get(
 let storyCache = {};
 const getStory = async (id) => storyCache[id] || (storyCache[id] = await api('stories/' + id));
 let settings;
+let currentReadingPack = null;
 const getSettings = async () => settings || (settings = await api('settings'));
 const forgetContent = () => {
   gdata = null;
+  currentReadingPack = null;
   inventory = null;
   storyCache = {};
   settings = null;
@@ -110,11 +113,12 @@ function stopAudio() {
 
 const sayKey = (word) => word.toLowerCase().replace(/[^a-z' -]/g, '').trim();
 const wordAudio = new Map(); // "voice|word" -> Promise<{ buffer, why }>: the audio, or why there's none
-function loadWord(word, voice) {
-  const w = sayKey(word), k = `${voice}|${w}`;
+function loadWord(word, voice, imported) {
+  const w = sayKey(word), k = `${voice}|${w}|${imported?.url || ""}`;
+  if (imported && !imported.url) return Promise.resolve({ why: "missing from Reading Pack" });
   if (!wordAudio.has(k)) {
     let why = 'fetch';
-    wordAudio.set(k, fetch(`/api/say?word=${encodeURIComponent(w)}&voice=${encodeURIComponent(voice)}`)
+    wordAudio.set(k, fetch(imported?.url || `/api/say?word=${encodeURIComponent(w)}&voice=${encodeURIComponent(voice)}`, imported ? { headers: { authorization: `Bearer ${authToken()}` } } : undefined)
       .then((r) => (r.ok ? r.arrayBuffer() : Promise.reject(new Error(`http ${r.status}`))))
       .then((bytes) => { why = 'decode'; return new Promise((ok, fail) => ctx().decodeAudioData(bytes, ok, fail)); }) // callback form: older Safari
       .then((buffer) => ({ buffer }))
@@ -125,16 +129,16 @@ function loadWord(word, voice) {
 const prefetchWord = (word) => getSettings().then((s) => loadWord(word, s.voice)).catch(() => {});
 
 // Say a word; `button` shows a spinner if the audio isn't ready yet. Resolves when it starts playing.
-async function sayWord(word, button, voice) {
+async function sayWord(word, button, voice, imported) {
   voice ||= (await getSettings().catch(() => ({}))).voice;
-  const pending = voice ? loadWord(word, voice) : Promise.resolve({ why: 'no voice setting' });
+  const pending = imported || voice ? loadWord(word, voice, imported) : Promise.resolve({ why: 'no voice setting' });
   const spin = setTimeout(() => button?.classList.add('waiting'), 120);
   const { buffer } = await pending;
   clearTimeout(spin);
   button?.classList.remove('waiting');
   stopAudio();
   if (buffer && audioCtx.state !== 'running') await audioCtx.resume().catch(() => {});
-  if (!buffer || audioCtx.state !== 'running') return speak(word);
+  if (!buffer || audioCtx.state !== 'running') { if (imported) { toast('This recording is unavailable in the Reading Pack'); return; } return speak(word); }
   playing = ctx().createBufferSource();
   playing.buffer = buffer;
   // Fade the last 30 ms: some words stop at full volume, and a hard stop clicks.
@@ -340,6 +344,7 @@ async function showLibrary() {
 async function showReader(id, pageIndex) {
   const [story, all] = await Promise.all([getStory(id), getInventory()]);
   const inv = forStory(all, story);
+  currentReadingPack = PUBLIC ? null : await api('reading-packs/for-story/' + id).catch(() => null);
   if (pageIndex >= story.pages.length) return showEnd(story);
   if (pageIndex === 0) log('open', { storyId: id });
   log('page', { storyId: id, page: pageIndex });
@@ -392,6 +397,7 @@ async function showReader(id, pageIndex) {
       </div>
     </div>`;
 
+  app.querySelectorAll('.text > .w').forEach((el, index) => { el.dataset.wordIndex = index; el.dataset.pageIndex = pageIndex; });
   fitPage();
   // The picture box follows the picture's own shape (--ia in style.css), so the crop stays small.
   const img = app.querySelector('.picture img');
@@ -480,6 +486,9 @@ document.addEventListener('click', (e) => pop && !pop.contains(e.target) && clos
 function openPop(el, story, inv) {
   closePop();
   const word = el.dataset.word;
+  const importedPack = el.dataset.wordIndex != null ? currentReadingPack : null;
+  const importedAsset = importedPack && packWordAsset(importedPack, story.id, Number(el.dataset.pageIndex), Number(el.dataset.wordIndex), word);
+  const imported = importedPack ? { url: importedAsset ? packAssetURL(importedPack, importedAsset) : null } : null;
   const info = classify(word, inv, story.words?.[normalize(word)] || []);
   el.classList.add('active');
   log('tap', { storyId: story.id, word: normalize(word) });
@@ -504,10 +513,11 @@ function openPop(el, story, inv) {
       ${badge ? `<div class="badge">${badge}</div>` : ''}
       <div class="actions"><button class="press speak" data-a="say" aria-label="Say it">${ICONS.speaker}</button></div>`;
   }
-  prefetchWord(word); // ready by the end of the sounding out, usually
+  if (importedPack) { const note = document.createElement("p"); note.className = "muted"; note.textContent = `${importedPack.manifest.voice.label} Reading Pack${importedAsset ? "" : " · word recording missing"}`; pop.append(note); loadWord(word, importedPack.manifest.voice.id, imported); }
+  else prefetchWord(word); // ready by the end of the sounding out, usually
   // Recorded sounds: loaded only if a setting uses them (grown-ups > Voice).
   const prefs = getSettings().catch(() => ({}));
-  if (info.parts) prefetchSounds(info.parts);
+  if (info.parts) prefetchSounds(info.parts, importedPack);
   document.body.appendChild(pop);
   fitPop(pop);
   if (info.parts) drawLinks(pop, info.parts);
@@ -517,12 +527,12 @@ function openPop(el, story, inv) {
   const say = pop.querySelector('[data-a=say]');
   if (say) say.onclick = () => {
     unlockAudio();
-    sayWord(word, say);
+    sayWord(word, say, importedPack?.manifest.voice.id, imported);
   };
   const sound = pop.querySelector('[data-a=sound]');
   if (sound) sound.onclick = () => {
     unlockAudio();
-    sayLit(pop, word, sound);
+    sayLit(pop, word, sound, importedPack?.manifest.voice.id, imported);
   };
   // Tap a sound button to hear that one sound (always on); a silent e plays its vowel's sound.
   const card = pop;
@@ -536,7 +546,8 @@ function openPop(el, story, inv) {
       if (info.parts[i].silent) i = info.parts.findIndex((p, k) => k < i && p.g === info.parts[i].g && !p.silent);
       const lit = [i, isSplit(info.parts[i]) ? partner(info.parts, i) : -1].filter((k) => k >= 0).map((k) => card.querySelectorAll('.chip')[k]);
       lit.forEach((c) => c.classList.add('lit'));
-      const buffers = await partAudio(info.parts[i]);
+      const buffers = await partAudio(info.parts[i], importedPack);
+      if (importedPack && !buffers.length) toast("This phonics recording is missing from the Reading Pack");
       await playSounds(buffers);
       setTimeout(() => lit.forEach((c) => c.classList.remove('lit')), 150);
     }));
@@ -601,23 +612,27 @@ const partFiles = (part) => {
 };
 // Sounds added to the sheet on Oct 27 (zh, aw, ts): a voice recorded before then plays these instead.
 const FALLBACK = { aw: ['o'], ts: ['t', 's'] };
-const partAudio = async (part) => {
+const partAudio = async (part, importedPack) => {
   const files = partFiles(part);
-  const got = (await Promise.all(files.map(loadSound))).filter(Boolean);
+  const got = (await Promise.all(files.map(id => loadSound(id, importedPack)))).filter(Boolean);
+  if (importedPack) return got.length === files.length ? got : [];
   if (got.length || files.length !== 1 || !FALLBACK[files[0]]) return got;
-  return (await Promise.all(FALLBACK[files[0]].map(loadSound))).filter(Boolean);
+  return (await Promise.all(FALLBACK[files[0]].map(id => loadSound(id, importedPack)))).filter(Boolean);
 };
 const soundAudio = new Map(); // id -> Promise<AudioBuffer | null>
-const loadSound = (id) => {
-  if (!soundAudio.has(id)) {
-    soundAudio.set(id, fetch(`/api/sounds/recorded/${RECORDED}/${id}.mp3`)
+const loadSound = (id, importedPack) => {
+  const asset = importedPack?.manifest.assets.find(a => a.kind === "sound" && a.sound === id);
+  if (importedPack && !asset) return Promise.resolve(null);
+  const key = `${importedPack?.id || "recorded"}:${id}`;
+  if (!soundAudio.has(key)) {
+    soundAudio.set(key, fetch(asset ? packAssetURL(importedPack, asset) : `/api/sounds/recorded/${RECORDED}/${id}.mp3`, asset ? {headers:{authorization:`Bearer ${authToken()}`}} : undefined)
       .then((r) => (r.ok ? r.arrayBuffer() : Promise.reject(new Error(r.status))))
       .then((bytes) => new Promise((ok, fail) => ctx().decodeAudioData(bytes, ok, fail)))
-      .catch(() => { soundAudio.delete(id); return null; }));
+      .catch(() => { soundAudio.delete(key); return null; }));
   }
-  return soundAudio.get(id);
+  return soundAudio.get(key);
 };
-const prefetchSounds = (parts) => parts.forEach((p) => partFiles(p).forEach(loadSound));
+const prefetchSounds = (parts, importedPack) => parts.forEach((p) => partFiles(p).forEach(id => loadSound(id, importedPack)));
 // Play buffers back to back; resolves when the last one ends.
 function playSounds(buffers) {
   return new Promise((done) => {
@@ -636,10 +651,10 @@ function playSounds(buffers) {
 
 // The speaker button says the word, all its sound buttons lit. It doesn't sound the word out first any more:
 // Eli's recorded sounds and the AI voice saying the word together sounded odd (Oct 23). Tapping a sound button plays it.
-async function sayLit(p, word, button) {
+async function sayLit(p, word, button, voice, imported) {
   const chips = [...p.querySelectorAll('.chip')];
   chips.forEach((c) => c.classList.add('lit'));
-  await sayWord(word, button);
+  await sayWord(word, button, voice, imported);
   setTimeout(() => chips.forEach((c) => c.classList.remove('lit')), 600);
 }
 
@@ -771,6 +786,7 @@ const TABS = [
   ['words', 'Words'],
   ['books', 'Books'],
   ['voice', 'Voice'],
+  ['packs', 'Reading Packs'],
   ['agents', 'Agents'],
   ['app', 'App'],
 ];
@@ -870,6 +886,7 @@ function renderGrownups(tab) {
           </div>`;
         }).join('')}
       </section>`,
+    packs: () => '<div data-reading-packs></div>',
     voice: () => `
       <section class="panel">
         <h2>Voice</h2>
@@ -921,6 +938,12 @@ function renderGrownups(tab) {
   };
 
   app.innerHTML = adminShell(tab, panels[tab]());
+  if (tab === 'packs') {
+    app.querySelector('.tabs .on')?.scrollIntoView({block:'nearest',inline:'center'});
+    const container = app.querySelector('[data-reading-packs]');
+    if (previewToken()) container.textContent = 'Reading Packs can be managed after signing in. Preview links are read-only.';
+    else renderReadingPacks(container, {token:authToken,onChanged:() => {currentReadingPack=null;wordAudio.clear();soundAudio.clear();}});
+  }
 
   // Edits show at once and are saved afterwards; a failed save says so.
   const rerender = () => {

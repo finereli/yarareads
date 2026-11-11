@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "check": "node tools/check.mjs",
-    "deploy": "node tools/check.mjs && node tools/version.mjs && node tools/lexicon-asset.mjs && wrangler deploy"
+    "deploy": "node tools/check.mjs && node tools/version.mjs && node tools/lexicon-asset.mjs && wrangler deploy",
+    "test": "node --test test/*.test.mjs"
   },
   "repository": {
     "type": "git",
