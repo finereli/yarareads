@@ -3,7 +3,7 @@
 // r sounds with their r; then 26 little words since Oct 29) is read top to bottom, usually as one file (`all`):
 // each sound, a pause, its example word, a pause ("sss ... sun ... mmm ... map ..."). One file per part.
 //
-//   node tools/sounds-record.mjs <recording> <part 1-5 | all> [who] [--local]     (all: the whole sheet in one file)
+//   node tools/sounds-record.mjs <recording> <part 1-6 | all> [who] [--local]     (all: the whole sheet in one file)
 //
 // The recording is cut at its silences, each piece is transcribed (Whisper), and each example word is found in order;
 // the sound is the piece just before it. Stray taps and noises at either end don't matter, and a fumbled sound said
@@ -28,17 +28,19 @@ export const PARTS = {
   3: [['a', 'ant'], ['e', 'egg'], ['i', 'ink'], ['o', 'on'], ['u', 'up'], ['oo-short', 'book']],
   4: [['ai', 'rain'], ['ee', 'see'], ['igh', 'night'], ['oa', 'boat'], ['oo', 'moon'], ['aw', 'saw'], ['ow', 'cow'], ['oi', 'coin'],
     ['ue', 'cue'], ['ar', 'car'], ['or', 'fork'], ['ur', 'fur'], ['ear', 'near'], ['air', 'hair'], ['ure', 'cure']],
-  5: LITTLE_WORDS.map((word) => [null, word]), // a word on its own, no sound before it
+  // Chunks that show as one tile (Nov 13): played as two recordings back to back until then (aw + l for all).
+  5: [['all', 'ball'], ['le', 'little'], ['ture', 'picture'], ['id', 'wanted']],
+  6: LITTLE_WORDS.map((word) => [null, word]), // a word on its own, no sound before it: not on the sheet (the lead-in fixed these)
 };
 
 const [file, partArg, whoArg] = process.argv.slice(2).filter((a) => !a.startsWith('--'));
 const where = process.argv.includes('--local') ? '--local' : '--remote';
 const who = whoArg || 'eli';
-// all: the sounds (parts 1-4). Part 5 is off the sheet since the lead-in fixed the little words (Oct 30); record it on its own if needed.
-const part = partArg === 'all' ? [1, 2, 3, 4].flatMap((n) => PARTS[n]) : PARTS[partArg];
+// all: the sheet (parts 1-5). Part 6, the little words, is off the sheet since the lead-in fixed them (Oct 30).
+const part = partArg === 'all' ? [1, 2, 3, 4, 5].flatMap((n) => PARTS[n]) : PARTS[partArg];
 const takes = (n) => (n ? 2 : 1); // a sound and its word, or a little word alone
 if (!file || !part) {
-  console.log('usage: node tools/sounds-record.mjs <recording> <part 1-5 | all> [who] [--local]');
+  console.log('usage: node tools/sounds-record.mjs <recording> <part 1-6 | all> [who] [--local]');
   process.exit(1);
 }
 

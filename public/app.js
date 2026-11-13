@@ -598,6 +598,7 @@ const SOUND_FILES = {
   AE: 'a', EH: 'e', IH: 'i', AA: 'o', AO: 'aw', AH: 'u', UH: 'oo-short',
   EY: 'ai', IY: 'ee', AY: 'igh', OW: 'oa', UW: 'oo', 'AA R': 'ar', 'AO R': 'or', ER: 'ur', AW: 'ow', OY: 'oi',
   'IH R': 'ear', 'EH R': 'air', 'Y UH R': 'ure', 'Y UW': 'ue',
+  'AO L': 'all', 'AH L': 'le', 'CH ER': 'ture', 'IH D': 'id', 'AH D': 'id', // chunks, one tile each (sheet part 5, Nov 13)
 };
 // A part's recordings in order: the whole sound if there's one for it ("K S" is x), else each phoneme ("AH L" in "little").
 const partFiles = (part) => {
@@ -606,24 +607,25 @@ const partFiles = (part) => {
   return part.sound.split(' ').map((ph) => SOUND_FILES[ph]).filter(Boolean);
 };
 // Sounds added to the sheet on Oct 27 (zh, aw, ts): a voice recorded before then plays these instead.
-const FALLBACK = { aw: ['o'], ts: ['t', 's'] };
-const partAudio = async (part) => {
-  const files = partFiles(part);
-  const got = (await Promise.all(files.map(loadSound))).filter(Boolean);
-  if (got.length || files.length !== 1 || !FALLBACK[files[0]]) return got;
-  return (await Promise.all(FALLBACK[files[0]].map(loadSound))).filter(Boolean);
+// The chunks added on Nov 13 (all, le, ture, id) play their two sounds the same way.
+const FALLBACK = { aw: ['o'], ts: ['t', 's'], all: ['aw', 'l'], le: ['u', 'l'], ture: ['ch', 'ur'], id: ['i', 'd'] };
+const soundOrFallback = async (id) => {
+  const got = await loadSound(id);
+  if (got || !FALLBACK[id]) return got ? [got] : [];
+  return (await Promise.all(FALLBACK[id].map(soundOrFallback))).flat(); // aw itself falls back to o
 };
+const partAudio = async (part) => (await Promise.all(partFiles(part).map(soundOrFallback))).flat();
 const soundAudio = new Map(); // id -> Promise<AudioBuffer | null>
 const loadSound = (id) => {
   if (!soundAudio.has(id)) {
     soundAudio.set(id, fetch(`/api/sounds/recorded/${RECORDED}/${id}.mp3`)
-      .then((r) => (r.ok ? r.arrayBuffer() : Promise.reject(new Error(r.status))))
-      .then((bytes) => new Promise((ok, fail) => ctx().decodeAudioData(bytes, ok, fail)))
+      .then((r) => (r.ok ? r.arrayBuffer() : r.status === 404 ? null : Promise.reject(new Error(r.status))))
+      .then((bytes) => bytes && new Promise((ok, fail) => ctx().decodeAudioData(bytes, ok, fail))) // 404: not recorded, stays null
       .catch(() => { soundAudio.delete(id); return null; }));
   }
   return soundAudio.get(id);
 };
-const prefetchSounds = (parts) => parts.forEach((p) => partFiles(p).forEach(loadSound));
+const prefetchSounds = (parts) => parts.forEach((p) => partFiles(p).forEach(soundOrFallback));
 // Play buffers back to back; resolves when the last one ends.
 function playSounds(buffers) {
   return new Promise((done) => {

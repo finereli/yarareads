@@ -234,6 +234,10 @@ Content changes need only `tools/push.mjs`, no deploy.
    words stays as a fallback (`PARTS[5]` in sounds-record.mjs, `SAID_BY` in app.js, `say/` in R2).
    The same trick on phonics sounds ("The sound is: sss.", "The phoneme is: ...") doesn't work (Eli, Oct 30): the sounds
    stay recorded, by Eli.
+   **Chunks (Nov 13):** four spellings show as one tile but had no recording, so they played two back to back: all (aw + l),
+   le (u + l), ture (ch + ur), ed in wanted (i + d). They're part 5 of the sheet now (52 recordings); `SOUND_FILES` maps
+   them, and until recorded `FALLBACK` plays the two pieces (recursively: aw itself falls back to o). The oor in "sure"
+   (UH R) still plays oo + r.
    `node tools/sounds-upload.mjs eli --local` puts them in the local R2 so sounding out works under `wrangler dev`. All 45 recorded by Eli in one take (Oct 16, `all`): with exactly
    two pieces per sound the tool pairs them in order, since Whisper mishears single words ("yeah" for hat).
    ~~The tiles play each sound as they light.~~
