@@ -21,7 +21,7 @@ Every word in a story must be readable by Yara: decodable with her graphemes, a 
 
 The check uses pronunciation, not just spelling. `public/phonics.js#decode` aligns each word's CMU dictionary
 pronunciation (`data/cmudict.dict`) with the sounds she knows for each grapheme (`content/inventory.json`).
-That's what rejects "cake" (c-a-k-e spells, but the a isn't /a/) and "dry". Unstressed single vowels may be schwa (the o in "dragon").
+That's what rejects "cake" (c-a-k-e spells, but the a isn't /a/) and "dry". Unstressed single vowels may be schwa (the o in "dragon"). But a pronunciation where every vowel makes its own sound wins: CMU lists Griffith as G R IH1 F AH0 TH and G R IH1 F IH0 TH, and taking the first made the second i play u (Nov 13; `breakdown` tries without schwa first; it changed 4 of 1194 book words: Griffith, practice, hello, before).
 Weak forms with no stressed syllable are ignored (otherwise "into" sneaks through as IH0 N T AH0); one-letter words like "a" are special-cased.
 CMU is a US dictionary, and the app is **American English** throughout (Eli, Oct 23: the voices are American too; the British
 pronunciations and voices are gone). `data/extra.dict` adds names and words CMU lacks (Yara, Mittu, tingly) and the odd other
@@ -231,7 +231,7 @@ Content changes need only `tools/push.mjs`, no deploy.
    `tts3/<voice>/<word>.wav`; `tools/lead-in.mjs [voices]` makes them ahead of time, up to five takes each, keeping one
    Whisper hears right (done for Luna and Mars, Oct 30: 42 of 52 approved; Whisper never hears Luna's "the" right).
    Eli: the lone words with the lead-in work (Oct 30), so part 5 came off the sound sheet; the code for recorded little
-   words stays as a fallback (`PARTS[5]` in sounds-record.mjs, `SAID_BY` in app.js, `say/` in R2).
+   words stays as a fallback (`PARTS[6]` in sounds-record.mjs, `SAID_BY` in app.js, `say/` in R2).
    The same trick on phonics sounds ("The sound is: sss.", "The phoneme is: ...") doesn't work (Eli, Oct 30): the sounds
    stay recorded, by Eli.
    **Chunks (Nov 13):** four spellings show as one tile but had no recording, so they played two back to back: all (aw + l),

@@ -64,7 +64,7 @@ const isConsonant = (g) => !/[aeiouy_]/.test(letters(g));
 //
 // The result is in spelling order: [{ text, g }], where text is the letters and g the grapheme.
 // A silent-e pair spans the consonant between: make is m, a (g: a_e), k, e (g: a_e, silent).
-export function decode(word, graphemes, pronunciation) {
+export function decode(word, graphemes, pronunciation, { schwa = true } = {}) {
   const w = normalize(word);
   const known = graphemes.filter((g) => SOUNDS[g]);
   // Longest letters first; for equal letters, the order given (so graphemes she knows win).
@@ -74,7 +74,7 @@ export function decode(word, graphemes, pronunciation) {
   const plain = pronunciation.map((p) => p.replace(/\d/g, ''));
   const matches = (g, j) => {
     const options = SOUNDS[g].map((s) => s.split(' '));
-    if (VOWELS.has(letters(g)) && SCHWA.has(pronunciation[j])) options.push([plain[j]]);
+    if (schwa && VOWELS.has(letters(g)) && SCHWA.has(pronunciation[j])) options.push([plain[j]]);
     return options.filter((seq) => seq.every((p, k) => plain[j + k] === p)).map((seq) => seq.length);
   };
   // The sound a part makes in this word, as ARPAbet ("Z" for the s in "is"): the word card plays its recording.
@@ -124,10 +124,15 @@ export function decode(word, graphemes, pronunciation) {
 
 // Break a word down with the given graphemes, from its first stressed pronunciation that works.
 // Weak forms with no stressed syllable ("into" as IH0 N T AH0) aren't how she'd sound it out.
+// A pronunciation where every vowel makes its own sound wins over one that needs a schwa: CMU lists Griffith as
+// G R IH1 F AH0 TH first and G R IH1 F IH0 TH second, and the second i should play i, not u (Eli, Nov 13).
 function breakdown(w, graphemes, pronunciations) {
-  for (const p of pronunciations.filter((p) => p.some((ph) => ph.endsWith('1')))) {
-    const parts = decode(w, graphemes, p);
-    if (parts) return parts;
+  const stressed = pronunciations.filter((p) => p.some((ph) => ph.endsWith('1')));
+  for (const schwa of [false, true]) {
+    for (const p of stressed) {
+      const parts = decode(w, graphemes, p, { schwa });
+      if (parts) return parts;
+    }
   }
   return null;
 }
