@@ -176,6 +176,26 @@ The posting order is the queue in posted.json (the scheduled task posts two ever
 
 **Board:** Julia and Toby: early chapter books
 
+## 25-like-magic-tree-house
+
+**Title:** Books like Magic Tree House for kids just learning to read: Julia and Toby
+
+**Description:** Loves Magic Tree House at bedtime but can't read it alone yet? Julia and Toby is a magic adventure series for kids who have just learned to read: a girl, a runaway dragon whose feelings make things float, and a mystery that grows each chapter, in words a 5 to 7 year old can read by themselves. Books like Magic Tree House for kids, a step younger. Early chapter books for beginning readers. Free to read on any tablet, phone or computer. No ads, no account.
+
+**Link:** https://yarareads.finereli.com/?from=pinterest#/read/toby-1/0
+
+**Board:** Julia and Toby: early chapter books
+
+## 26-girl-hero
+
+**Title:** Books like Dragon Masters for girls: a dragon chapter book series with a girl hero
+
+**Description:** Looking for books like Dragon Masters for girls? In Julia and Toby, six-year-old Julia finds a runaway dragon crying in the woods, and she is the one who makes the plans. A real fantasy series with a magic system and a villain, written in words a kid who just learned to read can sound out alone. Dragon chapter books for kids ages 5 to 7, early chapter books for 1st grade. Free to read on any tablet, phone or computer. No ads, no account.
+
+**Link:** https://yarareads.finereli.com/?from=pinterest#/read/toby-1/0
+
+**Board:** Dragon chapter books for kids
+
 ## 20-video (video.sh)
 
 **Title:** Julia and Toby, book 1: a dragon story new readers can read themselves
