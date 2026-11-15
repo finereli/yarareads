@@ -82,7 +82,7 @@ Never loosen the inventory to make a story pass.
   Names and words she can't read yet are still broken down, using the whole catalog: tiles for sounds she hasn't learned are plum (`part.new`).
   Only sight words and words no catalog sound can explain show as one block.
   `SOUNDED` in phonics.js lists words sounded out a particular way, by Eli's choice, as [letters, sound] per button, ahead of
-  the sight word list: "they" is th-e-y (the e and consonant y glide into its /ai/), "again" and "said" play their ai as "eh", "looked" and "liked" end in ed as /t/ (Oct 19).
+  the sight word list: "they" is th-e-y (the e and consonant y glide into its /ai/), "again" and "said" play their ai as "eh", "looked" and "liked" end in ed as /t/ (Oct 19), "with" ends in a voiceless th as Yara says it (Nov 15; CMU lists the voiced one first).
   Add to it one word at a time; it changes only the word card, not what counts as readable.
   A t and s ending a word (cats, its) show as one "ts" button with one sound (`joinTs`, Eli, Oct 27), like x is ks: also card-only.
 - `docs/stories/`: one brief per series (Tom's briefs, decisions, chapter outline). Read it before writing the next chapter.

@@ -607,8 +607,9 @@ const partFiles = (part) => {
   return part.sound.split(' ').map((ph) => SOUND_FILES[ph]).filter(Boolean);
 };
 // Sounds added to the sheet on Oct 27 (zh, aw, ts): a voice recorded before then plays these instead.
-// The chunks added on Nov 13 (all, le, ture, id) play their two sounds the same way.
-const FALLBACK = { aw: ['o'], ts: ['t', 's'], all: ['aw', 'l'], le: ['u', 'l'], ture: ['ch', 'ur'], id: ['i', 'd'] };
+// The chunks added on Nov 13 (all, le, ture, id) play their two sounds the same way, except le: a full "u" before
+// the l made "bottles" sound wrong (Eli, Nov 15), and the l alone is closer to bot-l.
+const FALLBACK = { aw: ['o'], ts: ['t', 's'], all: ['aw', 'l'], le: ['l'], ture: ['ch', 'ur'], id: ['i', 'd'] };
 const soundOrFallback = async (id) => {
   const got = await loadSound(id);
   if (got || !FALLBACK[id]) return got ? [got] : [];

@@ -162,6 +162,8 @@ export const SOUNDED = {
   said: [['s', 'S'], ['ai', 'EH'], ['d', 'D']],
   looked: [['l', 'L'], ['oo', 'UH'], ['k', 'K'], ['ed', 'T']],
   liked: [['l', 'L'], ['i', 'AY'], ['k', 'K'], ['ed', 'T']],
+  // CMU lists the voiced th (as in this) first; Yara says it voiceless, as in thin, like much of North America (Nov 15).
+  with: [['w', 'W'], ['i', 'IH'], ['th', 'TH']],
 };
 
 // Little words the AI voices can't say on their own (Oct 29): said alone they're too short, and Aura mumbles them or
