@@ -131,10 +131,23 @@ function breakdown(w, graphemes, pronunciations) {
   for (const schwa of [false, true]) {
     for (const p of stressed) {
       const parts = decode(w, graphemes, p, { schwa });
-      if (parts) return parts;
+      if (parts) return parts; // quietEn(parts): on hold while Eli decides how schwa vowels should sound (Nov 15)
     }
   }
   return null;
+}
+
+// The e in a word ending -en (wooden, chicken, open; also opened, opening, suddenly) is all but silent: wood-n,
+// not wood-uh-n. Played as u it sounded wrong (Eli, Nov 15), so it shows as a silent letter, like the e of a_e.
+// Only how the card shows and plays it: what counts as readable is unchanged.
+const EN_END = /^(|s|ed|d|ing|ly)$/;
+function quietEn(parts) {
+  return parts.map((p, i) => {
+    const n = parts[i + 1];
+    const rest = parts.slice(i + 2).map((q) => q.text).join('');
+    if (p.text !== 'e' || p.sound !== 'AH' || n?.text !== 'n' || !EN_END.test(rest)) return p;
+    return { text: 'e', g: p.g, silent: true };
+  });
 }
 
 // Every grapheme in the catalog, hers first so a breakdown uses what she knows when it can.

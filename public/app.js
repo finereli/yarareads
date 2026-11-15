@@ -530,16 +530,15 @@ function openPop(el, story, inv) {
     unlockAudio();
     sayLit(pop, word, sound);
   };
-  // Tap a sound button to hear that one sound (always on); a silent e plays its vowel's sound.
+  // Tap a sound button to hear that one sound (always on). Silent letters aren't buttons (Eli, Nov 15).
   const card = pop;
   prefs.then(() => {
     if (!info.parts || card !== pop) return;
     card.querySelector('.chips').classList.add('tappable');
-    card.querySelectorAll('.chip').forEach((chip) => (chip.onclick = async () => {
+    card.querySelectorAll('.chip:not(.silent)').forEach((chip) => (chip.onclick = async () => {
       if (card.dataset.busy) return;
       unlockAudio();
-      let i = Number(chip.dataset.i);
-      if (info.parts[i].silent) i = info.parts.findIndex((p, k) => k < i && p.g === info.parts[i].g && !p.silent);
+      const i = Number(chip.dataset.i);
       const lit = [i, isSplit(info.parts[i]) ? partner(info.parts, i) : -1].filter((k) => k >= 0).map((k) => card.querySelectorAll('.chip')[k]);
       lit.forEach((c) => c.classList.add('lit'));
       const buffers = await partAudio(info.parts[i]);
@@ -564,6 +563,7 @@ function fitPop(p) {
 // A sound she hasn't learned yet gets the plum "new" look on top.
 const isSplit = (p) => p.g.length === 3 && p.g[1] === '_';
 function chipClass(p) {
+  if (p.silent) return isSplit(p) ? 'silent split' : 'silent'; // a letter, not a button: no tile, no dot
   const shape = isSplit(p) ? 'split' : p.text.length > 1 ? 'many' : 'one';
   return p.new ? `${shape} new` : shape;
 }
@@ -646,7 +646,7 @@ function playSounds(buffers) {
 // The speaker button says the word, all its sound buttons lit. It doesn't sound the word out first any more:
 // Eli's recorded sounds and the AI voice saying the word together sounded odd (Oct 23). Tapping a sound button plays it.
 async function sayLit(p, word, button) {
-  const chips = [...p.querySelectorAll('.chip')];
+  const chips = [...p.querySelectorAll('.chip:not(.silent)')];
   chips.forEach((c) => c.classList.add('lit'));
   await sayWord(word, button);
   setTimeout(() => chips.forEach((c) => c.classList.remove('lit')), 600);
