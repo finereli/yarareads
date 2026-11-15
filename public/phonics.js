@@ -131,23 +131,18 @@ function breakdown(w, graphemes, pronunciations) {
   for (const schwa of [false, true]) {
     for (const p of stressed) {
       const parts = decode(w, graphemes, p, { schwa });
-      if (parts) return parts; // quietEn(parts): on hold while Eli decides how schwa vowels should sound (Nov 15)
+      if (parts) return quietSchwa(parts);
     }
   }
   return null;
 }
 
-// The e in a word ending -en (wooden, chicken, open; also opened, opening, suddenly) is all but silent: wood-n,
-// not wood-uh-n. Played as u it sounded wrong (Eli, Nov 15), so it shows as a silent letter, like the e of a_e.
-// Only how the card shows and plays it: what counts as readable is unchanged.
-const EN_END = /^(|s|ed|d|ing|ly)$/;
-function quietEn(parts) {
-  return parts.map((p, i) => {
-    const n = parts[i + 1];
-    const rest = parts.slice(i + 2).map((q) => q.text).join('');
-    if (p.text !== 'e' || p.sound !== 'AH' || n?.text !== 'n' || !EN_END.test(rest)) return p;
-    return { text: 'e', g: p.g, silent: true };
-  });
+// A vowel that only says "uh" here (a schwa: the o in dragon, the e in wooden, the a in about) can't be sounded out
+// on its own: played alone it's a full "uh", and drag-uh-n sounds wrong. So it shows like a silent letter, faded and
+// not a button: part of the word, but not one of its sounds (Eli, Nov 15). Only how the card shows it: what counts as
+// readable is unchanged. A vowel with a real sound of its own (u in up, the e in hisses as i) stays a sound button.
+function quietSchwa(parts) {
+  return parts.map((p) => (VOWELS.has(p.text) && p.sound === 'AH' && !SOUNDS[p.g].includes('AH') ? { text: p.text, g: p.g, silent: true, schwa: true } : p));
 }
 
 // Every grapheme in the catalog, hers first so a breakdown uses what she knows when it can.
