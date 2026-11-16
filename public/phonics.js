@@ -137,12 +137,27 @@ function breakdown(w, graphemes, pronunciations) {
   return null;
 }
 
-// A vowel that only says "uh" here (a schwa: the o in dragon, the e in wooden, the a in about) can't be sounded out
-// on its own: played alone it's a full "uh", and drag-uh-n sounds wrong. So it shows like a silent letter, faded and
-// not a button: part of the word, but not one of its sounds (Eli, Nov 15). Only how the card shows it: what counts as
-// readable is unchanged. A vowel with a real sound of its own (u in up, the e in hisses as i) stays a sound button.
+// A vowel that only says "uh" here (a schwa) can't be played as a plain "uh" everywhere: drag-uh-n sounded wrong
+// (Eli, Nov 15). Where it falls decides how the card shows it (Eli, Nov 16):
+//   1. Before an n, l or m that ends the word, give or take a suffix (wooden, dragon, tunnel, kingdom, opened,
+//      finally): the vowel all but vanishes (wood-n), so it's a quiet letter: faded, no tile, not a button.
+//   2. Starting or ending the word (about, away, idea, Julia, Ana's): a syllable of its own, and there "uh" is exactly
+//      what people say.
+//   3. Anywhere else (pocket, protect, giant): the letter's usual sound, the spelling voice teachers use. She sounds
+//      out a near miss (pock-e-t) and corrects it to the word she knows; the speaker button says the real word.
+// Only how the card shows and plays it: what counts as readable is unchanged. A vowel with a real sound of its own
+// (u in up, the e in hisses as i) is left alone.
+const SYLLABIC = new Set(['n', 'nn', 'l', 'll', 'm']);
+const SUFFIX = /^(|d|ed|ing|ly|y)s?$/;
 function quietSchwa(parts) {
-  return parts.map((p) => (VOWELS.has(p.text) && p.sound === 'AH' && !SOUNDS[p.g].includes('AH') ? { text: p.text, g: p.g, silent: true, schwa: true } : p));
+  return parts.map((p, i) => {
+    if (!VOWELS.has(p.text) || p.sound !== 'AH' || SOUNDS[p.g].includes('AH')) return p;
+    const after = parts.slice(i + 1).map((q) => q.text).join('');
+    if (i === 0 || after === '' || after === 's') return { ...p, schwa: true };
+    const rest = parts.slice(i + 2).map((q) => q.text).join('');
+    if (SYLLABIC.has(parts[i + 1]?.text) && SUFFIX.test(rest)) return { text: p.text, g: p.g, silent: true, schwa: true };
+    return { ...p, sound: SOUNDS[p.g][0], schwa: true };
+  });
 }
 
 // Every grapheme in the catalog, hers first so a breakdown uses what she knows when it can.
