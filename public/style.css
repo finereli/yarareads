@@ -272,6 +272,11 @@ button { border: none; background: none; cursor: pointer; padding: 0; }
 .chip.new { background: var(--plum-soft); color: var(--dusk); }
 .chip.new .mark::after { background: var(--dusk); }
 .chip.new.lit { background: var(--gold-soft); }
+/* A silent letter (the e of a_e, the e of wooden): part of the word, not a button. Faded ink, no tile, no dot (Nov 15). */
+.chip.silent, .chip.silent.split { background: transparent; color: var(--ink-soft); opacity: 0.55; }
+.chip.silent .mark::after { display: none; }
+.chips.tappable .chip.silent { cursor: default; }
+.chips.tappable .chip.silent:active { transform: none; }
 .badge.new { background: var(--paper-2); color: var(--ink-soft); }
 .chips.linked { position: relative; padding-bottom: 18px; }
 .chips .links { position: absolute; left: 0; top: 0; pointer-events: none; overflow: visible; }
@@ -479,3 +484,4 @@ button { border: none; background: none; cursor: pointer; padding: 0; }
 .newkey p { margin: 0; }
 .newkey input { width: 100%; font: 15px/1.3 ui-monospace, monospace; padding: 10px 12px; border-radius: 12px; border: 2px solid var(--line); background: #fff; }
 .newkey code { font-size: 14px; overflow-wrap: anywhere; }
+.chip.silent.lit { opacity: 1; } /* tapping a_e's vowel lights its e too */

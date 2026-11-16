@@ -1,4 +1,4 @@
-import { tokenize, isWord, normalize, classify, unreadable, forStory, letters, CATALOG_GROUPS } from './phonics.js';
+import { tokenize, isWord, normalize, classify, unreadable, forStory, letters, CATALOG_GROUPS, LITTLE_WORDS } from './phonics.js';
 import { ICONS, STAR, LOGO, cover } from './art.js';
 import { FinereliLogin } from './login.js';
 
@@ -109,12 +109,18 @@ function stopAudio() {
 }
 
 const sayKey = (word) => word.toLowerCase().replace(/[^a-z' -]/g, '').trim();
+// Who recorded the little words (part 5 of the sound sheet, LITTLE_WORDS in phonics.js), or null while nobody has:
+// the AI voice says them until then. A recording plays in every voice, since no AI voice says them well (Oct 29).
+const SAID_BY = null;
+const LITTLE = new Set(LITTLE_WORDS);
 const wordAudio = new Map(); // "voice|word" -> Promise<{ buffer, why }>: the audio, or why there's none
 function loadWord(word, voice) {
-  const w = sayKey(word), k = `${voice}|${w}`;
+  const w = sayKey(word), recorded = SAID_BY && LITTLE.has(w), k = recorded ? `recorded|${w}` : `${voice}|${w}`;
   if (!wordAudio.has(k)) {
     let why = 'fetch';
-    wordAudio.set(k, fetch(`/api/say?word=${encodeURIComponent(w)}&voice=${encodeURIComponent(voice)}`)
+    const ai = () => fetch(`/api/say?word=${encodeURIComponent(w)}&voice=${encodeURIComponent(voice)}`);
+    wordAudio.set(k, (recorded ? fetch(`/api/sounds/recorded/${SAID_BY}/say/${encodeURIComponent(w)}.mp3`)
+      .then((r) => (r.ok ? r : ai())) : ai())
       .then((r) => (r.ok ? r.arrayBuffer() : Promise.reject(new Error(`http ${r.status}`))))
       .then((bytes) => { why = 'decode'; return new Promise((ok, fail) => ctx().decodeAudioData(bytes, ok, fail)); }) // callback form: older Safari
       .then((buffer) => ({ buffer }))
@@ -524,16 +530,15 @@ function openPop(el, story, inv) {
     unlockAudio();
     sayLit(pop, word, sound);
   };
-  // Tap a sound button to hear that one sound (always on); a silent e plays its vowel's sound.
+  // Tap a sound button to hear that one sound (always on). Silent letters aren't buttons (Eli, Nov 15).
   const card = pop;
   prefs.then(() => {
     if (!info.parts || card !== pop) return;
     card.querySelector('.chips').classList.add('tappable');
-    card.querySelectorAll('.chip').forEach((chip) => (chip.onclick = async () => {
+    card.querySelectorAll('.chip:not(.silent)').forEach((chip) => (chip.onclick = async () => {
       if (card.dataset.busy) return;
       unlockAudio();
-      let i = Number(chip.dataset.i);
-      if (info.parts[i].silent) i = info.parts.findIndex((p, k) => k < i && p.g === info.parts[i].g && !p.silent);
+      const i = Number(chip.dataset.i);
       const lit = [i, isSplit(info.parts[i]) ? partner(info.parts, i) : -1].filter((k) => k >= 0).map((k) => card.querySelectorAll('.chip')[k]);
       lit.forEach((c) => c.classList.add('lit'));
       const buffers = await partAudio(info.parts[i]);
@@ -558,6 +563,7 @@ function fitPop(p) {
 // A sound she hasn't learned yet gets the plum "new" look on top.
 const isSplit = (p) => p.g.length === 3 && p.g[1] === '_';
 function chipClass(p) {
+  if (p.silent) return isSplit(p) ? 'silent split' : 'silent'; // a letter, not a button: no tile, no dot
   const shape = isSplit(p) ? 'split' : p.text.length > 1 ? 'many' : 'one';
   return p.new ? `${shape} new` : shape;
 }
@@ -592,6 +598,7 @@ const SOUND_FILES = {
   AE: 'a', EH: 'e', IH: 'i', AA: 'o', AO: 'aw', AH: 'u', UH: 'oo-short',
   EY: 'ai', IY: 'ee', AY: 'igh', OW: 'oa', UW: 'oo', 'AA R': 'ar', 'AO R': 'or', ER: 'ur', AW: 'ow', OY: 'oi',
   'IH R': 'ear', 'EH R': 'air', 'Y UH R': 'ure', 'Y UW': 'ue',
+  'AO L': 'all', 'AH L': 'le', 'CH ER': 'ture', 'IH D': 'id', 'AH D': 'id', // chunks, one tile each (sheet part 5, Nov 13)
 };
 // A part's recordings in order: the whole sound if there's one for it ("K S" is x), else each phoneme ("AH L" in "little").
 const partFiles = (part) => {
@@ -600,24 +607,26 @@ const partFiles = (part) => {
   return part.sound.split(' ').map((ph) => SOUND_FILES[ph]).filter(Boolean);
 };
 // Sounds added to the sheet on Oct 27 (zh, aw, ts): a voice recorded before then plays these instead.
-const FALLBACK = { aw: ['o'], ts: ['t', 's'] };
-const partAudio = async (part) => {
-  const files = partFiles(part);
-  const got = (await Promise.all(files.map(loadSound))).filter(Boolean);
-  if (got.length || files.length !== 1 || !FALLBACK[files[0]]) return got;
-  return (await Promise.all(FALLBACK[files[0]].map(loadSound))).filter(Boolean);
+// The chunks added on Nov 13 (all, le, ture, id) play their two sounds the same way, except le: a full "u" before
+// the l made "bottles" sound wrong (Eli, Nov 15), and the l alone is closer to bot-l.
+const FALLBACK = { aw: ['o'], ts: ['t', 's'], all: ['aw', 'l'], le: ['l'], ture: ['ch', 'ur'], id: ['i', 'd'] };
+const soundOrFallback = async (id) => {
+  const got = await loadSound(id);
+  if (got || !FALLBACK[id]) return got ? [got] : [];
+  return (await Promise.all(FALLBACK[id].map(soundOrFallback))).flat(); // aw itself falls back to o
 };
+const partAudio = async (part) => (await Promise.all(partFiles(part).map(soundOrFallback))).flat();
 const soundAudio = new Map(); // id -> Promise<AudioBuffer | null>
 const loadSound = (id) => {
   if (!soundAudio.has(id)) {
     soundAudio.set(id, fetch(`/api/sounds/recorded/${RECORDED}/${id}.mp3`)
-      .then((r) => (r.ok ? r.arrayBuffer() : Promise.reject(new Error(r.status))))
-      .then((bytes) => new Promise((ok, fail) => ctx().decodeAudioData(bytes, ok, fail)))
+      .then((r) => (r.ok ? r.arrayBuffer() : r.status === 404 ? null : Promise.reject(new Error(r.status))))
+      .then((bytes) => bytes && new Promise((ok, fail) => ctx().decodeAudioData(bytes, ok, fail))) // 404: not recorded, stays null
       .catch(() => { soundAudio.delete(id); return null; }));
   }
   return soundAudio.get(id);
 };
-const prefetchSounds = (parts) => parts.forEach((p) => partFiles(p).forEach(loadSound));
+const prefetchSounds = (parts) => parts.forEach((p) => partFiles(p).forEach(soundOrFallback));
 // Play buffers back to back; resolves when the last one ends.
 function playSounds(buffers) {
   return new Promise((done) => {
@@ -637,7 +646,7 @@ function playSounds(buffers) {
 // The speaker button says the word, all its sound buttons lit. It doesn't sound the word out first any more:
 // Eli's recorded sounds and the AI voice saying the word together sounded odd (Oct 23). Tapping a sound button plays it.
 async function sayLit(p, word, button) {
-  const chips = [...p.querySelectorAll('.chip')];
+  const chips = [...p.querySelectorAll('.chip:not(.silent)')];
   chips.forEach((c) => c.classList.add('lit'));
   await sayWord(word, button);
   setTimeout(() => chips.forEach((c) => c.classList.remove('lit')), 600);

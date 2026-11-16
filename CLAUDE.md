@@ -21,7 +21,7 @@ Every word in a story must be readable by Yara: decodable with her graphemes, a 
 
 The check uses pronunciation, not just spelling. `public/phonics.js#decode` aligns each word's CMU dictionary
 pronunciation (`data/cmudict.dict`) with the sounds she knows for each grapheme (`content/inventory.json`).
-That's what rejects "cake" (c-a-k-e spells, but the a isn't /a/) and "dry". Unstressed single vowels may be schwa (the o in "dragon").
+That's what rejects "cake" (c-a-k-e spells, but the a isn't /a/) and "dry". Unstressed single vowels may be schwa (the o in "dragon"). But a pronunciation where every vowel makes its own sound wins: CMU lists Griffith as G R IH1 F AH0 TH and G R IH1 F IH0 TH, and taking the first made the second i play u (Nov 13; `breakdown` tries without schwa first; it changed 4 of 1194 book words: Griffith, practice, hello, before). A vowel that only says schwa ("uh": the o in dragon, the e in wooden, the a in about) can't be sounded out alone (Eli, Nov 15: "phonemes are an approximation"), so the word card shows it like a silent letter: faded, no tile, no dot, not a button (`quietSchwa`; 81 of 1194 book words). Silent letters (the e of a_e too) aren't buttons; tapping a_e's vowel lights its e.
 Weak forms with no stressed syllable are ignored (otherwise "into" sneaks through as IH0 N T AH0); one-letter words like "a" are special-cased.
 CMU is a US dictionary, and the app is **American English** throughout (Eli, Oct 23: the voices are American too; the British
 pronunciations and voices are gone). `data/extra.dict` adds names and words CMU lacks (Yara, Mittu, tingly) and the odd other
@@ -82,7 +82,7 @@ Never loosen the inventory to make a story pass.
   Names and words she can't read yet are still broken down, using the whole catalog: tiles for sounds she hasn't learned are plum (`part.new`).
   Only sight words and words no catalog sound can explain show as one block.
   `SOUNDED` in phonics.js lists words sounded out a particular way, by Eli's choice, as [letters, sound] per button, ahead of
-  the sight word list: "they" is th-e-y (the e and consonant y glide into its /ai/), "again" and "said" play their ai as "eh", "looked" and "liked" end in ed as /t/ (Oct 19).
+  the sight word list: "they" is th-e-y (the e and consonant y glide into its /ai/), "again" and "said" play their ai as "eh", "looked" and "liked" end in ed as /t/ (Oct 19), "with" ends in a voiceless th as Yara says it (Nov 15; CMU lists the voiced one first).
   Add to it one word at a time; it changes only the word card, not what counts as readable.
   A t and s ending a word (cats, its) show as one "ts" button with one sound (`joinTs`, Eli, Oct 27), like x is ks: also card-only.
 - `docs/stories/`: one brief per series (Tom's briefs, decisions, chapter outline). Read it before writing the next chapter.
@@ -186,7 +186,7 @@ broadband hiss as loud as people do; plus 2.5 dB off the unvoiced hisses by Eli'
 
 **Word voice.** Words are spoken by a Cloudflare Workers AI voice (Deepgram Aura 2, American voices only: Luna, Asteria and 8 men; `VOICES` in worker.js, chosen in grown-ups > Voice,
 stored in D1 `settings`; default Luna since Oct 23, Hyperion before). `/api/say` generates a word once and caches it in R2 under `tts2/<voice>/<word>.mp3` (~0.5-1 s new, ~10 ms cached).
-The word is sent as a sentence (`playing.`): a bare word gets its end clipped.
+The word is sent as a sentence (`playing.`): a bare word gets its end clipped. Little words get a lead-in (see Roadmap 4).
 The word card starts fetching the word when it opens, so it's usually ready by the tap; if not,
 the speaker button shows a spinner. Audio plays through Web Audio: iOS only allows sound started inside a tap, so the tap
 resumes the AudioContext (`unlockAudio`) and the word can play later from a timer. Browser speech is only the fallback.
@@ -217,8 +217,27 @@ Content changes need only `tools/push.mjs`, no deploy.
    `sounds/recorded/<who>/<id>.mp3` (+ `words/`). Local copies in content/sounds/recorded/
    are in git, public (Eli's call, Oct 23: the app doesn't work well without them).
    **Re-recording (Oct 27):** the sheet is now American and has 48 sounds (zh in treasure, aw in saw, ts in cats added; ar, or,
-   ur, ear, air, ure said with their r). Tom records it (`who` = tom), then `RECORDED` in app.js switches to his voice and
-   the `ADJUST` levels get re-measured for him. Until then `FALLBACK` in app.js plays o for aw and t, s for ts.
+   ur, ear, air, ure said with their r). Tom found it hard, so Eli records it again (Oct 30), and the plan is to re-voice his
+   recording with a speech-to-speech model into each word voice, so sounds, little words and words all sound like one voice.
+   That's why the voices get cut to one woman and one man (Oct 30). Whisper on 36 short words, two takes each: Asteria 73%,
+   Saturn 69%, Luna 68%, Orion 63%, ... Mars 40% (last; the family's pick until now). Eli picks by ear (artifact "Yara Reads
+   Voice Pick"). The `ADJUST` levels get re-measured for the new recording. Until then `FALLBACK` in app.js plays o for aw and t, s for ts.
+   **Little words (Oct 29-30):** the AI voices can't say short function words alone (Luna's "the" came out as "yeah"/"duh",
+   Mars's "at" as "that", and Mars puts a consonant before vowel-first words: "bit", "dintu"). Rewording the word itself
+   ("the!", quotes, "the...") didn't help over 520 takes, but saying it at the end of a sentence does (Eli's idea, Oct 30):
+   `src/lead-in.js` asks Aura for "The word is: the." as WAV and keeps what follows the last pause of 150 ms or more
+   (quiet = 25 dB under the peak, since Mars has a noisy floor). Eli picked "The word is:" by ear over "This is the word:"
+   and "Say it with me.". `sayWord` in worker.js does this for `LITTLE_WORDS` (phonics.js, 26 words) and stores them under
+   `tts3/<voice>/<word>.wav`; `tools/lead-in.mjs [voices]` makes them ahead of time, up to five takes each, keeping one
+   Whisper hears right (done for Luna and Mars, Oct 30: 42 of 52 approved; Whisper never hears Luna's "the" right).
+   Eli: the lone words with the lead-in work (Oct 30), so part 5 came off the sound sheet; the code for recorded little
+   words stays as a fallback (`PARTS[6]` in sounds-record.mjs, `SAID_BY` in app.js, `say/` in R2).
+   The same trick on phonics sounds ("The sound is: sss.", "The phoneme is: ...") doesn't work (Eli, Oct 30): the sounds
+   stay recorded, by Eli.
+   **Chunks (Nov 13):** four spellings show as one tile but had no recording, so they played two back to back: all (aw + l),
+   le (u + l), ture (ch + ur), ed in wanted (i + d). They're part 5 of the sheet now (52 recordings); `SOUND_FILES` maps
+   them, and until recorded `FALLBACK` plays the two pieces (recursively: aw itself falls back to o). The oor in "sure"
+   (UH R) still plays oo + r.
    `node tools/sounds-upload.mjs eli --local` puts them in the local R2 so sounding out works under `wrangler dev`. All 45 recorded by Eli in one take (Oct 16, `all`): with exactly
    two pieces per sound the tool pairs them in order, since Whisper mishears single words ("yeah" for hat).
    ~~The tiles play each sound as they light.~~

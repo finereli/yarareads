@@ -64,7 +64,7 @@ const isConsonant = (g) => !/[aeiouy_]/.test(letters(g));
 //
 // The result is in spelling order: [{ text, g }], where text is the letters and g the grapheme.
 // A silent-e pair spans the consonant between: make is m, a (g: a_e), k, e (g: a_e, silent).
-export function decode(word, graphemes, pronunciation) {
+export function decode(word, graphemes, pronunciation, { schwa = true } = {}) {
   const w = normalize(word);
   const known = graphemes.filter((g) => SOUNDS[g]);
   // Longest letters first; for equal letters, the order given (so graphemes she knows win).
@@ -74,7 +74,7 @@ export function decode(word, graphemes, pronunciation) {
   const plain = pronunciation.map((p) => p.replace(/\d/g, ''));
   const matches = (g, j) => {
     const options = SOUNDS[g].map((s) => s.split(' '));
-    if (VOWELS.has(letters(g)) && SCHWA.has(pronunciation[j])) options.push([plain[j]]);
+    if (schwa && VOWELS.has(letters(g)) && SCHWA.has(pronunciation[j])) options.push([plain[j]]);
     return options.filter((seq) => seq.every((p, k) => plain[j + k] === p)).map((seq) => seq.length);
   };
   // The sound a part makes in this word, as ARPAbet ("Z" for the s in "is"): the word card plays its recording.
@@ -124,12 +124,25 @@ export function decode(word, graphemes, pronunciation) {
 
 // Break a word down with the given graphemes, from its first stressed pronunciation that works.
 // Weak forms with no stressed syllable ("into" as IH0 N T AH0) aren't how she'd sound it out.
+// A pronunciation where every vowel makes its own sound wins over one that needs a schwa: CMU lists Griffith as
+// G R IH1 F AH0 TH first and G R IH1 F IH0 TH second, and the second i should play i, not u (Eli, Nov 13).
 function breakdown(w, graphemes, pronunciations) {
-  for (const p of pronunciations.filter((p) => p.some((ph) => ph.endsWith('1')))) {
-    const parts = decode(w, graphemes, p);
-    if (parts) return parts;
+  const stressed = pronunciations.filter((p) => p.some((ph) => ph.endsWith('1')));
+  for (const schwa of [false, true]) {
+    for (const p of stressed) {
+      const parts = decode(w, graphemes, p, { schwa });
+      if (parts) return quietSchwa(parts);
+    }
   }
   return null;
+}
+
+// A vowel that only says "uh" here (a schwa: the o in dragon, the e in wooden, the a in about) can't be sounded out
+// on its own: played alone it's a full "uh", and drag-uh-n sounds wrong. So it shows like a silent letter, faded and
+// not a button: part of the word, but not one of its sounds (Eli, Nov 15). Only how the card shows it: what counts as
+// readable is unchanged. A vowel with a real sound of its own (u in up, the e in hisses as i) stays a sound button.
+function quietSchwa(parts) {
+  return parts.map((p) => (VOWELS.has(p.text) && p.sound === 'AH' && !SOUNDS[p.g].includes('AH') ? { text: p.text, g: p.g, silent: true, schwa: true } : p));
 }
 
 // Every grapheme in the catalog, hers first so a breakdown uses what she knows when it can.
@@ -157,7 +170,16 @@ export const SOUNDED = {
   said: [['s', 'S'], ['ai', 'EH'], ['d', 'D']],
   looked: [['l', 'L'], ['oo', 'UH'], ['k', 'K'], ['ed', 'T']],
   liked: [['l', 'L'], ['i', 'AY'], ['k', 'K'], ['ed', 'T']],
+  // CMU lists the voiced th (as in this) first; Yara says it voiceless, as in thin, like much of North America (Nov 15).
+  with: [['w', 'W'], ['i', 'IH'], ['th', 'TH']],
 };
+
+// Little words the AI voices can't say on their own (Oct 29): said alone they're too short, and Aura mumbles them or
+// adds a sound ("the" came out as "yeah" or "duh" in Luna, "at" as "bad" in Mars). They're recorded instead, as part 5
+// of the sound sheet (tools/sounds-record.mjs), and the word card plays the recording in every voice (SAID_BY in app.js).
+// Most common in the stories first.
+export const LITTLE_WORDS = ['the', 'and', 'up', 'she', 'it', 'i', 'he', 'her', 'at', 'can', 'his', 'to', 'in', 'as', 'of',
+  'off', 'him', 'has', 'my', 'be', 'all', 'am', 'an', 'into', 'onto', 'its'];
 
 // A t and s ending a word (cats, its) show as one "ts" button with one sound, the way x is "ks" (Eli, Oct 27).
 // Only on the word card: what counts as readable is still t + s.
