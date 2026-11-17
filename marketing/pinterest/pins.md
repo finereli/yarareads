@@ -196,6 +196,26 @@ The posting order is the queue in posted.json (the scheduled task posts two ever
 
 **Board:** Dragon chapter books for kids
 
+## 28-like-beast-quest
+
+**Title:** Books for kids who like Beast Quest, a step younger: Julia and Toby
+
+**Description:** Loves Beast Quest but can't read it alone yet? In Julia and Toby, a runaway dragon's feelings make things fly, and Julia sets out to teach him to control it. It does not go well. A real fantasy series with action, a magic system and a villain, written in words a kid who just learned to read can sound out alone. Books for kids who like Beast Quest and Dragon Masters, ages 5 to 7, early chapter books for 1st grade. Free to read on any tablet, phone or computer. No ads, no account.
+
+**Link:** https://yarareads.finereli.com/?from=pinterest#/read/toby-1/0
+
+**Board:** Dragon chapter books for kids
+
+## 27-video-book-4
+
+**Title:** Julia and Toby, book 4: when the dragon gets mad, everything flies
+
+**Description:** Page through book 4 of Julia and Toby, a fantasy series for kids who have just learned to read. A bee buzzes at Toby, he gets mad, and the dolls, the drum and the tea set zoom up and crash down. Real excitement, and a new reader can read every word. Stuck on one? Tap it and its sounds appear. Dragon chapter books for kids ages 5 to 7. Free to read on any tablet, phone or computer. No ads, no account.
+
+**Link:** https://yarareads.finereli.com/?from=pinterest#/read/toby-4/0
+
+**Board:** Dragon chapter books for kids
+
 ## 20-video (video.sh)
 
 **Title:** Julia and Toby, book 1: a dragon story new readers can read themselves

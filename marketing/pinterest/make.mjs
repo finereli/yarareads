@@ -53,6 +53,7 @@ const browser = await chromium.launch({ executablePath: process.env.CHROMIUM || 
 const tab = await browser.newPage({ viewport: { width: 1000, height: 1500 } });
 const only = process.argv.slice(2);
 for (const p of pins) {
+  if (p.video) continue; // made by video.sh
   if (only.length && !only.some((o) => p.id.startsWith(o))) continue;
   await tab.setContent(page(p), { waitUntil: 'load' });
   await tab.evaluate(() => document.fonts.ready);
