@@ -27,9 +27,9 @@ export const CATALOG_GROUPS = [
   // "ow (snow)" is the letters ow saying "oa". Used to break down words she can't read yet.
   ['Coming later', [
     ['ew', ['UW', 'Y UW']], ['oe', ['OW']], ['au', ['AO']], ['ey', ['EY', 'IY']],
-    ['a (acorn)', ['EY']], ['a (what)', ['AA', 'AO']], ['e (he)', ['IY']], ['i (find)', ['AY']],
+    ['a (acorn)', ['EY']], ['a (what)', ['AA', 'AO']], ['e (he)', ['IY']], ['e (hero)', ['IH']], ['i (find)', ['AY']], ['i (radio)', ['IY']],
     ['o (go)', ['OW']], ['o (mother)', ['AH']], ['u (put)', ['UH']], ['u (unicorn)', ['Y UW', 'UW']],
-    ['y (very)', ['IY']], ['y (by)', ['AY']], ['ow (snow)', ['OW']], ['ie (field)', ['IY']],
+    ['y (very)', ['IY']], ['y (by)', ['AY']], ['y (gym)', ['IH']], ['ow (snow)', ['OW']], ['ie (field)', ['IY']],
     ['ea (head)', ['EH']], ['ou (you)', ['UW']], ['ch (school)', ['K']], ['ch (chef)', ['SH']],
     ['c (city)', ['S']], ['g (giant)', ['JH']], ['ce (voice)', ['S']], ['se (house)', ['S', 'Z']], ['le (little)', ['AH L', 'L']],
     ['ed (jumped)', ['T']], ['d (liked)', ['T']], ['ed (lived)', ['D']], ['ed (wanted)', ['IH D', 'AH D']],

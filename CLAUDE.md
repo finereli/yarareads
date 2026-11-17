@@ -71,7 +71,8 @@ Never loosen the inventory to make a story pass.
   and so does a word nothing in the catalog explains: both are labelled "Sight word" (there's no "New word" any more).
   The list stays; adjust it as she reads. "Coming later" gained the 15 spellings that unlocked the most of Dragon Masters' unbreakable words
   (or in word, ar in wizard, ou in touch, ve, a in any, o in do, gu, ture, oor, ough, al, all, oul, ge, urr; about 75
-  words); rarer ones (eigh, stle, eau...) are left as sight words. le / se / ce only count at a word's end.
+  words); rarer ones (eigh, stle, eau...) are left as sight words. On Nov 17, y in gym (IH), e in hero (IH) and i in radio (IY) joined it,
+  which broke down mysterious, mystery, serious, symbol, pretty and Julia (her i says "ee"); 92 book words are still unbreakable. le / se / ce only count at a word's end.
 - **-ed endings** (Oct 24, Eli): `ed (jumped)` /t/, `ed (lived)` /d/, `ed (wanted)` /id/ and `d (liked)` /t/ are switched on in the seed
   inventory (and so on the public site and for new accounts). They only count at a word's end (`ENDINGS` in phonics.js), not
   the ed in "red" or "bedtime". First use: "Her best cup is smashed on the grass" (book 4). The stories are still told in the present tense.
