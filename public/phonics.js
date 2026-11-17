@@ -218,7 +218,9 @@ function classifyParts(word, inv, pronunciations) {
     return { kind: 'name', parts: stretch(w, inv, pronunciations) };
   }
   if (SOUNDED[w]) {
-    return { kind: 'decodable', parts: SOUNDED[w].map(([text, sound]) => ({ text, g: text, sound, ...(inv.graphemes.includes(text) ? {} : { new: true }) })) };
+    // A vowel saying "uh" where its letter doesn't (the a in again) is a schwa, and plays the schwa recording.
+    const schwa = (text, sound) => VOWELS.has(text) && sound === 'AH' && !SOUNDS[text].includes('AH');
+    return { kind: 'decodable', parts: SOUNDED[w].map(([text, sound]) => ({ text, g: text, sound, ...(schwa(text, sound) ? { schwa: true } : {}), ...(inv.graphemes.includes(text) ? {} : { new: true }) })) };
   }
   if (inv.tricky.map(normalize).includes(w)) return { kind: 'tricky' };
   if (w === 'a' && inv.graphemes.includes('a')) return { kind: 'decodable', parts: [{ text: 'a', g: 'a', sound: 'AE' }] }; // "a" is taught as decodable

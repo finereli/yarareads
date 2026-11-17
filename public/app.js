@@ -601,15 +601,18 @@ const SOUND_FILES = {
   'AO L': 'all', 'AH L': 'le', 'CH ER': 'ture', 'IH D': 'id', 'AH D': 'id', // chunks, one tile each (sheet part 5, Nov 13)
 };
 // A part's recordings in order: the whole sound if there's one for it ("K S" is x), else each phoneme ("AH L" in "little").
+// A schwa that keeps its "uh" (about, away, again: rule 2 in phonics.js#quietSchwa) has a recording of its own, lighter
+// than the u in up (sheet part 3, Nov 17); until it's recorded, FALLBACK plays u.
 const partFiles = (part) => {
   if (!part.sound) return [];
+  if (part.schwa && part.sound === 'AH') return ['uh'];
   if (SOUND_FILES[part.sound]) return [SOUND_FILES[part.sound]];
   return part.sound.split(' ').map((ph) => SOUND_FILES[ph]).filter(Boolean);
 };
-// Sounds added to the sheet on Oct 27 (zh, aw, ts): a voice recorded before then plays these instead.
+// Sounds added to the sheet on Oct 27 (zh, aw, ts) and Nov 17 (uh, the schwa): a voice recorded before then plays these instead.
 // The chunks added on Nov 13 (all, le, ture, id) play their two sounds the same way, except le: a full "u" before
 // the l made "bottles" sound wrong (Eli, Nov 15), and the l alone is closer to bot-l.
-const FALLBACK = { aw: ['o'], ts: ['t', 's'], all: ['aw', 'l'], le: ['l'], ture: ['ch', 'ur'], id: ['i', 'd'] };
+const FALLBACK = { uh: ['u'], aw: ['o'], ts: ['t', 's'], all: ['aw', 'l'], le: ['l'], ture: ['ch', 'ur'], id: ['i', 'd'] };
 const soundOrFallback = async (id) => {
   const got = await loadSound(id);
   if (got || !FALLBACK[id]) return got ? [got] : [];

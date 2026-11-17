@@ -1,6 +1,6 @@
 // Recorded phonics sounds: slice a recording of the recording sheet into one file per sound. The sheet (claude.ai artifact
 // "Yara Reads Sound Recording", https://claude.ai/artifact/6ugcAzsrpm9rbePAVRzGzA; American, 48 sounds since Oct 27: zh, aw and ts added,
-// r sounds with their r; then 26 little words since Oct 29) is read top to bottom, usually as one file (`all`):
+// r sounds with their r; 4 chunks since Nov 13; uh, the schwa in about, since Nov 17: 53 recordings) is read top to bottom, usually as one file (`all`):
 // each sound, a pause, its example word, a pause ("sss ... sun ... mmm ... map ..."). One file per part.
 //
 //   node tools/sounds-record.mjs <recording> <part 1-6 | all> [who] [--local]     (all: the whole sheet in one file)
@@ -25,7 +25,7 @@ export const PARTS = {
     ['sh', 'ship'], ['zh', 'treasure'], ['th', 'thin'], ['dh', 'this'], ['ng', 'ring']],
   2: [['t', 'tap'], ['p', 'pan'], ['k', 'cat'], ['b', 'bat'], ['d', 'dog'], ['g', 'got'], ['h', 'hat'], ['j', 'jam'],
     ['w', 'wet'], ['y', 'yes'], ['ch', 'chip'], ['x', 'box'], ['ts', 'cats'], ['qu', 'queen']],
-  3: [['a', 'ant'], ['e', 'egg'], ['i', 'ink'], ['o', 'on'], ['u', 'up'], ['oo-short', 'book']],
+  3: [['a', 'ant'], ['e', 'egg'], ['i', 'ink'], ['o', 'on'], ['u', 'up'], ['uh', 'about'], ['oo-short', 'book']],
   4: [['ai', 'rain'], ['ee', 'see'], ['igh', 'night'], ['oa', 'boat'], ['oo', 'moon'], ['aw', 'saw'], ['ow', 'cow'], ['oi', 'coin'],
     ['ue', 'cue'], ['ar', 'car'], ['or', 'fork'], ['ur', 'fur'], ['ear', 'near'], ['air', 'hair'], ['ure', 'cure']],
   // Chunks that show as one tile (Nov 13): played as two recordings back to back until then (aw + l for all).

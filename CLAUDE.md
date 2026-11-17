@@ -238,6 +238,11 @@ Content changes need only `tools/push.mjs`, no deploy.
    le (u + l), ture (ch + ur), ed in wanted (i + d). They're part 5 of the sheet now (52 recordings); `SOUND_FILES` maps
    them, and until recorded `FALLBACK` plays the two pieces (recursively: aw itself falls back to o). The oor in "sure"
    (UH R) still plays oo + r.
+   **Schwa (Nov 17):** a schwa that keeps its "uh" (rule 2: about, away, alone, and the a in again) plays its own recording,
+   `uh`, part 3 of the sheet after u ("uh ... about"), shorter and softer than the u in up; until recorded, `FALLBACK` plays u.
+   That makes 53 recordings. A check of every sound in all 1194 book words found no other sound without its own recording.
+   The sheet is `docs/recording-sheet.html` (in git; also published as the claude.ai artifact named in sounds-record.mjs):
+   its order and example words must match `PARTS`.
    `node tools/sounds-upload.mjs eli --local` puts them in the local R2 so sounding out works under `wrangler dev`. All 45 recorded by Eli in one take (Oct 16, `all`): with exactly
    two pieces per sound the tool pairs them in order, since Whisper mishears single words ("yeah" for hat).
    ~~The tiles play each sound as they light.~~

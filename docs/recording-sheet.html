@@ -1,0 +1,170 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Yara Reads Sound Recording</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Andika:wght@400;700&family=Fredoka:wght@400;500;600;700&display=swap">
+<style>
+  /* Layout: one reading column; the sounds in order, read top to bottom while recording.
+     The order and example words must match PARTS in tools/sounds-record.mjs. */
+  :root {
+    --paper: #fbf5ea; --card: #fffdf8; --ink: #2a2440; --ink-soft: #6e6585; --line: #e6dac4;
+    --ember: #e0533a; --dusk: #3c3570; --dusk-soft: #ebe5f6; --gold-soft: #fde9b8;
+    --ui: 'Fredoka', system-ui, sans-serif;
+    --read: 'Andika', 'Andika New Basic', system-ui, sans-serif;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --paper: #1d1a2c; --card: #26223a; --ink: #f3eee4; --ink-soft: #b4abc8; --line: #3a3452;
+      --ember: #f07a62; --dusk: #b9b0f0; --dusk-soft: #322c50; --gold-soft: #4a3d1e; color-scheme: dark;
+    }
+  }
+  :root[data-theme="dark"] {
+    --paper: #1d1a2c; --card: #26223a; --ink: #f3eee4; --ink-soft: #b4abc8; --line: #3a3452;
+    --ember: #f07a62; --dusk: #b9b0f0; --dusk-soft: #322c50; --gold-soft: #4a3d1e; color-scheme: dark;
+  }
+  body { margin: 0; background: var(--paper); color: var(--ink); font-family: var(--ui); font-size: 17px; line-height: 1.5; }
+  .page { max-width: 760px; margin: 0 auto; padding-inline: 16px; padding-block: 32px 64px; display: flex; flex-direction: column; gap: 28px; }
+  header h1 { font-size: 34px; font-weight: 700; margin: 0; text-wrap: balance; letter-spacing: -0.01em; }
+  header h1 em { font-style: normal; color: var(--ember); }
+  header p { margin: 6px 0 0; color: var(--ink-soft); max-width: 62ch; }
+  .how { background: var(--card); border-radius: 22px; box-shadow: 0 0 0 2px var(--line) inset; padding: 20px 22px; display: grid; gap: 14px; }
+  .how h2 { margin: 0; font-size: 21px; font-weight: 600; }
+  .how ol { margin: 0; padding-left: 22px; display: grid; gap: 8px; }
+  .how li { max-width: 64ch; }
+  .rule { background: var(--gold-soft); border-radius: 14px; padding: 12px 16px; font-weight: 500; }
+  .rule b { font-weight: 600; }
+  .rule .eg { font-family: var(--read); white-space: nowrap; }
+  .part { display: grid; gap: 12px; }
+  .part-head { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+  .part h2 { margin: 0; font-size: 24px; font-weight: 600; text-wrap: balance; }
+  .part h2 small { font-size: 15px; color: var(--ink-soft); font-weight: 500; margin-left: 6px; }
+  .part > p { margin: 0; color: var(--ink-soft); max-width: 62ch; }
+  .sounds { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(210px, 1fr)); gap: 10px; }
+  .sound { background: var(--card); border-radius: 18px; box-shadow: 0 0 0 2px var(--line) inset;
+    padding: 12px 14px; display: grid; grid-template-columns: auto 1fr; column-gap: 12px; align-items: center; }
+  .sound.new { box-shadow: 0 0 0 2px var(--ember) inset; }
+  .n { grid-row: span 2; width: 30px; height: 30px; border-radius: 50%; background: var(--dusk); color: var(--card);
+       display: grid; place-items: center; font-size: 14px; font-weight: 600; font-variant-numeric: tabular-nums; }
+  .say { font-family: var(--read); font-size: 30px; line-height: 1.1; min-width: 0; }
+  .say .ex { font-size: 19px; color: var(--ink-soft); margin-left: 6px; }
+  .say .ex b { color: var(--ember); font-weight: 700; }
+  .tip { font-size: 14px; color: var(--ink-soft); line-height: 1.35; min-width: 0; }
+  footer { color: var(--ink-soft); font-size: 15px; max-width: 64ch; }
+  @media (max-width: 480px) { header h1 { font-size: 28px; } .sounds { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+<div class="page">
+  <header>
+    <h1>Yara Reads <em>sound recording</em></h1>
+    <p>All 49 sounds of American English that the sound buttons play, and 4 chunks that show as one tile. One person records all of them, so every button
+      sounds like the same voice. It takes about ten minutes.</p>
+  </header>
+
+  <section class="how">
+    <h2>How to record</h2>
+    <ol>
+      <li>Find a quiet room with soft things around (a bedroom is better than a kitchen). A phone's voice memo app is fine; hold it about a hand's width from your mouth.</li>
+      <li>Record everything in one go, top to bottom, as one file. Leave a second of silence at the start and the end.</li>
+      <li>Say <b>pure sounds</b>, the way they're taught in class: "sss", not "suh"; a short clipped "t", not "tuh". The note under each sound says how.</li>
+      <li>Say the sounds in your own natural American voice. Don't put on an accent.</li>
+    </ol>
+    <div class="rule"><b>The one rule:</b> say the <b>sound</b>, pause for a second, say its <b>word</b>, then pause for a slow
+      count of three before the next one: <span class="eg">sss ... sun ... &nbsp; mmm ... map ...</span>
+      That pattern is how the recording gets cut into one file per sound. If you fumble one, pause and say that sound and word again.</div>
+  </section>
+
+  <section class="part">
+    <div class="part-head"><h2>Part 1: long sounds <small>13</small></h2></div>
+    <p>Stretch each sound for about a second, steady, with no vowel on the end.</p>
+    <ol class="sounds" start="1">
+      <li class="sound"><span class="n">1</span><span class="say">s<span class="ex"><b>s</b>un</span></span><span class="tip">a snake's hiss: sss</span></li>
+      <li class="sound"><span class="n">2</span><span class="say">m<span class="ex"><b>m</b>ap</span></span><span class="tip">lips closed, hum: mmm</span></li>
+      <li class="sound"><span class="n">3</span><span class="say">f<span class="ex"><b>f</b>an</span></span><span class="tip">top teeth on lip, just air: fff</span></li>
+      <li class="sound"><span class="n">4</span><span class="say">n<span class="ex"><b>n</b>et</span></span><span class="tip">hum through the nose: nnn</span></li>
+      <li class="sound"><span class="n">5</span><span class="say">l<span class="ex"><b>l</b>eg</span></span><span class="tip">tongue up behind the teeth: lll</span></li>
+      <li class="sound"><span class="n">6</span><span class="say">r<span class="ex"><b>r</b>at</span></span><span class="tip">an American r: rrr, no "uh"</span></li>
+      <li class="sound"><span class="n">7</span><span class="say">v<span class="ex"><b>v</b>an</span></span><span class="tip">like f, with voice: vvv</span></li>
+      <li class="sound"><span class="n">8</span><span class="say">z<span class="ex"><b>z</b>ip</span></span><span class="tip">a bee's buzz: zzz</span></li>
+      <li class="sound"><span class="n">9</span><span class="say">sh<span class="ex"><b>sh</b>ip</span></span><span class="tip">"be quiet": shhh</span></li>
+      <li class="sound"><span class="n">10</span><span class="say">zh<span class="ex">trea<b>s</b>ure</span></span><span class="tip">like sh, with voice: the middle of "treasure"</span></li>
+      <li class="sound"><span class="n">11</span><span class="say">th<span class="ex"><b>th</b>in</span></span><span class="tip">tongue out, just air</span></li>
+      <li class="sound"><span class="n">12</span><span class="say">th<span class="ex"><b>th</b>is</span></span><span class="tip">tongue out, with voice</span></li>
+      <li class="sound"><span class="n">13</span><span class="say">ng<span class="ex">ri<b>ng</b></span></span><span class="tip">back of the mouth, hum</span></li>
+    </ol>
+  </section>
+  <section class="part">
+    <div class="part-head"><h2>Part 2: short sounds <small>14</small></h2></div>
+    <p>One quick, clean sound each. Keep the "uh" off the end as much as you can.</p>
+    <ol class="sounds" start="14">
+      <li class="sound"><span class="n">14</span><span class="say">t<span class="ex"><b>t</b>ap</span></span><span class="tip">a tap of the tongue</span></li>
+      <li class="sound"><span class="n">15</span><span class="say">p<span class="ex"><b>p</b>an</span></span><span class="tip">lips pop</span></li>
+      <li class="sound"><span class="n">16</span><span class="say">c k<span class="ex"><b>c</b>at</span></span><span class="tip">back of the mouth</span></li>
+      <li class="sound"><span class="n">17</span><span class="say">b<span class="ex"><b>b</b>at</span></span><span class="tip">lips bounce</span></li>
+      <li class="sound"><span class="n">18</span><span class="say">d<span class="ex"><b>d</b>og</span></span><span class="tip">tongue tap, with voice</span></li>
+      <li class="sound"><span class="n">19</span><span class="say">g<span class="ex"><b>g</b>ot</span></span><span class="tip">hard g</span></li>
+      <li class="sound"><span class="n">20</span><span class="say">h<span class="ex"><b>h</b>at</span></span><span class="tip">just a breath out</span></li>
+      <li class="sound"><span class="n">21</span><span class="say">j<span class="ex"><b>j</b>am</span></span><span class="tip">short</span></li>
+      <li class="sound"><span class="n">22</span><span class="say">w<span class="ex"><b>w</b>et</span></span><span class="tip">lips round, then open</span></li>
+      <li class="sound"><span class="n">23</span><span class="say">y<span class="ex"><b>y</b>es</span></span><span class="tip">short</span></li>
+      <li class="sound"><span class="n">24</span><span class="say">ch<span class="ex"><b>ch</b>ip</span></span><span class="tip">a sneeze</span></li>
+      <li class="sound"><span class="n">25</span><span class="say">x<span class="ex">bo<b>x</b></span></span><span class="tip">two sounds together: ks</span></li>
+      <li class="sound"><span class="n">26</span><span class="say">ts<span class="ex">ca<b>ts</b></span></span><span class="tip">two sounds together: ts, the end of "cats"</span></li>
+      <li class="sound"><span class="n">27</span><span class="say">qu<span class="ex"><b>qu</b>een</span></span><span class="tip">two sounds together: kw</span></li>
+    </ol>
+  </section>
+  <section class="part">
+    <div class="part-head"><h2>Part 3: short vowels <small>7</small></h2></div>
+    <p>Short and bright, except the quiet "uh", which is soft.</p>
+    <ol class="sounds" start="28">
+      <li class="sound"><span class="n">28</span><span class="say">a<span class="ex"><b>a</b>nt</span></span><span class="tip">as in apple</span></li>
+      <li class="sound"><span class="n">29</span><span class="say">e<span class="ex"><b>e</b>gg</span></span><span class="tip">as in egg</span></li>
+      <li class="sound"><span class="n">30</span><span class="say">i<span class="ex"><b>i</b>nk</span></span><span class="tip">as in insect</span></li>
+      <li class="sound"><span class="n">31</span><span class="say">o<span class="ex"><b>o</b>n</span></span><span class="tip">the American o: "ah", as in hot</span></li>
+      <li class="sound"><span class="n">32</span><span class="say">u<span class="ex"><b>u</b>p</span></span><span class="tip">as in umbrella</span></li>
+      <li class="sound new"><span class="n">33</span><span class="say">uh<span class="ex"><b>a</b>bout</span></span><span class="tip">the quiet "uh" at the start of about and away: shorter and softer than the u in up, mouth relaxed</span></li>
+      <li class="sound"><span class="n">34</span><span class="say">oo<span class="ex">b<b>oo</b>k</span></span><span class="tip">the short oo, as in look</span></li>
+    </ol>
+  </section>
+  <section class="part">
+    <div class="part-head"><h2>Part 4: long vowels and r sounds <small>15</small></h2></div>
+    <p>A little longer. Say the r sounds the American way, with the r.</p>
+    <ol class="sounds" start="35">
+      <li class="sound"><span class="n">35</span><span class="say">ai<span class="ex">r<b>ai</b>n</span></span><span class="tip">also ay, a_e</span></li>
+      <li class="sound"><span class="n">36</span><span class="say">ee<span class="ex">s<b>ee</b></span></span><span class="tip">also ea, e_e</span></li>
+      <li class="sound"><span class="n">37</span><span class="say">igh<span class="ex">n<b>igh</b>t</span></span><span class="tip">like "eye"; also ie, i_e</span></li>
+      <li class="sound"><span class="n">38</span><span class="say">oa<span class="ex">b<b>oa</b>t</span></span><span class="tip">also o_e, ow in snow</span></li>
+      <li class="sound"><span class="n">39</span><span class="say">oo<span class="ex">m<b>oo</b>n</span></span><span class="tip">the long oo</span></li>
+      <li class="sound"><span class="n">40</span><span class="say">aw<span class="ex">s<b>aw</b></span></span><span class="tip">"aww"; if it sounds like the o in "on" in your voice, that's fine</span></li>
+      <li class="sound"><span class="n">41</span><span class="say">ow<span class="ex">c<b>ow</b></span></span><span class="tip">"ouch!"; also ou</span></li>
+      <li class="sound"><span class="n">42</span><span class="say">oi<span class="ex">c<b>oi</b>n</span></span><span class="tip">also oy</span></li>
+      <li class="sound"><span class="n">43</span><span class="say">ue<span class="ex">c<b>ue</b></span></span><span class="tip">"you"; also u_e, ew</span></li>
+      <li class="sound"><span class="n">44</span><span class="say">ar<span class="ex">c<b>ar</b></span></span><span class="tip">"ar"</span></li>
+      <li class="sound"><span class="n">45</span><span class="say">or<span class="ex">f<b>or</b>k</span></span><span class="tip">"or"</span></li>
+      <li class="sound"><span class="n">46</span><span class="say">ur<span class="ex">f<b>ur</b></span></span><span class="tip">"er"; also er, ir</span></li>
+      <li class="sound"><span class="n">47</span><span class="say">ear<span class="ex">n<b>ear</b></span></span><span class="tip">"eer"</span></li>
+      <li class="sound"><span class="n">48</span><span class="say">air<span class="ex">h<b>air</b></span></span><span class="tip">"air"</span></li>
+      <li class="sound"><span class="n">49</span><span class="say">ure<span class="ex">c<b>ure</b></span></span><span class="tip">"yoor", as in pure</span></li>
+    </ol>
+  </section>
+
+  <section class="part">
+    <div class="part-head"><h2>Part 5: chunks <small>4</small></h2></div>
+    <p>Bits of words that show as one tile. Say each as one smooth sound, the way it ends its word.</p>
+    <ol class="sounds" start="50">
+      <li class="sound"><span class="n">50</span><span class="say">all<span class="ex">b<b>all</b></span></span><span class="tip">"awl", as in tall</span></li>
+      <li class="sound"><span class="n">51</span><span class="say">le<span class="ex">litt<b>le</b></span></span><span class="tip">"ul", the end of little</span></li>
+      <li class="sound"><span class="n">52</span><span class="say">ture<span class="ex">pic<b>ture</b></span></span><span class="tip">"cher", the end of picture</span></li>
+      <li class="sound"><span class="n">53</span><span class="say">ed<span class="ex">want<b>ed</b></span></span><span class="tip">"id", the end of wanted</span></li>
+    </ol>
+  </section>
+
+  <footer>When you're done, put the file in Google Drive (any format your phone makes is fine) and tell Claude its name.
+    Each sound gets cut out, trimmed and levelled, and you'll hear them all before they go on the buttons.</footer>
+</div>
+</body>
+</html>
