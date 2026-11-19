@@ -216,6 +216,26 @@ The posting order is the queue in posted.json (the scheduled task posts two ever
 
 **Board:** Dragon chapter books for kids
 
+## 29-video-book-7
+
+**Title:** Julia and Toby, book 7: Julia floats up over the trees
+
+**Description:** Page through book 7 of Julia and Toby, a fantasy series for kids who have just learned to read. After ten days of lessons gone wrong, Julia's feet lift off the grass, and up she floats, past the treetops, looping the loop. A new reader can read every word. Stuck on one? Tap it and its sounds appear. Early chapter books for kids ages 5 to 7. Free to read on any tablet, phone or computer. No ads, no account.
+
+**Link:** https://yarareads.finereli.com/?from=pinterest#/read/toby-1/0
+
+**Board:** Julia and Toby: early chapter books
+
+## 30-meet-toby
+
+**Title:** Meet Toby, the runaway dragon: a fantasy chapter book series for kids just learning to read
+
+**Description:** Toby is a small white dragon who ran away from home and won't say why. When he's sad, things float. When he's mad, everything crashes. Julia finds him crying under a tree and hides him in her play house. Julia and Toby is a fantasy series of early chapter books for kids who have just learned to read, in words they can sound out by themselves. Dragon books for 6 year olds, kindergarten to 2nd grade. Free to read on any tablet, phone or computer. No ads, no account.
+
+**Link:** https://yarareads.finereli.com/?from=pinterest#/read/toby-1/0
+
+**Board:** Julia and Toby: early chapter books
+
 ## 20-video (video.sh)
 
 **Title:** Julia and Toby, book 1: a dragon story new readers can read themselves
