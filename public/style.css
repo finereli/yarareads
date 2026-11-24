@@ -235,6 +235,9 @@ button { border: none; background: none; cursor: pointer; padding: 0; }
 .progress { flex: 1; max-width: 360px; display: flex; gap: 6px; }
 .progress span { flex: 1; height: 8px; border-radius: 8px; background: var(--line); }
 .progress span.on { background: var(--ember); }
+.progress { min-width: 0; }
+.progress .bar { position: relative; overflow: hidden; }
+.progress .bar i { position: absolute; inset: 0 auto 0 0; background: var(--ember); border-radius: 8px; }
 
 /* ---------- Word card: the hint lives on the word ---------- */
 

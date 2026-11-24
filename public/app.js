@@ -393,7 +393,10 @@ async function showReader(id, pageIndex) {
       </div>
       <div class="nav">
         <button class="round press" data-act="prev" ${pageIndex === 0 && story.kind !== 'book' ? 'disabled' : ''} aria-label="Back">${ICONS.prev}</button>
-        <div class="progress">${story.pages.slice(from, to).map((_, i) => `<span class="${from + i <= pageIndex ? 'on' : ''}"></span>`).join('')}</div>
+        <div class="progress">${to - from > 16
+          // Many pages: one bar, since a segment and gap per page outgrows a phone (37 pages made the nav overflow).
+          ? `<span class="bar"><i style="width: ${((pageIndex - from + 1) / (to - from)) * 100}%"></i></span>`
+          : story.pages.slice(from, to).map((_, i) => `<span class="${from + i <= pageIndex ? 'on' : ''}"></span>`).join('')}</div>
         <button class="round press ${last || chapterEnd ? 'ember' : ''}" data-act="next" aria-label="Next">${ICONS.next}</button>
       </div>
     </div>`;
