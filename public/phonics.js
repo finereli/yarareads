@@ -27,7 +27,7 @@ export const CATALOG_GROUPS = [
   // "ow (snow)" is the letters ow saying "oa". Used to break down words she can't read yet.
   ['Coming later', [
     ['ew', ['UW', 'Y UW']], ['oe', ['OW']], ['au', ['AO']], ['ey', ['EY', 'IY']],
-    ['a (acorn)', ['EY']], ['a (what)', ['AA', 'AO']], ['e (he)', ['IY']], ['e (hero)', ['IH']], ['i (find)', ['AY']], ['i (radio)', ['IY']],
+    ['a (acorn)', ['EY']], ['a (what)', ['AA', 'AO']], ['e (he)', ['IY']], ['e (hero)', ['IH']], ['i (find)', ['AY']], ['i (radio)', ['IY']], ['i_e (machine)', ['IY']],
     ['o (go)', ['OW']], ['o (mother)', ['AH']], ['u (put)', ['UH']], ['u (unicorn)', ['Y UW', 'UW']],
     ['y (very)', ['IY']], ['y (by)', ['AY']], ['y (gym)', ['IH']], ['ow (snow)', ['OW']], ['ie (field)', ['IY']],
     ['ea (head)', ['EH']], ['ou (you)', ['UW']], ['ch (school)', ['K']], ['ch (chef)', ['SH']],
@@ -56,7 +56,7 @@ const SCHWA = new Set(['AH0', 'IH0']);
 
 // The letters a catalog id stands for: "ow (snow)" is written ow.
 export const letters = (g) => g.split(' ')[0];
-const isSplit = (g) => g.length === 3 && g[1] === '_';
+const isSplit = (g) => letters(g).length === 3 && g[1] === '_'; // a_e, or a labelled one: i_e (machine)
 const isConsonant = (g) => !/[aeiouy_]/.test(letters(g));
 
 // Split a word into graphemes Yara knows such that each grapheme makes one of its

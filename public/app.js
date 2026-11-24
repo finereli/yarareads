@@ -564,7 +564,7 @@ function fitPop(p) {
 // Sound buttons: a dot for one letter, a bar for letters making one sound,
 // and for silent e an arc joining the vowel to its e (drawn by drawLinks).
 // A sound she hasn't learned yet gets the plum "new" look on top.
-const isSplit = (p) => p.g.length === 3 && p.g[1] === '_';
+const isSplit = (p) => letters(p.g).length === 3 && p.g[1] === '_';
 function chipClass(p) {
   if (p.silent) return isSplit(p) ? 'silent split' : 'silent'; // a letter, not a button: no tile, no dot
   const shape = isSplit(p) ? 'split' : p.text.length > 1 ? 'many' : 'one';
