@@ -54,7 +54,14 @@ See the publish-app skill: positioning, name, icon, privacy (children's data), h
 
 ## Later
 
-- Long words split into the words inside them on the word card: sub-marine, every-where, under-water (Eli, Nov 24: "not yet"). A compound breaks into smaller words she may already read, which beats twelve tiles in a row.
+- Long words split into the words inside them on the word card: sub-marine, every-where, under-water (Eli, Nov 24: "not yet").
+  UX: one card, the tiles grouped by part with a gap between, a small speaker per part, the big speaker for the whole word.
+  Each part follows its own rules (a sight word part shows whole). Teachers' move: cover half the word, read it, then the rest.
+- Then syllables (sub-ma-rine) on the same card. Too many for Eli to record; two ways to make them, to try on ~20 book words
+  with a Whisper check and Eli's ear: (1) the word voice with the "The word is:" lead-in, respelling syllables that aren't
+  words ("reen"); (2) the whole word said once, cut at syllable starts found by a forced aligner (same take, same voice;
+  the likelier one). Syllables from CMU by maximal onset, mapped to letters by decode.
+  **Gate (Eli, Nov 24):** only after she recognizes many more short words on sight without sounding them out.
 
 ## Not important
 
