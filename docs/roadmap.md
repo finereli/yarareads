@@ -52,6 +52,10 @@ See the publish-app skill: positioning, name, icon, privacy (children's data), h
 
 - People writing and sharing stories on the platform, maybe a marketplace. Only worth thinking about if parents show up.
 
+## Later
+
+- Long words split into the words inside them on the word card: sub-marine, every-where, under-water (Eli, Nov 24: "not yet"). A compound breaks into smaller words she may already read, which beats twelve tiles in a row.
+
 ## Not important
 
 - An Indian English voice. Workers AI has none, and Deepgram's Flux TTS would need its own API key and a second code path. Revisit only if it matters.
