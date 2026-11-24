@@ -31,7 +31,7 @@ export function makeLexicon(texts) {
     const w = word.toLowerCase().replace(/’/g, "'").replace(/[^a-z']/g, '');
     if (dict.has(w)) return dict.get(w); // includes contractions: let's, can't
     // Possessives CMU doesn't list: Toby's = Toby + Z.
-    if (/'s$/.test(w)) return lookup(w.slice(0, -2)).map((p) => [...p, ending(p, 's')]);
+    if (/'s$/.test(w)) return lookup(w.slice(0, -2)).map((p) => [...p, ...[ending(p, 's')].flat()]);
     return lookup(w.replace(/'/g, ''));
   };
 }
